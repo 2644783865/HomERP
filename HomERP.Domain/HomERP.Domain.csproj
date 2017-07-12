@@ -41,7 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\Abstract\IAccount.cs" />
+    <Compile Include="Entity\Abstract\IDocument.cs" />
+    <Compile Include="Entity\Abstract\IOperation.cs" />
+    <Compile Include="Entity\Abstract\ISubject.cs" />
+    <Compile Include="Entity\Abstract\ITrack.cs" />
+    <Compile Include="Entity\Abstract\IUser.cs" />
+    <Compile Include="Entity\Company.cs" />
+    <Compile Include="Entity\Payment.cs" />
+    <Compile Include="Entity\PlannedPayment.cs" />
     <Compile Include="Helpers\BankAccountNumber.cs" />
+    <Compile Include="Helpers\CashFlowDirection.cs" />
+    <Compile Include="Helpers\SubjectKind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
