@@ -3,29 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HomERP.Domain.Entity.Abstract;
+using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
     class EFAccountRepository : IAccountRepository
     {
-        public IEnumerable<IAccount> Accounts
+        private EfDbContext context = new EfDbContext();
+        public IEnumerable<Account> Accounts
         {
-            get
+            get { return context.Accounts; }
+        }
+
+        public Account DeleteAccount(int accountId)
+        {
+            Account acc = context.Accounts.Find(accountId);
+            if (acc!=null)
             {
-                throw new NotImplementedException();
+                context.Accounts.Remove(acc);
+                context.SaveChanges();
             }
+            return acc;
         }
 
-        public IAccount DeleteAccount(int accountId)
+        public void SaveAccount(Account account)
         {
-            throw new NotImplementedException();
-        }
-
-        public void SaveAccount(IAccount account)
-        {
-            throw new NotImplementedException();
+            if (account.Id==0)
+            {
+                context.Accounts.Add(account);
+            }
+            else
+            {
+                Account accountToUpdate = context.Accounts.Find(account.Id);
+                if (accountToUpdate!=null)
+                {
+                    accountToUpdate.InitialAmount = account.InitialAmount;
+                    accountToUpdate.Name = account.Name;
+                    accountToUpdate.Owner = account.Owner;
+                }
+            }
+            context.SaveChanges();
         }
     }
 }

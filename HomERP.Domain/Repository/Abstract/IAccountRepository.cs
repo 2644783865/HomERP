@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using HomERP.Domain.Entity.Abstract;
+using HomERP.Domain.Entity;
 
 namespace HomERP.Domain.Repository.Abstract
 {
     public interface IAccountRepository
     {
-        IEnumerable<IAccount> Accounts { get; }
-        void SaveAccount(IAccount account);
-        IAccount DeleteAccount(int accountId);
+        IEnumerable<Account> Accounts { get; }
+        void SaveAccount(Account account);
+        Account DeleteAccount(int accountId);
     }
 }
