@@ -15,6 +15,5 @@ namespace HomERP.Domain.Entity.Abstract
         IUser User { get; set; }
         IAccount Account { get; set; }
         CashFlowDirection Direction { get; set; }
-
     }
 }

@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -47,13 +55,22 @@
     <Compile Include="Entity\Abstract\ISubject.cs" />
     <Compile Include="Entity\Abstract\ITrack.cs" />
     <Compile Include="Entity\Abstract\IUser.cs" />
+    <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\Company.cs" />
     <Compile Include="Entity\Payment.cs" />
     <Compile Include="Entity\PlannedPayment.cs" />
     <Compile Include="Helpers\BankAccountNumber.cs" />
     <Compile Include="Helpers\CashFlowDirection.cs" />
+    <Compile Include="Helpers\PaymentStatus.cs" />
     <Compile Include="Helpers\SubjectKind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Abstract\IAccountRepository.cs" />
+    <Compile Include="Repository\EntityFramework\EFAccountRepository.cs" />
+    <Compile Include="Repository\EntityFramework\EfDbContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

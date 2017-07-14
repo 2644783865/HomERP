@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomERP.Domain.Helpers
 {
-    enum SubjectKind
+    public enum SubjectKind
     {
         Myself = 1,
         Company = 2,

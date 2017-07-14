@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using HomERP.Domain.Entity.Abstract;
-using HomERP.Domain.Helpers;
 
 namespace HomERP.Domain.Entity
 {
-    class PlannedPayment:Payment, IOperation
+    public class Account : IAccount
     {
-        PaymentStatus Status { get; set; }
+        public decimal InitialAmount { get; set; }
+        public string Name { get; set; }
+        public IUser[] Owner { get; set; }
     }
 }

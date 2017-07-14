@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomERP.Domain.Entity.Abstract
 {
-    interface IAccount
+    public interface IAccount
     {
         string Name { get; set; }
         IUser[] Owner { get; set; }

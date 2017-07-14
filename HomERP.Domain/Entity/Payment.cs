@@ -9,7 +9,7 @@ using HomERP.Domain.Helpers;
 
 namespace HomERP.Domain.Entity
 {
-    class Payment : IOperation
+    public class Payment : IOperation
     {
         public IAccount Account { get; set; }
         public decimal Amount { get; set; }

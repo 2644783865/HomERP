@@ -8,7 +8,7 @@ using HomERP.Domain.Helpers;
 
 namespace HomERP.Domain.Entity
 {
-    class Company : ISubject
+    public class Company : ISubject
     {
         public SubjectKind Kind { get; } = SubjectKind.Company;
 
