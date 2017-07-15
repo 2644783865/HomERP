@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Effort;
+using FluentAssertions;
 
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Repository.EntityFramework;
@@ -19,12 +20,11 @@ namespace HomERP.Domain.Tests
         private IAccountRepository repository;
 
         [TestInitialize]
-public void Initialize()
+        public void Initialize()
         {
             var connection = DbConnectionFactory.CreateTransient();
             this.context = new EfDbContext(connection);
             this.repository = new EFAccountRepository(this.context);
-            //this.context = Effort.ObjectContextFactory.CreateTransient<EfDbContext>();
         }
 
         [TestMethod]
@@ -36,13 +36,10 @@ public void Initialize()
             repository.SaveAccount(account);
             //assert
             //check if object has been written to the context
-            Assert.AreEqual(1, context.Accounts.Count());
+            context.Accounts.Count().Should().Be(1, "when we add one object to empty collection, there should be only this one.");
             var resultAccount = context.Accounts.FirstOrDefault();
-            Assert.AreEqual("Konto", resultAccount.Name);
-            Assert.AreEqual(123.45m, resultAccount.InitialAmount);
-
+            resultAccount.Name.Should().Be("Konto");
+            resultAccount.InitialAmount.Should().Be(123.45m);
         }
-       
-
     }
 }
