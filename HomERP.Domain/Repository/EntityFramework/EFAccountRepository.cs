@@ -8,9 +8,14 @@ using HomERP.Domain.Repository.Abstract;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
-    class EFAccountRepository : IAccountRepository
+    public class EFAccountRepository : IAccountRepository
     {
-        private EfDbContext context = new EfDbContext();
+        public EFAccountRepository(EfDbContext context)
+        {
+            this.context = context;
+        }
+        private EfDbContext context;
+//        private EfDbContext context = new EfDbContext();
         public IEnumerable<Account> Accounts
         {
             get { return context.Accounts; }
