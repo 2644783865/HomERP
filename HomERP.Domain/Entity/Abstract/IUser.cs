@@ -8,6 +8,9 @@ namespace HomERP.Domain.Entity.Abstract
 {
     public interface IUser
     {
+        int Id { get; set; }
         string Name { get; set; }
+        string Email { get; set; }
+        string PasswordHash { get; set; }
     }
 }

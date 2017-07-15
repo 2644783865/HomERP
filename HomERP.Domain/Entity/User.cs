@@ -13,7 +13,7 @@ namespace HomERP.Domain.Entity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public System.Net.Mail.MailAddress Email { get; set; }
+        public string Email { get; set; }
         public string PasswordHash { get; set; }
     }
 }
