@@ -28,6 +28,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             {
                 context.Users.Remove(userToDelete);
             }
+            context.SaveChanges();
             return userToDelete;
         }
 

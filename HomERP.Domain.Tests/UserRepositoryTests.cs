@@ -68,7 +68,7 @@ namespace HomERP.Domain.Tests
             id.Should().NotBe(0, "i already added a User to repository, so it should be written to context.");
             deletedUser.Id.Should().Be(id);
             deletedUser.Name.Should().Be(user.Name);
-            context.Accounts.Count().Should().Be(0);
+            context.Users.Count().Should().Be(0);
         }
     }
 }
