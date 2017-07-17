@@ -17,7 +17,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<User> Users { get; set; }
-        //        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         //        public DbSet<PlannedPayment> PlannedPayments { get; set; }
     }
 }

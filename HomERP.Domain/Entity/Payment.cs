@@ -11,6 +11,7 @@ namespace HomERP.Domain.Entity
 {
     public class Payment : IOperation
     {
+        public int Id { get; set; }
         public IAccount Account { get; set; }
         public decimal Amount { get; set; }
         public CashFlowDirection Direction { get; set; }

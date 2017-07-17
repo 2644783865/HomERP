@@ -66,9 +66,11 @@
     <Compile Include="Helpers\SubjectKind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Abstract\IAccountRepository.cs" />
+    <Compile Include="Repository\Abstract\IPaymentRepository.cs" />
     <Compile Include="Repository\Abstract\IUserRepository.cs" />
     <Compile Include="Repository\EntityFramework\EFAccountRepository.cs" />
     <Compile Include="Repository\EntityFramework\EfDbContext.cs" />
+    <Compile Include="Repository\EntityFramework\EfPaymentRepository.cs" />
     <Compile Include="Repository\EntityFramework\EfUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
