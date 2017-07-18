@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomERP.Domain.Helpers
 {
-    enum PaymentStatus
+    public enum PaymentStatus
     {
         Proposal,
         Accepted,

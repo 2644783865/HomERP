@@ -82,6 +82,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BankAccountNumberTests.cs" />
+    <Compile Include="PlannedPaymentRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccountRepositoryTests.cs" />
     <Compile Include="PaymentRepositoryTests.cs" />

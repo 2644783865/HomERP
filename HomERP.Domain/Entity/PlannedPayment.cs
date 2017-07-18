@@ -11,6 +11,6 @@ namespace HomERP.Domain.Entity
 {
     public class PlannedPayment:Payment, IOperation
     {
-        PaymentStatus Status { get; set; }
+        public PaymentStatus Status { get; set; }
     }
 }
