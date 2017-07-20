@@ -8,9 +8,9 @@ using HomERP.Domain.Repository.Abstract;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
-    public class EFAccountRepository : IAccountRepository
+    public class EfAccountRepository : IAccountRepository
     {
-        public EFAccountRepository(EfDbContext context)
+        public EfAccountRepository(EfDbContext context)
         {
             this.context = context;
         }

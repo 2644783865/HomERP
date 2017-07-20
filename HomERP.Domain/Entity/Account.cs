@@ -12,6 +12,6 @@ namespace HomERP.Domain.Entity
         public int Id { get; set; }
         public decimal InitialAmount { get; set; }
         public string Name { get; set; }
-        public IUser[] Owner { get; set; }
+        public User[] Owner { get; set; }
     }
 }

@@ -12,8 +12,8 @@ namespace HomERP.Domain.Entity.Abstract
     {
         DateTime Time { get; set; }
         decimal Amount { get; set; }
-        IUser User { get; set; }
-        IAccount Account { get; set; }
+        User User { get; set; }
+        Account Account { get; set; }
         CashFlowDirection Direction { get; set; }
     }
 }

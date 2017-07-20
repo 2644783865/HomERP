@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using Effort;
 using FluentAssertions;
 
 using HomERP.Domain.Repository.Abstract;
@@ -22,9 +19,8 @@ namespace HomERP.Domain.Tests
         [TestInitialize]
         public void Initialize()
         {
-            var connection = DbConnectionFactory.CreateTransient();
-            this.context = new EfDbContext(connection);
-            this.repository = new EFAccountRepository(this.context);
+            context = new EfDbContext(MemoryContext.GenerateContextOptions());
+            repository = new EfAccountRepository(context);
         }
 
         [TestMethod]

@@ -10,7 +10,7 @@ namespace HomERP.Domain.Entity.Abstract
     {
         int Id { get; set; }
         string Name { get; set; }
-        IUser[] Owner { get; set; }
+        User[] Owner { get; set; }
         decimal InitialAmount { get; set; }
     }
 }

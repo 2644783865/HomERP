@@ -12,10 +12,10 @@ namespace HomERP.Domain.Entity
     public class Payment : IOperation
     {
         public int Id { get; set; }
-        public IAccount Account { get; set; }
+        public Account Account { get; set; }
         public decimal Amount { get; set; }
         public CashFlowDirection Direction { get; set; }
         public DateTime Time { get; set; }
-        public IUser User { get; set; }
+        public User User { get; set; }
     }
 }

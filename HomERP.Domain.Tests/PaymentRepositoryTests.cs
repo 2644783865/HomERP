@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Effort;
 using FluentAssertions;
 
 using HomERP.Domain.Repository.Abstract;
@@ -18,20 +16,18 @@ namespace HomERP.Domain.Tests
     {
         private EfDbContext context;
         private IPaymentRepository repository;
-
         [TestInitialize]
         public void Initialize()
         {
-            var connection = DbConnectionFactory.CreateTransient();
-            this.context = new EfDbContext(connection);
-            this.repository = new EfPaymentRepository(this.context);
+            context = new EfDbContext(MemoryContext.GenerateContextOptions());
+            repository = new EfPaymentRepository(context);
         }
 
         [TestMethod]
         public void Test_AddPayment()
         {
             //arrange
-            Payment payment = new Payment() { Amount=100, Direction= Helpers.CashFlowDirection.Increase, Time=new DateTime(2017,1, 1, 12, 0, 0), User = new User() { Name = "Zenon" } };
+            Payment payment = new Payment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), User = new User() { Name = "Zenon" } };
             //act
             repository.SavePayment(payment);
             //assert
