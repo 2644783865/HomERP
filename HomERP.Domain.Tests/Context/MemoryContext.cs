@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Repository.EntityFramework;
 
-namespace HomERP.Domain.Tests
+namespace HomERP.Domain.Tests.Context
 {
     class MemoryContext
     {

@@ -9,7 +9,7 @@ using HomERP.Domain.Repository.EntityFramework;
 using HomERP.Domain.Entity.Abstract;
 using HomERP.Domain.Entity;
 
-namespace HomERP.Domain.Tests
+namespace HomERP.Domain.Tests.RepositoryTests
 {
     [TestClass]
     public class PlannedPaymentRepositoryTests
@@ -20,7 +20,7 @@ namespace HomERP.Domain.Tests
         [TestInitialize]
         public void Initialize()
         {
-            context = new EfDbContext(MemoryContext.GenerateContextOptions());
+            context = new EfDbContext(HomERP.Domain.Tests.Context.MemoryContext.GenerateContextOptions());
             repository = new EfPlannedPaymentRepository(context);
         }
 

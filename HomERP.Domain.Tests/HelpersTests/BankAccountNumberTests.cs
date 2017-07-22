@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using HomERP.Domain.Helpers;
 
-namespace HomERP.Domain.Tests
+namespace HomERP.Domain.Tests.HelpersTests
 {
     [TestClass]
     public class BankAccountNumberTests
