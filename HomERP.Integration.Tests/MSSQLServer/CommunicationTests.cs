@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-//using FluentAssertions;
+using FluentAssertions;
 
 using HomERP.Domain.Repository.EntityFramework;
 
@@ -18,14 +18,15 @@ namespace HomERP.Integration.Tests.MSSQLServer
         [TestMethod]
         public void ReadFromMSSQLServer()
         {
+            //arrange
             var builder = new DbContextOptionsBuilder<EfDbContext>()
                 .UseSqlServer("Server=localhost;Database=" + databaseName + "; Trusted_Connection=True;");
             EfDbContext context = new EfDbContext(builder.Options);
-
             int count = -1;
+            //act
             count = context.Payments.Count();
-
-            Assert.IsTrue(count >= 0);
+            //assert
+            count.Should().BeGreaterOrEqualTo(0);
         }
     }
 }
