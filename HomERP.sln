@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomERP.Domain", "HomERP.Domain\HomERP.Domain.csproj", "{D4822583-9564-44D9-81B0-2C1B4EEE4322}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomERP.Domain", "HomERP.Domain\HomERP.Domain.csproj", "{22831338-8752-403B-A41E-9ED7E47424DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomERP.Domain.Tests", "HomERP.Domain.Tests\HomERP.Domain.Tests.csproj", "{2B1E056F-AD1C-4CD4-94B7-43F6FD6F6BCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomERP.Integration.Tests", "HomERP.Integration.Tests\HomERP.Integration.Tests.csproj", "{B1BD4A20-535E-4099-B354-24D50946ED12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4822583-9564-44D9-81B0-2C1B4EEE4322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4822583-9564-44D9-81B0-2C1B4EEE4322}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4822583-9564-44D9-81B0-2C1B4EEE4322}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4822583-9564-44D9-81B0-2C1B4EEE4322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22831338-8752-403B-A41E-9ED7E47424DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22831338-8752-403B-A41E-9ED7E47424DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22831338-8752-403B-A41E-9ED7E47424DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22831338-8752-403B-A41E-9ED7E47424DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B1E056F-AD1C-4CD4-94B7-43F6FD6F6BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B1E056F-AD1C-4CD4-94B7-43F6FD6F6BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B1E056F-AD1C-4CD4-94B7-43F6FD6F6BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B1E056F-AD1C-4CD4-94B7-43F6FD6F6BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BD4A20-535E-4099-B354-24D50946ED12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BD4A20-535E-4099-B354-24D50946ED12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BD4A20-535E-4099-B354-24D50946ED12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BD4A20-535E-4099-B354-24D50946ED12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
