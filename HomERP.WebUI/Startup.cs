@@ -41,6 +41,7 @@ namespace HomERP.WebUI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                app.UseStatusCodePages();
             }
             else
             {
