@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomERP.WebUI
 {
@@ -27,6 +28,8 @@ namespace HomERP.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Domain.Repository.EntityFramework.EfDbContext>(options => options.UseSqlServer("Server=localhost;Database=HomERP;Trusted_Connection=True;"));
+
             // Add framework services.
             services.AddMvc();
         }
