@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
@@ -18,7 +19,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public IEnumerable<Payment> Payments
         {
-            get { return context.Payments; }
+            get { return context.Payments.Include(p=>p.Account).Include(p=>p.User); }
         }
 
         public Payment DeletePayment(int paymentId)
