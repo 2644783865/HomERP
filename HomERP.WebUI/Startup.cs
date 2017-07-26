@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 
+using HomERP.Domain.Repository.Abstract;
+using HomERP.Domain.Repository.EntityFramework;
+
 namespace HomERP.WebUI
 {
     public class Startup
@@ -32,6 +35,8 @@ namespace HomERP.WebUI
 
             // Add framework services.
             services.AddMvc();
+
+            services.AddTransient<IPaymentRepository, EfPaymentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
