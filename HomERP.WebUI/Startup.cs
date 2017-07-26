@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 
+using HomERP.Domain.Logic.Abstract;
+using HomERP.Domain.Logic;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Repository.EntityFramework;
 
@@ -36,6 +38,7 @@ namespace HomERP.WebUI
             // Add framework services.
             services.AddMvc();
 
+            services.AddTransient<IPaymentProvider, PaymentProvider>();
             services.AddTransient<IPaymentRepository, EfPaymentRepository>();
         }
 
