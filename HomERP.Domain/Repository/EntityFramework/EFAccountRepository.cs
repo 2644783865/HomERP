@@ -45,7 +45,6 @@ namespace HomERP.Domain.Repository.EntityFramework
                 {
                     accountToUpdate.InitialAmount = account.InitialAmount;
                     accountToUpdate.Name = account.Name;
-                    accountToUpdate.Owner = account.Owner;
                 }
             }
             context.SaveChanges();
