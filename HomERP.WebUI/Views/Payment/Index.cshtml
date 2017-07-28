@@ -31,7 +31,8 @@
                     @Html.ActionLink("Edytuj", "Edit", new { controller = "Payment", id = item.Id } )
                 </td>
             </tr>
-
         }
+
+        @Html.ActionLink("Dodaj", "Add", new { controller="Payment"})
     </table>
 

@@ -26,11 +26,9 @@ namespace HomERP.WebUI.Controllers
         public IActionResult Edit(int id)
         {
             Payment payment = provider.Payments.FirstOrDefault(p => p.Id == id);
-            PaymentEditVM model = new PaymentEditVM
+            PaymentEditVM model = new PaymentEditVM(provider)
             {
                 Payment = payment,
-                AccountList = provider.Accounts,
-                UserList = provider.Users
             };
             return View(model);
         }
@@ -49,7 +47,15 @@ namespace HomERP.WebUI.Controllers
                 model1.UserList = provider.Users;
                 return View(model1);
             }
+        }
 
+        public IActionResult Add()
+        {
+            PaymentEditVM model = new PaymentEditVM(provider)
+            {
+                Payment = new Payment()
+            };
+            return View("Edit", model);
         }
     }
 }

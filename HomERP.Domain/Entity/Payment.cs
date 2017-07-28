@@ -20,5 +20,11 @@ namespace HomERP.Domain.Entity
         public CashFlowDirection Direction { get; set; }
         public DateTime Time { get; set; }
         public User User { get; set; }
+
+        public Payment()
+        {
+            Account = new Account();
+            User = new User();
+        }
     }
 }
