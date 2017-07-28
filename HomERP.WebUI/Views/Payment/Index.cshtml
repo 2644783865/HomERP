@@ -11,7 +11,8 @@
             <th>Rachunek</th>
             <th>Kwota</th>
             <th>Data</th>
-            <th>Doda³</th>
+            <th>Dodal</th>
+            <th>Akcje</th>
         </tr>
         @foreach(var item in Model)
         {
@@ -26,6 +27,9 @@
                 @item.Amount</td>
                 <td>@item.Time</td>
                 <td>@item.User.Name</td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", new { controller = "Payment", id = item.Id } )
+                </td>
             </tr>
 
         }

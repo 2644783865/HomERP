@@ -1,0 +1,30 @@
+@model HomERP.WebUI.Models.PaymentEditVM
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h2>Operacja</h2>
+@using (Html.BeginForm("Edit", "Payment", FormMethod.Post))
+{
+    @Html.HiddenFor(m=>m.Payment.Id)
+
+
+    @Html.DropDownListFor(m => m.Payment.Account.Id,
+    new SelectList(Model.AccountList, "Id", "Name", Model.Payment.Account.Id),
+    "Wybierz",
+    null
+    )
+
+    @Html.LabelFor(m=>m.Payment.Amount)
+    @Html.TextBoxFor(m=>m.Payment.Amount, @Model.Payment.Amount.ToString())
+
+    @Html.LabelFor(m=>m.Payment.User.Id)
+    @Html.DropDownListFor(m=>m.Payment.User.Id,
+     new SelectList(Model.UserList, "Id", "Name", Model.Payment.User.Id),
+     "Wybierz",
+     null
+     )
+    @Html.TextBox("Payment.Time", Model.Payment.Time, new { type = "date" })
+    <input type="submit" value="Zapisz" />
+}
