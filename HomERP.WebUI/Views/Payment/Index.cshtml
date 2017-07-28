@@ -29,6 +29,7 @@
                 <td>@item.User.Name</td>
                 <td>
                     @Html.ActionLink("Edytuj", "Edit", new { controller = "Payment", id = item.Id } )
+                    @Html.ActionLink("Usun", "Delete", new { controller = "Payment", id = item.Id } )
                 </td>
             </tr>
         }

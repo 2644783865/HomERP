@@ -57,5 +57,11 @@ namespace HomERP.WebUI.Controllers
             };
             return View("Edit", model);
         }
+
+        public IActionResult Delete(int id)
+        {
+            provider.DeletePayment(id);
+            return View("Index", provider.Payments);
+        }
     }
 }
