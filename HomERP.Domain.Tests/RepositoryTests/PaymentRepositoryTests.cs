@@ -99,5 +99,27 @@ namespace HomERP.Domain.Tests.RepositoryTests
             deletedPayment.Amount.Should().Be(payment.Amount);
             context.Payments.Count().Should().Be(0);
         }
+
+        [TestMethod]
+        public void Test_AddPaymentWithNonexistentDictionaryFields()
+        {
+            //arrange
+            Payment payment = new Payment
+            {
+                Account = new Account { Id = 2, Name = "Konto2" },
+                Amount = 100,
+                Direction = Helpers.CashFlowDirection.Increase,
+                Time = new DateTime(2017, 1, 1, 12, 0, 0),
+                User = new User() { Id = 2, Name = "Marcin" }
+            };
+            //act
+            
+            Action test = () =>
+            {
+                repository.SavePayment(payment);
+            };
+            //assert
+            test.ShouldThrow<InvalidOperationException>();
+        }
     }
 }
