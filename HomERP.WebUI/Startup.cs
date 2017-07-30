@@ -38,10 +38,13 @@ namespace HomERP.WebUI
             // Add framework services.
             services.AddMvc();
 
-            services.AddTransient<IPaymentProvider, PaymentProvider>();
-            services.AddTransient<IPaymentRepository, EfPaymentRepository>();
-            services.AddTransient<IUserProvider, UserProvider>();
-            services.AddTransient<IUserRepository, EfUserRepository>();
+            services
+                .AddTransient<IPaymentProvider, PaymentProvider>()
+                .AddTransient<IPaymentRepository, EfPaymentRepository>()
+                .AddTransient<IUserProvider, UserProvider>()
+                .AddTransient<IUserRepository, EfUserRepository>()
+                .AddTransient<IAccountProvider, AccountProvider>()
+                .AddTransient<IAccountRepository, EfAccountRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

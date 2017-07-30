@@ -5,7 +5,7 @@ using HomERP.Domain.Entity;
 
 namespace HomERP.Domain.Logic.Abstract
 {
-    interface IAccountProvider
+    public interface IAccountProvider
     {
         IEnumerable<Account> Accounts { get; }
         void SaveAccount(Account account);
