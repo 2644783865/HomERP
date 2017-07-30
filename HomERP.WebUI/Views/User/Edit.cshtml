@@ -1,0 +1,16 @@
+@model HomERP.Domain.Entity.User
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edycja</h2>
+@using (Html.BeginForm("Edit", "User"))
+{
+    @Html.HiddenFor(u=>u.Id)
+    @Html.LabelFor(u => u.Name)
+    @Html.TextBoxFor(u => u.Name, null, new { @class = "" })
+    @Html.LabelFor(u => u.Email)
+    @Html.TextBoxFor(u => u.Email, null, new { @class = "" })
+    <input type="submit" value="Zapisz" />
+    @Html.ActionLink("Powrót", "Index", "User");
+}

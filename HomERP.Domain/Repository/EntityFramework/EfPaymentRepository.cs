@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
@@ -18,7 +19,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public IEnumerable<Payment> Payments
         {
-            get { return context.Payments; }
+            get { return context.Payments.Include(p=>p.Account).Include(p=>p.User); }
         }
 
         public Payment DeletePayment(int paymentId)
@@ -34,6 +35,8 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public void SavePayment(Payment payment)
         {
+            payment.Account = this.Accounts.First(a=>a.Id == payment.Account.Id);
+            payment.User = this.Users.First(u => u.Id == payment.User.Id);
             if(payment.Id==0)
             {
                 context.Payments.Add(payment);
@@ -48,6 +51,16 @@ namespace HomERP.Domain.Repository.EntityFramework
                 paymentToUpdate.User = payment.User;
             }
             context.SaveChanges();
+        }
+
+        public IEnumerable<Account> Accounts
+        {
+            get { return context.Accounts; }
+        }
+
+        public IEnumerable<User> Users
+        {
+            get { return context.Users; }
         }
     }
 }

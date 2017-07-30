@@ -1,0 +1,39 @@
+@model IEnumerable<HomERP.Domain.Entity.Payment>
+
+    @{
+        ViewData["Title"] = "View";
+    }
+
+    <h2>Lista operacji</h2>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Rachunek</th>
+            <th>Kwota</th>
+            <th>Data</th>
+            <th>Dodal</th>
+            <th>Akcje</th>
+        </tr>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Account.Name</td>
+                <td>
+                @if (item.Direction == HomERP.Domain.Helpers.CashFlowDirection.Decrease)
+                {
+                    @:-
+                }    
+                @item.Amount</td>
+                <td>@item.Time</td>
+                <td>@item.User.Name</td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", new { controller = "Payment", id = item.Id } )
+                    @Html.ActionLink("Usun", "Delete", new { controller = "Payment", id = item.Id } )
+                </td>
+            </tr>
+        }
+
+        @Html.ActionLink("Dodaj", "Add", new { controller="Payment"})
+    </table>
+

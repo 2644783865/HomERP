@@ -1,0 +1,18 @@
+@model HomERP.Domain.Entity.Account
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Account"))
+{
+    @Html.HiddenFor(a => a.Id)
+    @Html.LabelFor(a => a.Name)
+    @Html.TextBoxFor(a => a.Name)
+    @Html.LabelFor(a => a.InitialAmount)
+    @Html.TextBoxFor(a=>a.InitialAmount)
+    <input type="submit" value="Zapisz"/>
+}
+

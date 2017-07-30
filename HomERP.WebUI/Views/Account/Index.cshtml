@@ -1,0 +1,36 @@
+@model IEnumerable<HomERP.Domain.Entity.Account>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.ActionLink("Dodaj", "Add");
+<table>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Id)</th>
+        <th>@Html.DisplayNameFor(model => model.InitialAmount)</th>
+        <th>@Html.DisplayNameFor(model => model.Name)</th>
+        <th>Akcje</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InitialAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                @Html.ActionLink("Usun", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

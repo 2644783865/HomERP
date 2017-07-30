@@ -8,6 +8,7 @@ using Moq;
 
 using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
+using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Logic;
 
 namespace HomERP.Domain.Tests.LogicTests
