@@ -39,12 +39,7 @@ namespace HomERP.WebUI.Tests
         public void Should_Get_Exact_Account_When_Edit()
         {
             //arrange
-            Mock<IAccountProvider> mock = new Mock<IAccountProvider>();
-            mock.Setup(m => m.Accounts).Returns(new Account[]
-            {
-                new Account{ Id=1, InitialAmount=10, Name="Konto" },
-                new Account{ Id=2, InitialAmount=20, Name="Konto2"}
-            });
+            Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
             AccountController controller = new AccountController(mock.Object);
             //act
             var result = controller.Edit(2);
@@ -59,12 +54,7 @@ namespace HomERP.WebUI.Tests
         public void Should_Modify_Account_When_Correct_Account_Given()
         {
             //arrange
-            Mock<IAccountProvider> mock = new Mock<IAccountProvider>();
-            mock.Setup(m => m.Accounts).Returns(new Account[]
-            {
-                new Account{ Id=1, InitialAmount=10, Name="Konto" },
-                new Account{ Id=2, InitialAmount=20, Name="Konto2"}
-            });
+            Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
             AccountController controller = new AccountController(mock.Object);
             Account accToEdit = mock.Object.Accounts.First();
             accToEdit.Name = "Konto zmienione";
@@ -80,12 +70,7 @@ namespace HomERP.WebUI.Tests
         public void Should_Return_Deleted_Account()
         {
             //arrange
-            Mock<IAccountProvider> mock = new Mock<IAccountProvider>();
-            mock.Setup(m => m.Accounts).Returns(new Account[]
-            {
-                new Account{ Id=1, InitialAmount=10, Name="Konto" },
-                new Account{ Id=2, InitialAmount=20, Name="Konto2"}
-            });
+            Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
             mock.Setup(m => m.DeleteAccount(1)).Returns(mock.Object.Accounts.First());
             AccountController controller = new AccountController(mock.Object);
             Account accToDelete = mock.Object.Accounts.First();
@@ -96,6 +81,17 @@ namespace HomERP.WebUI.Tests
             result.Should().BeOfType<ViewResult>();
             ((ViewResult)result).Model.Should().BeOfType<Account[]>();
             ((Account[])((ViewResult)result).Model)[0].Id.Should().Be(accToDelete.Id);
+        }
+
+        private Mock<IAccountProvider> GenerateMockAccountProvider()
+        {
+            Mock<IAccountProvider> mock = new Mock<IAccountProvider>();
+            mock.Setup(m => m.Accounts).Returns(new Account[]
+            {
+                new Account{ Id=1, InitialAmount=10, Name="Konto" },
+                new Account{ Id=2, InitialAmount=20, Name="Konto2"}
+            });
+            return mock;
         }
     }
 }
