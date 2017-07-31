@@ -27,7 +27,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_GetPayments()
+        public void Should_Get_All_Payments()
         {
             //arrange
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();
@@ -45,7 +45,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_SavePayment()
+        public void Should_Call_UserProvider_SavePayment()
         {
             Payment payment = PrepareExamplePayment();
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();
@@ -66,7 +66,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_DeletePayment()
+        public void Should_Call_UserProvider_DeletePayment()
         {
             //arrange
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();

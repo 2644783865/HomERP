@@ -24,7 +24,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_AddAccount()
+        public void Should_Add_Account_To_Context_When_Saving_Repository()
         {
             //arrange
             Account account = new Account() { Name = "Konto", InitialAmount = 123.45m };
@@ -39,7 +39,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_EditAccount()
+        public void Should_Update_Context_When_Updating_Account()
         {
             //arrange
             Account account = new Account() { Name = "Portfel", InitialAmount = 0, };
@@ -57,7 +57,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_DeleteAccount()
+        public void Should_Return_Deleted_Account_When_Deleting_From_Repository()
         {
             //arrange
             Account account = new Account() { Name = "Portfel", InitialAmount = 0 };

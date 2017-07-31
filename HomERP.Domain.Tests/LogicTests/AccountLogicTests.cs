@@ -26,7 +26,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_GetAccounts()
+        public void Should_Get_All_Accounts()
         {
             //arrange
             Mock<IAccountRepository> mock = new Mock<IAccountRepository>();
@@ -46,7 +46,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_SaveAccount()
+        public void Should_Call_UserProvider_SaveAccount()
         {
             //arrange
             Account account = PrepareExampleAccount();
@@ -69,7 +69,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_DeleteAccount()
+        public void Should_Call_UserProvider_DeleteAccount()
         {
             //arrange
             Mock<IAccountRepository> mock = new Mock<IAccountRepository>();

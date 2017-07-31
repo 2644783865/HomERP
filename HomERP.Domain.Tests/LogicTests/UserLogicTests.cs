@@ -27,7 +27,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_GetUsers()
+        public void Should_Get_All_Users()
         {
             //arrange
             Mock<IUserRepository> mock = new Mock<IUserRepository>();
@@ -47,7 +47,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_SaveUser()
+        public void Should_Call_UserProvider_SaveUser()
         {
             //arrange
             User User = PrepareExampleUser();
@@ -70,7 +70,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Test_DeleteUser()
+        public void Should_Call_UserProvider_DeleteUser()
         {
             //arrange
             Mock<IUserRepository> mock = new Mock<IUserRepository>();

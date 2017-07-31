@@ -22,7 +22,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
             repository = new EfUserRepository(context);
         }
         [TestMethod]
-        public void Test_AddUser()
+        public void Should_Add_User_To_Context_When_Saving_Repository()
         {
             //arrange
             User user = new User() { Name = "Zenon", Email= "zenon@homerp.pl"};
@@ -37,7 +37,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_EditUser()
+        public void Should_Update_Context_When_Updating_User()
         {
             //arrange
             User user = new User() { Name = "Zenon", Email = "zenon@homerp.pl" };
@@ -55,7 +55,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_DeleteUser()
+        public void Should_Return_Deleted_User_When_Deleting_From_Repository()
         {
             //arrange
             User user = new User() { Name = "Zenon", Email = "zenon@homerp.pl" };
