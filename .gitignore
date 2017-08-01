@@ -27,6 +27,18 @@ bld/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
+# Exclude wwwroot content except bootstrap and jquery neccesary files
+HomERP.WebUI/wwwroot/*
+!HomERP.WebUI/wwwroot/lib/
+HomERP.WebUI/wwwroot/lib/*
+!HomERP.WebUI/wwwroot/lib/bootstrap/
+HomERP.WebUI/wwwroot/lib/bootstrap/*
+!HomERP.WebUI/wwwroot/lib/bootstrap/dist
+
+!HomERP.WebUI/wwwroot/lib/jquery/
+HomERP.WebUI/wwwroot/lib/jquery/*
+!HomERP.WebUI/wwwroot/lib/jquery/dist
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
@@ -240,3 +252,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
