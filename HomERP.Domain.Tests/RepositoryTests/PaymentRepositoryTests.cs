@@ -29,7 +29,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_AddPayment()
+        public void Should_Add_Payment_To_Context_When_Saving_Repository()
         {
             //arrange
             Payment payment = new Payment
@@ -52,7 +52,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_EditPayment()
+        public void Should_Update_Context_When_Updating_Payment()
         {
             //arrange
             Payment payment = new Payment
@@ -78,7 +78,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_DeletePayment()
+        public void Should_Return_Deleted_Payment_When_Deleting_From_Repository()
         {
             //arrange
             Payment payment = new Payment
@@ -101,7 +101,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Test_AddPaymentWithNonexistentDictionaryFields()
+        public void Should_Throw_InvalidOperationException_When_Adding_Payment_With_Nonexistent_Dictionary_Fields()
         {
             //arrange
             Payment payment = new Payment
