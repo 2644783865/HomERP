@@ -22,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Payment.Amount, new { @class = "control-label col-sm-2" })
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.Payment.Amount, @Model.Payment.Amount.ToString(), new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Payment.Amount, @Model.Payment.Amount.ToString(), new { @class = "form-control text-right" })
             </div>
         </div>
 
@@ -39,7 +39,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Payment.Time, new { @class = "control-label col-sm-2" })
             <div class="col-sm-10">
-                @Html.TextBox("Payment.Time", Model.Payment.Time.ToString("yyyy-MM-dd"), new { type = "date", @class = "form-control" })
+                @Html.TextBox("Payment.Time", Model.Payment.Time.ToString("yyyy-MM-dd"), new { type = "date", @class = "form-control text-right" })
                 </div>
             </div>
         <br />
