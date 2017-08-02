@@ -1,29 +1,30 @@
-@model IEnumerable<HomERP.Domain.Entity.User>
+﻿@model IEnumerable<HomERP.Domain.Entity.User>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Uzytkownicy</h2>
-@Html.ActionLink("Dodaj", "Add");
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Nazwa</th>
-        <th>E-mail</th>
-        <th>Akcje</th>
-    </tr>
-    @foreach(var item in Model)
-    {
+<h2>Użytkownicy @Html.ActionLink("Dodaj", "Add", "User", null, new { @class = "btn btn-default" })</h2>
+<div class="col-xs-12 col-sm-10 col-md-7 col-lg-5">
+    <table class="table table-condensed table-striped table-bordered">
         <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-            <td>@item.Email</td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { controller = "User", id = item.Id })
-                @Html.ActionLink("Usun", "Delete", new { controller = "User", id = item.Id })
-            </td>
+            <th>Nazwa</th>
+            <th>E-mail</th>
+            <th>Akcje</th>
         </tr>
-    }
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", "User",
+                   new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                    @Html.ActionLink("Usuń", "Delete", "User",
+                   new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                </td>
+            </tr>
+        }
+    </table>
+    </div>
 
