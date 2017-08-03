@@ -1,39 +1,43 @@
-@model IEnumerable<HomERP.Domain.Entity.Payment>
+﻿@model IEnumerable<HomERP.Domain.Entity.Payment>
 
     @{
         ViewData["Title"] = "View";
     }
 
-    <h2>Lista operacji</h2>
-    <table>
+<h2>Lista operacji @Html.ActionLink("Dodaj", "Add", "Payment", null, new { @class = "btn btn-default" }) </h2>
+<table class="table table-condensed table-striped table-bordered">
+    <thead>
         <tr>
-            <th>id</th>
             <th>Rachunek</th>
             <th>Kwota</th>
             <th>Data</th>
-            <th>Dodal</th>
+            <th>Dodał</th>
             <th>Akcje</th>
         </tr>
-        @foreach(var item in Model)
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Id</td>
                 <td>@item.Account.Name</td>
-                <td>
-                @if (item.Direction == HomERP.Domain.Helpers.CashFlowDirection.Decrease)
-                {
-                    @:-
-                }    
-                @item.Amount</td>
+                <td class="text-right">
+                    @if (item.Direction == HomERP.Domain.Helpers.CashFlowDirection.Decrease)
+                    {
+                        @:-
+                    }
+                    @item.Amount
+                </td>
                 <td>@item.Time</td>
                 <td>@item.User.Name</td>
                 <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { controller = "Payment", id = item.Id } )
-                    @Html.ActionLink("Usun", "Delete", new { controller = "Payment", id = item.Id } )
+                    @Html.ActionLink("Edytuj", "Edit", "Payment",
+                    new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                    @Html.ActionLink("Usuń", "Delete", "Payment",
+                    new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
                 </td>
             </tr>
         }
-
-        @Html.ActionLink("Dodaj", "Add", new { controller="Payment"})
-    </table>
+    </tbody>
+</table>
+    
 

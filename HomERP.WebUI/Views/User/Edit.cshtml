@@ -1,16 +1,28 @@
-@model HomERP.Domain.Entity.User
+﻿@model HomERP.Domain.Entity.User
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edycja</h2>
-@using (Html.BeginForm("Edit", "User"))
+<h2>Użytkownik</h2>
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    @Html.HiddenFor(u=>u.Id)
-    @Html.LabelFor(u => u.Name)
-    @Html.TextBoxFor(u => u.Name, null, new { @class = "" })
-    @Html.LabelFor(u => u.Email)
-    @Html.TextBoxFor(u => u.Email, null, new { @class = "" })
-    <input type="submit" value="Zapisz" />
-    @Html.ActionLink("Powr�t", "Index", "User");
+    <div class="col-lg-4 col-sm-6 col-xs-10 col-xs-offset-1">
+        @Html.HiddenFor(u => u.Id)
+        <div class="form-group">
+            @Html.LabelFor(u => u.Name, null, new { @class = "control-label col-sm-5" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(u => u.Name, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(u => u.Email, null, new { @class = "control-label col-sm-5" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(u => u.Email, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group text-right">
+            @Html.ActionLink("Anuluj", "Index", "User", null, new { @class = "btn btn-default" })
+            <input type="submit" value="Zapisz" class="btn btn-primary" />
+        </div>
+    </div>
 }

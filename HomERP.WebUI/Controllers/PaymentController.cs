@@ -53,7 +53,7 @@ namespace HomERP.WebUI.Controllers
         {
             PaymentEditVM model = new PaymentEditVM(provider)
             {
-                Payment = new Payment()
+                Payment = new Payment() { Time = DateTime.Now.Date }
             };
             return View("Edit", model);
         }
