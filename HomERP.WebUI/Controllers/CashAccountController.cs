@@ -37,8 +37,8 @@ namespace HomERP.WebUI.Controllers
 
         public IActionResult Add()
         {
-            CashAccount cashAaccount = new CashAccount();
-            return View("Edit", cashAaccount);
+            CashAccount cashAccount = new CashAccount();
+            return View("Edit", cashAccount);
         }
 
         public IActionResult Delete(int id)

@@ -35,7 +35,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public void SavePayment(Payment payment)
         {
-            payment.CashAccount = this.Accounts.First(a=>a.Id == payment.CashAccount.Id);
+            payment.CashAccount = this.CashAccounts.First(a=>a.Id == payment.CashAccount.Id);
             payment.User = this.Users.First(u => u.Id == payment.User.Id);
             if(payment.Id==0)
             {
@@ -53,7 +53,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             context.SaveChanges();
         }
 
-        public IEnumerable<CashAccount> Accounts
+        public IEnumerable<CashAccount> CashAccounts
         {
             get { return context.CashAccounts; }
         }

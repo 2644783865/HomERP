@@ -18,7 +18,7 @@ namespace HomERP.WebUI.Tests
     public class CashAccountControllerTests
     {
         [TestMethod]
-        public void Should_Call_CashAccountProvider_When_Showing_Accounts()
+        public void Should_Call_CashAccountProvider_When_Showing_CashAccounts()
         {
             //arrange
             Mock<ICashAccountProvider> mock = new Mock<ICashAccountProvider>();
@@ -51,7 +51,7 @@ namespace HomERP.WebUI.Tests
         }
 
         [TestMethod]
-        public void Should_Modify_CashAccount_When_Correct_Account_Given()
+        public void Should_Modify_CashAccount_When_Correct_CashAccount_Given()
         {
             //arrange
             Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
