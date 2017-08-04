@@ -11,10 +11,10 @@
         @Html.HiddenFor(m => m.Payment.Id)
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Payment.Account.Id, Html.DisplayNameFor(m => m.Payment.Account), new { @class = "control-label col-sm-2" })
+            @Html.LabelFor(m => m.Payment.CashAccount.Id, Html.DisplayNameFor(m => m.Payment.CashAccount), new { @class = "control-label col-sm-2" })
             <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.Payment.Account.Id,
-     new SelectList(Model.CashAccountList, "Id", "Name", Model.Payment.Account.Id),
+                @Html.DropDownListFor(m => m.Payment.CashAccount.Id,
+     new SelectList(Model.CashAccountList, "Id", "Name", Model.Payment.CashAccount.Id),
      "Wybierz",
      new { @class = "form-control" })
             </div>
