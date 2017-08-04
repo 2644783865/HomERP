@@ -10,29 +10,29 @@ namespace HomERP.WebUI.Controllers
 {
     public class CashAccountController : Controller
     {
-        private IAccountProvider provider;
+        private ICashAccountProvider provider;
 
-        public CashAccountController(IAccountProvider provider)
+        public CashAccountController(ICashAccountProvider provider)
         {
             this.provider = provider;
         }
 
         public IActionResult Index()
         {
-            return View(provider.Accounts);
+            return View(provider.CashAccounts);
         }
 
         public IActionResult Edit(int id)
         {
-            Account cashAccount = provider.Accounts.FirstOrDefault(a => a.Id == id);
+            Account cashAccount = provider.CashAccounts.FirstOrDefault(a => a.Id == id);
             return View(cashAccount);
         }
 
         [HttpPost]
         public IActionResult Edit(Account cashAccount)
         {
-            provider.SaveAccount(cashAccount);
-            return View("Index", provider.Accounts);
+            provider.SaveCashAccount(cashAccount);
+            return View("Index", provider.CashAccounts);
         }
 
         public IActionResult Add()
@@ -43,8 +43,8 @@ namespace HomERP.WebUI.Controllers
 
         public IActionResult Delete(int id)
         {
-            provider.DeleteAccount(id);
-            return View("Index", provider.Accounts);
+            provider.DeleteCashAccount(id);
+            return View("Index", provider.CashAccounts);
         }
     }
 }

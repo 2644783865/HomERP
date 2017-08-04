@@ -71,7 +71,7 @@ namespace HomERP.WebUI
                 .AddTransient<IPaymentRepository, EfPaymentRepository>()
                 .AddTransient<IUserProvider, UserProvider>()
                 .AddTransient<IUserRepository, EfUserRepository>()
-                .AddTransient<IAccountProvider, AccountProvider>()
+                .AddTransient<ICashAccountProvider, CashAccountProvider>()
                 .AddTransient<IAccountRepository, EfAccountRepository>();
         }
 

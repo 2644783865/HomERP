@@ -36,10 +36,10 @@ namespace HomERP.Domain.Tests.LogicTests
                 new Account { InitialAmount=65.02m, Name = "Konto2"}
             }
                 );
-            AccountProvider provider = new AccountProvider(mock.Object);
+            CashAccountProvider provider = new CashAccountProvider(mock.Object);
 
             //act
-            IEnumerable<Account> Accounts = provider.Accounts;
+            IEnumerable<Account> Accounts = provider.CashAccounts;
 
             //assert
             Accounts.Should().HaveCount(2, "you have 2 entities in the repository");
@@ -57,10 +57,10 @@ namespace HomERP.Domain.Tests.LogicTests
                 new Account { InitialAmount=65.02m, Name = "Konto2"}
             }
                 );
-            AccountProvider provider = new AccountProvider(mock.Object);
+            CashAccountProvider provider = new CashAccountProvider(mock.Object);
 
             //act
-            provider.SaveAccount(account);
+            provider.SaveCashAccount(account);
 
             //assert
             //In this place we have to focus on that underlying repository method has been properly called
@@ -80,10 +80,10 @@ namespace HomERP.Domain.Tests.LogicTests
             }
                 );
             Account accountToDelete = mock.Object.Accounts.Where(p => p.Id == 2).First();
-            AccountProvider provider = new AccountProvider(mock.Object);
+            CashAccountProvider provider = new CashAccountProvider(mock.Object);
 
             //act
-            provider.DeleteAccount(accountToDelete.Id);
+            provider.DeleteCashAccount(accountToDelete.Id);
 
             //assert if repository delete method has been called with proper identifier
             mock.Verify(m => m.DeleteAccount(2));

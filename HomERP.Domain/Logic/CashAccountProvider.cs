@@ -7,22 +7,22 @@ using HomERP.Domain.Repository.Abstract;
 
 namespace HomERP.Domain.Logic
 {
-    public class AccountProvider : IAccountProvider
+    public class CashAccountProvider : ICashAccountProvider
     {
         private IAccountRepository repository;
-        public AccountProvider(IAccountRepository repository)
+        public CashAccountProvider(IAccountRepository repository)
         {
             this.repository = repository;
         }
-        public IEnumerable<Account> Accounts
+        public IEnumerable<Account> CashAccounts
         { get { return repository.Accounts; } }
 
-        public Account DeleteAccount(int accountId)
+        public Account DeleteCashAccount(int accountId)
         {
             return repository.DeleteAccount(accountId);
         }
 
-        public void SaveAccount(Account account)
+        public void SaveCashAccount(Account account)
         {
             repository.SaveAccount(account);
         }

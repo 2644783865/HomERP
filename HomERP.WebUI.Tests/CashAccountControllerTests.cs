@@ -21,8 +21,8 @@ namespace HomERP.WebUI.Tests
         public void Should_Call_CashAccountProvider_When_Showing_Accounts()
         {
             //arrange
-            Mock<IAccountProvider> mock = new Mock<IAccountProvider>();
-            mock.Setup(m => m.Accounts).Returns(new Account[]
+            Mock<ICashAccountProvider> mock = new Mock<ICashAccountProvider>();
+            mock.Setup(m => m.CashAccounts).Returns(new Account[]
             {
                 new Account{ Id=1, InitialAmount=10, Name="Konto" },
                 new Account{ Id=2, InitialAmount=20, Name="Konto2"}
@@ -31,7 +31,7 @@ namespace HomERP.WebUI.Tests
             //act
             var result = controller.Index();
             //assert
-            mock.VerifyGet(m => m.Accounts);
+            mock.VerifyGet(m => m.CashAccounts);
             result.Should().BeOfType<ViewResult>();
         }
 
@@ -39,12 +39,12 @@ namespace HomERP.WebUI.Tests
         public void Should_Get_Exact_CashAccount_When_Edit()
         {
             //arrange
-            Mock<IAccountProvider> mock = this.GenerateMockCashAccountProvider();
+            Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
             CashAccountController controller = new CashAccountController(mock.Object);
             //act
             var result = controller.Edit(2);
             //assert
-            mock.Verify(m => m.Accounts);
+            mock.Verify(m => m.CashAccounts);
             result.Should().BeOfType<ViewResult>();
             ((ViewResult)result).Model.Should().BeOfType<Account>();
             ((Account)((ViewResult)result).Model).Name.Should().Be("Konto2");
@@ -54,14 +54,14 @@ namespace HomERP.WebUI.Tests
         public void Should_Modify_CashAccount_When_Correct_Account_Given()
         {
             //arrange
-            Mock<IAccountProvider> mock = this.GenerateMockCashAccountProvider();
+            Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
             CashAccountController controller = new CashAccountController(mock.Object);
-            Account accToEdit = mock.Object.Accounts.First();
+            Account accToEdit = mock.Object.CashAccounts.First();
             accToEdit.Name = "Konto zmienione";
             //act
             var result = controller.Edit(accToEdit);
             //assert
-            mock.Verify(m => m.SaveAccount(accToEdit));
+            mock.Verify(m => m.SaveCashAccount(accToEdit));
             result.Should().BeOfType<ViewResult>();
             ((ViewResult)result).Model.Should().BeOfType<Account[]>();
         }
@@ -70,23 +70,23 @@ namespace HomERP.WebUI.Tests
         public void Should_Return_Deleted_CashAccount()
         {
             //arrange
-            Mock<IAccountProvider> mock = this.GenerateMockCashAccountProvider();
-            mock.Setup(m => m.DeleteAccount(1)).Returns(mock.Object.Accounts.First());
+            Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
+            mock.Setup(m => m.DeleteCashAccount(1)).Returns(mock.Object.CashAccounts.First());
             CashAccountController controller = new CashAccountController(mock.Object);
-            Account accToDelete = mock.Object.Accounts.First();
+            Account accToDelete = mock.Object.CashAccounts.First();
             //act
             var result = controller.Delete(accToDelete.Id);
             //arrange
-            mock.Verify(m => m.DeleteAccount(accToDelete.Id));
+            mock.Verify(m => m.DeleteCashAccount(accToDelete.Id));
             result.Should().BeOfType<ViewResult>();
             ((ViewResult)result).Model.Should().BeOfType<Account[]>();
             ((Account[])((ViewResult)result).Model)[0].Id.Should().Be(accToDelete.Id);
         }
 
-        private Mock<IAccountProvider> GenerateMockCashAccountProvider()
+        private Mock<ICashAccountProvider> GenerateMockCashAccountProvider()
         {
-            Mock<IAccountProvider> mock = new Mock<IAccountProvider>();
-            mock.Setup(m => m.Accounts).Returns(new Account[]
+            Mock<ICashAccountProvider> mock = new Mock<ICashAccountProvider>();
+            mock.Setup(m => m.CashAccounts).Returns(new Account[]
             {
                 new Account{ Id=1, InitialAmount=10, Name="Konto" },
                 new Account{ Id=2, InitialAmount=20, Name="Konto2"}
