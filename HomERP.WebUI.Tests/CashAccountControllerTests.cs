@@ -15,10 +15,10 @@ using HomERP.WebUI.Controllers;
 namespace HomERP.WebUI.Tests
 {
     [TestClass]
-    public class AccountControllerTests
+    public class CashAccountControllerTests
     {
         [TestMethod]
-        public void Should_Call_AccountProvider_When_Showing_Accounts()
+        public void Should_Call_CashAccountProvider_When_Showing_Accounts()
         {
             //arrange
             Mock<IAccountProvider> mock = new Mock<IAccountProvider>();
@@ -36,10 +36,10 @@ namespace HomERP.WebUI.Tests
         }
 
         [TestMethod]
-        public void Should_Get_Exact_Account_When_Edit()
+        public void Should_Get_Exact_CashAccount_When_Edit()
         {
             //arrange
-            Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
+            Mock<IAccountProvider> mock = this.GenerateMockCashAccountProvider();
             CashAccountController controller = new CashAccountController(mock.Object);
             //act
             var result = controller.Edit(2);
@@ -51,10 +51,10 @@ namespace HomERP.WebUI.Tests
         }
 
         [TestMethod]
-        public void Should_Modify_Account_When_Correct_Account_Given()
+        public void Should_Modify_CashAccount_When_Correct_Account_Given()
         {
             //arrange
-            Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
+            Mock<IAccountProvider> mock = this.GenerateMockCashAccountProvider();
             CashAccountController controller = new CashAccountController(mock.Object);
             Account accToEdit = mock.Object.Accounts.First();
             accToEdit.Name = "Konto zmienione";
@@ -67,10 +67,10 @@ namespace HomERP.WebUI.Tests
         }
 
         [TestMethod]
-        public void Should_Return_Deleted_Account()
+        public void Should_Return_Deleted_CashAccount()
         {
             //arrange
-            Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
+            Mock<IAccountProvider> mock = this.GenerateMockCashAccountProvider();
             mock.Setup(m => m.DeleteAccount(1)).Returns(mock.Object.Accounts.First());
             CashAccountController controller = new CashAccountController(mock.Object);
             Account accToDelete = mock.Object.Accounts.First();
@@ -83,7 +83,7 @@ namespace HomERP.WebUI.Tests
             ((Account[])((ViewResult)result).Model)[0].Id.Should().Be(accToDelete.Id);
         }
 
-        private Mock<IAccountProvider> GenerateMockAccountProvider()
+        private Mock<IAccountProvider> GenerateMockCashAccountProvider()
         {
             Mock<IAccountProvider> mock = new Mock<IAccountProvider>();
             mock.Setup(m => m.Accounts).Returns(new Account[]
