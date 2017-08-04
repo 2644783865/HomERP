@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HomERP.Domain.Entity
 {
-    public class Account : IAccount
+    public class CashAccount : ICashAccount
     {
         public int Id { get; set; }
         [Display(Name = "Stan początkowy")]

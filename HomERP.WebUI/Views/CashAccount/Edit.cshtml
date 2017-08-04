@@ -1,4 +1,4 @@
-﻿@model HomERP.Domain.Entity.Account
+﻿@model HomERP.Domain.Entity.CashAccount
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,7 +6,7 @@
 
 <h2>Konto</h2>
 
-@using (Html.BeginForm("Edit", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Edit", "CashAccount", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="col-lg-4 col-sm-6 col-xs-10 col-xs-offset-1">
 
@@ -26,7 +26,7 @@
         <div class="form-group text-right">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
-                @Html.ActionLink("Anuluj", "Index", "Account", null, new { @class = "btn btn-default" })
+                @Html.ActionLink("Anuluj", "Index", "CashAccount", null, new { @class = "btn btn-default" })
                 <input type="submit" value="Zapisz" class="btn btn-primary" />
             </div>
         </div>

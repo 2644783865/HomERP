@@ -40,10 +40,10 @@ namespace HomERP.Integration.Tests.MSSQLServer
             EfDbContext context = new EfDbContext(builder.Options);
 
             User user = new User { Email = "marcin@homerp.pl", Name = "Marcin" };
-            Account account = new Account { InitialAmount = 10, Name = "Portfel" };
+            CashAccount account = new CashAccount { InitialAmount = 10, Name = "Portfel" };
             Payment payment = new Payment
             {
-                Account = account,
+                CashAccount = account,
                 Amount = 100,
                 Direction = Domain.Helpers.CashFlowDirection.Increase,
                 Time = DateTime.Now,

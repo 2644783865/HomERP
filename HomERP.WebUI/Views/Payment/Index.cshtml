@@ -19,7 +19,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Account.Name</td>
+                <td>@item.CashAccount.Name</td>
                 <td class="text-right">
                     @if (item.Direction == HomERP.Domain.Helpers.CashFlowDirection.Decrease)
                     {

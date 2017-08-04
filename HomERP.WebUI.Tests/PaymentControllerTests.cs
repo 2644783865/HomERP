@@ -49,9 +49,9 @@ namespace HomERP.WebUI.Tests
                 new Payment { Id = 2, Amount = 200 }
             }
             );
-            mock.Setup(a => a.Accounts).Returns(new Account[]
+            mock.Setup(a => a.CashAccounts).Returns(new CashAccount[]
             {
-                new Account{ Id = 1, Name = "Portfel"}
+                new CashAccount{ Id = 1, Name = "Portfel"}
             });
             mock.Setup(u => u.Users).Returns(new User[]
             {
@@ -62,7 +62,7 @@ namespace HomERP.WebUI.Tests
             var result = controller.Edit(1);
             //assert
             mock.Verify(p => p.Payments);
-            mock.Verify(a => a.Accounts);
+            mock.Verify(a => a.CashAccounts);
             mock.Verify(u => u.Users);
             result.Should().BeOfType<ViewResult>();
         }
