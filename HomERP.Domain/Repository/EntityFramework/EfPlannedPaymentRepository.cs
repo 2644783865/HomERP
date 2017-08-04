@@ -41,7 +41,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             else
             {
                 PlannedPayment paymentToUpdate = context.PlannedPayments.Find(payment.Id);
-                paymentToUpdate.Account = payment.Account;
+                paymentToUpdate.CashAccount = payment.CashAccount;
                 paymentToUpdate.Amount = payment.Amount;
                 paymentToUpdate.Direction = payment.Direction;
                 paymentToUpdate.Time = payment.Time;

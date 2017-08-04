@@ -22,7 +22,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
             context = new EfDbContext(HomERP.Domain.Tests.Context.MemoryContext.GenerateContextOptions());
             CashAccount acc = new CashAccount { Id = 1, Name = "Konto" };
             User user = new User() { Id = 1, Name = "Zenon" };
-            context.Accounts.Add(acc);
+            context.CashAccounts.Add(acc);
             context.Users.Add(user);
             context.SaveChanges();
             repository = new EfPaymentRepository(context);
@@ -34,7 +34,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Payment payment = new Payment
             {
-                Account = new CashAccount { Id = 1, Name = "Konto" },
+                CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
                 Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0),
@@ -57,7 +57,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Payment payment = new Payment
             {
-                Account = new CashAccount { Id = 1, Name = "Konto" },
+                CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
                 Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0),
@@ -83,7 +83,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Payment payment = new Payment
             {
-                Account = new CashAccount { Id = 1, Name = "Konto" },
+                CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
                 Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0),
@@ -106,7 +106,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Payment payment = new Payment
             {
-                Account = new CashAccount { Id = 2, Name = "Konto2" },
+                CashAccount = new CashAccount { Id = 2, Name = "Konto2" },
                 Amount = 100,
                 Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0),

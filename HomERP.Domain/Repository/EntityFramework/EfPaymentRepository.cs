@@ -19,7 +19,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public IEnumerable<Payment> Payments
         {
-            get { return context.Payments.Include(p=>p.Account).Include(p=>p.User); }
+            get { return context.Payments.Include(p=>p.CashAccount).Include(p=>p.User); }
         }
 
         public Payment DeletePayment(int paymentId)
@@ -35,7 +35,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public void SavePayment(Payment payment)
         {
-            payment.Account = this.Accounts.First(a=>a.Id == payment.Account.Id);
+            payment.CashAccount = this.Accounts.First(a=>a.Id == payment.CashAccount.Id);
             payment.User = this.Users.First(u => u.Id == payment.User.Id);
             if(payment.Id==0)
             {
@@ -44,7 +44,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             else
             {
                 Payment paymentToUpdate = context.Payments.Find(payment.Id);
-                paymentToUpdate.Account = payment.Account;
+                paymentToUpdate.CashAccount = payment.CashAccount;
                 paymentToUpdate.Amount = payment.Amount;
                 paymentToUpdate.Direction = payment.Direction;
                 paymentToUpdate.Time = payment.Time;
@@ -55,7 +55,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public IEnumerable<CashAccount> Accounts
         {
-            get { return context.Accounts; }
+            get { return context.CashAccounts; }
         }
 
         public IEnumerable<User> Users
