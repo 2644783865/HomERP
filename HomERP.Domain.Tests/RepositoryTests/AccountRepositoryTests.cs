@@ -14,13 +14,13 @@ namespace HomERP.Domain.Tests.RepositoryTests
     public class AccountRepositoryTests
     {
         private EfDbContext context;
-        private IAccountRepository repository;
+        private ICashAccountRepository repository;
 
         [TestInitialize]
         public void Initialize()
         {
             context = new EfDbContext(HomERP.Domain.Tests.Context.MemoryContext.GenerateContextOptions());
-            repository = new EfAccountRepository(context);
+            repository = new EfCashAccountRepository(context);
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Account account = new Account() { Name = "Konto", InitialAmount = 123.45m };
             //act
-            repository.SaveAccount(account);
+            repository.SaveCashAccount(account);
             //assert
             //check if object has been written to the context
             context.Accounts.Count().Should().Be(1, "when we add one object to empty collection, there should be only this one.");
@@ -43,12 +43,12 @@ namespace HomERP.Domain.Tests.RepositoryTests
         {
             //arrange
             Account account = new Account() { Name = "Portfel", InitialAmount = 0, };
-            repository.SaveAccount(account);
-            Account testAccount = repository.Accounts.Where(a => a.Name == "Portfel").First();
+            repository.SaveCashAccount(account);
+            Account testAccount = repository.CashAccounts.Where(a => a.Name == "Portfel").First();
             testAccount.Name = "Portfel Zenka";
             testAccount.InitialAmount = 120;
             //act
-            repository.SaveAccount(testAccount);
+            repository.SaveCashAccount(testAccount);
             //assert
             context.Accounts.Count().Should().Be(1);
             Account resultAccount = context.Accounts.Where(a => a.Name == testAccount.Name).First();
@@ -61,10 +61,10 @@ namespace HomERP.Domain.Tests.RepositoryTests
         {
             //arrange
             Account account = new Account() { Name = "Portfel", InitialAmount = 0 };
-            repository.SaveAccount(account);
+            repository.SaveCashAccount(account);
             //act
             int id = context.Accounts.First().Id;
-            Account deletedAccount = repository.DeleteAccount(id);
+            Account deletedAccount = repository.DeleteCashAccount(id);
             //assert
             id.Should().NotBe(0, "i already added an Account to repository, so it should be written to context.");
             deletedAccount.Id.Should().Be(id);

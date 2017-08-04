@@ -8,22 +8,22 @@ using HomERP.Domain.Repository.Abstract;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
-    public class EfAccountRepository : IAccountRepository
+    public class EfCashAccountRepository : ICashAccountRepository
     {
-        public EfAccountRepository(EfDbContext context)
+        public EfCashAccountRepository(EfDbContext context)
         {
             this.context = context;
         }
         private EfDbContext context;
 //        private EfDbContext context = new EfDbContext();
-        public IEnumerable<Account> Accounts
+        public IEnumerable<Account> CashAccounts
         {
             get { return context.Accounts; }
         }
 
-        public Account DeleteAccount(int accountId)
+        public Account DeleteCashAccount(int cashAccountId)
         {
-            Account acc = context.Accounts.Find(accountId);
+            Account acc = context.Accounts.Find(cashAccountId);
             if (acc!=null)
             {
                 context.Accounts.Remove(acc);
@@ -32,19 +32,19 @@ namespace HomERP.Domain.Repository.EntityFramework
             return acc;
         }
 
-        public void SaveAccount(Account account)
+        public void SaveCashAccount(Account cashAccount)
         {
-            if (account.Id==0)
+            if (cashAccount.Id==0)
             {
-                context.Accounts.Add(account);
+                context.Accounts.Add(cashAccount);
             }
             else
             {
-                Account accountToUpdate = context.Accounts.Find(account.Id);
-                if (accountToUpdate!=null)
+                Account cashAccountToUpdate = context.Accounts.Find(cashAccount.Id);
+                if (cashAccountToUpdate!=null)
                 {
-                    accountToUpdate.InitialAmount = account.InitialAmount;
-                    accountToUpdate.Name = account.Name;
+                    cashAccountToUpdate.InitialAmount = cashAccount.InitialAmount;
+                    cashAccountToUpdate.Name = cashAccount.Name;
                 }
             }
             context.SaveChanges();

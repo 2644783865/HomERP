@@ -9,22 +9,22 @@ namespace HomERP.Domain.Logic
 {
     public class CashAccountProvider : ICashAccountProvider
     {
-        private IAccountRepository repository;
-        public CashAccountProvider(IAccountRepository repository)
+        private ICashAccountRepository repository;
+        public CashAccountProvider(ICashAccountRepository repository)
         {
             this.repository = repository;
         }
         public IEnumerable<Account> CashAccounts
-        { get { return repository.Accounts; } }
+        { get { return repository.CashAccounts; } }
 
-        public Account DeleteCashAccount(int accountId)
+        public Account DeleteCashAccount(int cashAccountId)
         {
-            return repository.DeleteAccount(accountId);
+            return repository.DeleteCashAccount(cashAccountId);
         }
 
-        public void SaveCashAccount(Account account)
+        public void SaveCashAccount(Account cashAccount)
         {
-            repository.SaveAccount(account);
+            repository.SaveCashAccount(cashAccount);
         }
     }
 }

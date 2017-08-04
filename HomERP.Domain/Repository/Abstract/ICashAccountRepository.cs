@@ -8,10 +8,10 @@ using HomERP.Domain.Entity;
 
 namespace HomERP.Domain.Repository.Abstract
 {
-    public interface IAccountRepository
+    public interface ICashAccountRepository
     {
-        IEnumerable<Account> Accounts { get; }
-        void SaveAccount(Account account);
-        Account DeleteAccount(int accountId);
+        IEnumerable<Account> CashAccounts { get; }
+        void SaveCashAccount(Account cashAccount);
+        Account DeleteCashAccount(int cashAccountId);
     }
 }

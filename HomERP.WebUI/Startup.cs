@@ -72,7 +72,7 @@ namespace HomERP.WebUI
                 .AddTransient<IUserProvider, UserProvider>()
                 .AddTransient<IUserRepository, EfUserRepository>()
                 .AddTransient<ICashAccountProvider, CashAccountProvider>()
-                .AddTransient<IAccountRepository, EfAccountRepository>();
+                .AddTransient<ICashAccountRepository, EfCashAccountRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
