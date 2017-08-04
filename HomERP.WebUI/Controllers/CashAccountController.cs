@@ -8,11 +8,11 @@ using HomERP.Domain.Logic.Abstract;
 
 namespace HomERP.WebUI.Controllers
 {
-    public class AccountController : Controller
+    public class CashAccountController : Controller
     {
         private IAccountProvider provider;
 
-        public AccountController(IAccountProvider provider)
+        public CashAccountController(IAccountProvider provider)
         {
             this.provider = provider;
         }
@@ -24,21 +24,21 @@ namespace HomERP.WebUI.Controllers
 
         public IActionResult Edit(int id)
         {
-            Account account = provider.Accounts.FirstOrDefault(a => a.Id == id);
-            return View(account);
+            Account cashAccount = provider.Accounts.FirstOrDefault(a => a.Id == id);
+            return View(cashAccount);
         }
 
         [HttpPost]
-        public IActionResult Edit(Account account)
+        public IActionResult Edit(Account cashAccount)
         {
-            provider.SaveAccount(account);
+            provider.SaveAccount(cashAccount);
             return View("Index", provider.Accounts);
         }
 
         public IActionResult Add()
         {
-            Account account = new Account();
-            return View("Edit", account);
+            Account cashAaccount = new Account();
+            return View("Edit", cashAaccount);
         }
 
         public IActionResult Delete(int id)

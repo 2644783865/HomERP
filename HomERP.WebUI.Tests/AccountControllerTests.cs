@@ -27,7 +27,7 @@ namespace HomERP.WebUI.Tests
                 new Account{ Id=1, InitialAmount=10, Name="Konto" },
                 new Account{ Id=2, InitialAmount=20, Name="Konto2"}
             });
-            AccountController controller = new AccountController(mock.Object);
+            CashAccountController controller = new CashAccountController(mock.Object);
             //act
             var result = controller.Index();
             //assert
@@ -40,7 +40,7 @@ namespace HomERP.WebUI.Tests
         {
             //arrange
             Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
-            AccountController controller = new AccountController(mock.Object);
+            CashAccountController controller = new CashAccountController(mock.Object);
             //act
             var result = controller.Edit(2);
             //assert
@@ -55,7 +55,7 @@ namespace HomERP.WebUI.Tests
         {
             //arrange
             Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
-            AccountController controller = new AccountController(mock.Object);
+            CashAccountController controller = new CashAccountController(mock.Object);
             Account accToEdit = mock.Object.Accounts.First();
             accToEdit.Name = "Konto zmienione";
             //act
@@ -72,7 +72,7 @@ namespace HomERP.WebUI.Tests
             //arrange
             Mock<IAccountProvider> mock = this.GenerateMockAccountProvider();
             mock.Setup(m => m.DeleteAccount(1)).Returns(mock.Object.Accounts.First());
-            AccountController controller = new AccountController(mock.Object);
+            CashAccountController controller = new CashAccountController(mock.Object);
             Account accToDelete = mock.Object.Accounts.First();
             //act
             var result = controller.Delete(accToDelete.Id);
