@@ -43,7 +43,7 @@ namespace HomERP.WebUI.Controllers
             }
             else
             {
-                model1.AccountList = provider.Accounts;
+                model1.CashAccountList = provider.CashAccounts;
                 model1.UserList = provider.Users;
                 return View(model1);
             }

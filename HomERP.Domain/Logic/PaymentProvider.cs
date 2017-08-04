@@ -32,7 +32,7 @@ namespace HomERP.Domain.Logic
             paymentRepository.SavePayment(payment);
         }
 
-        public IEnumerable<Account> Accounts
+        public IEnumerable<Account> CashAccounts
         { get { return paymentRepository.Accounts; } }
 
         public IEnumerable<User> Users
