@@ -9,8 +9,8 @@ using HomERP.Domain.Helpers;
 namespace HomERP.Domain.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20170726091201_remove-account-owner")]
-    partial class removeaccountowner
+    [Migration("20170804203229_Initial-Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace HomERP.Domain.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("HomERP.Domain.Entity.Account", b =>
+            modelBuilder.Entity("HomERP.Domain.Entity.CashAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -29,7 +29,7 @@ namespace HomERP.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("CashAccounts");
                 });
 
             modelBuilder.Entity("HomERP.Domain.Entity.Payment", b =>
@@ -37,9 +37,9 @@ namespace HomERP.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AccountId");
-
                     b.Property<decimal>("Amount");
+
+                    b.Property<int?>("CashAccountId");
 
                     b.Property<int>("Direction");
 
@@ -52,7 +52,7 @@ namespace HomERP.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("CashAccountId");
 
                     b.HasIndex("UserId");
 
@@ -90,9 +90,9 @@ namespace HomERP.Domain.Migrations
 
             modelBuilder.Entity("HomERP.Domain.Entity.Payment", b =>
                 {
-                    b.HasOne("HomERP.Domain.Entity.Account", "Account")
+                    b.HasOne("HomERP.Domain.Entity.CashAccount", "CashAccount")
                         .WithMany()
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("CashAccountId");
 
                     b.HasOne("HomERP.Domain.Entity.User", "User")
                         .WithMany()
