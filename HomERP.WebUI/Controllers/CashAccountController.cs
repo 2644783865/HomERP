@@ -24,12 +24,12 @@ namespace HomERP.WebUI.Controllers
 
         public IActionResult Edit(int id)
         {
-            Account cashAccount = provider.CashAccounts.FirstOrDefault(a => a.Id == id);
+            CashAccount cashAccount = provider.CashAccounts.FirstOrDefault(a => a.Id == id);
             return View(cashAccount);
         }
 
         [HttpPost]
-        public IActionResult Edit(Account cashAccount)
+        public IActionResult Edit(CashAccount cashAccount)
         {
             provider.SaveCashAccount(cashAccount);
             return View("Index", provider.CashAccounts);
@@ -37,7 +37,7 @@ namespace HomERP.WebUI.Controllers
 
         public IActionResult Add()
         {
-            Account cashAaccount = new Account();
+            CashAccount cashAaccount = new CashAccount();
             return View("Edit", cashAaccount);
         }
 

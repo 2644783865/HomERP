@@ -16,14 +16,14 @@ namespace HomERP.Domain.Repository.EntityFramework
         }
         private EfDbContext context;
 //        private EfDbContext context = new EfDbContext();
-        public IEnumerable<Account> CashAccounts
+        public IEnumerable<CashAccount> CashAccounts
         {
             get { return context.Accounts; }
         }
 
-        public Account DeleteCashAccount(int cashAccountId)
+        public CashAccount DeleteCashAccount(int cashAccountId)
         {
-            Account acc = context.Accounts.Find(cashAccountId);
+            CashAccount acc = context.Accounts.Find(cashAccountId);
             if (acc!=null)
             {
                 context.Accounts.Remove(acc);
@@ -32,7 +32,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             return acc;
         }
 
-        public void SaveCashAccount(Account cashAccount)
+        public void SaveCashAccount(CashAccount cashAccount)
         {
             if (cashAccount.Id==0)
             {
@@ -40,7 +40,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             }
             else
             {
-                Account cashAccountToUpdate = context.Accounts.Find(cashAccount.Id);
+                CashAccount cashAccountToUpdate = context.Accounts.Find(cashAccount.Id);
                 if (cashAccountToUpdate!=null)
                 {
                     cashAccountToUpdate.InitialAmount = cashAccount.InitialAmount;

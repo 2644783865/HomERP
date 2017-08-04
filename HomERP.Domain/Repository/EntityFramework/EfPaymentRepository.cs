@@ -53,7 +53,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             context.SaveChanges();
         }
 
-        public IEnumerable<Account> Accounts
+        public IEnumerable<CashAccount> Accounts
         {
             get { return context.Accounts; }
         }

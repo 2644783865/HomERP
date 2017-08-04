@@ -14,15 +14,15 @@ namespace HomERP.Domain.Logic
         {
             this.repository = repository;
         }
-        public IEnumerable<Account> CashAccounts
+        public IEnumerable<CashAccount> CashAccounts
         { get { return repository.CashAccounts; } }
 
-        public Account DeleteCashAccount(int cashAccountId)
+        public CashAccount DeleteCashAccount(int cashAccountId)
         {
             return repository.DeleteCashAccount(cashAccountId);
         }
 
-        public void SaveCashAccount(Account cashAccount)
+        public void SaveCashAccount(CashAccount cashAccount)
         {
             repository.SaveCashAccount(cashAccount);
         }

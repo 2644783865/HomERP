@@ -10,7 +10,7 @@ namespace HomERP.WebUI.Models
     public class PaymentEditVM
     {
         public Payment Payment { get; set; }
-        public IEnumerable<Account> CashAccountList { get; set; }
+        public IEnumerable<CashAccount> CashAccountList { get; set; }
         public IEnumerable<User> UserList { get; set; }
 
         public PaymentEditVM() { }

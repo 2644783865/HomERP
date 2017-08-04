@@ -49,9 +49,9 @@ namespace HomERP.WebUI.Tests
                 new Payment { Id = 2, Amount = 200 }
             }
             );
-            mock.Setup(a => a.CashAccounts).Returns(new Account[]
+            mock.Setup(a => a.CashAccounts).Returns(new CashAccount[]
             {
-                new Account{ Id = 1, Name = "Portfel"}
+                new CashAccount{ Id = 1, Name = "Portfel"}
             });
             mock.Setup(u => u.Users).Returns(new User[]
             {

@@ -22,10 +22,10 @@ namespace HomERP.WebUI.Tests
         {
             //arrange
             Mock<ICashAccountProvider> mock = new Mock<ICashAccountProvider>();
-            mock.Setup(m => m.CashAccounts).Returns(new Account[]
+            mock.Setup(m => m.CashAccounts).Returns(new CashAccount[]
             {
-                new Account{ Id=1, InitialAmount=10, Name="Konto" },
-                new Account{ Id=2, InitialAmount=20, Name="Konto2"}
+                new CashAccount{ Id=1, InitialAmount=10, Name="Konto" },
+                new CashAccount{ Id=2, InitialAmount=20, Name="Konto2"}
             });
             CashAccountController controller = new CashAccountController(mock.Object);
             //act
@@ -46,8 +46,8 @@ namespace HomERP.WebUI.Tests
             //assert
             mock.Verify(m => m.CashAccounts);
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<Account>();
-            ((Account)((ViewResult)result).Model).Name.Should().Be("Konto2");
+            ((ViewResult)result).Model.Should().BeOfType<CashAccount>();
+            ((CashAccount)((ViewResult)result).Model).Name.Should().Be("Konto2");
         }
 
         [TestMethod]
@@ -56,14 +56,14 @@ namespace HomERP.WebUI.Tests
             //arrange
             Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
             CashAccountController controller = new CashAccountController(mock.Object);
-            Account accToEdit = mock.Object.CashAccounts.First();
+            CashAccount accToEdit = mock.Object.CashAccounts.First();
             accToEdit.Name = "Konto zmienione";
             //act
             var result = controller.Edit(accToEdit);
             //assert
             mock.Verify(m => m.SaveCashAccount(accToEdit));
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<Account[]>();
+            ((ViewResult)result).Model.Should().BeOfType<CashAccount[]>();
         }
 
         [TestMethod]
@@ -73,23 +73,23 @@ namespace HomERP.WebUI.Tests
             Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
             mock.Setup(m => m.DeleteCashAccount(1)).Returns(mock.Object.CashAccounts.First());
             CashAccountController controller = new CashAccountController(mock.Object);
-            Account accToDelete = mock.Object.CashAccounts.First();
+            CashAccount accToDelete = mock.Object.CashAccounts.First();
             //act
             var result = controller.Delete(accToDelete.Id);
             //arrange
             mock.Verify(m => m.DeleteCashAccount(accToDelete.Id));
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<Account[]>();
-            ((Account[])((ViewResult)result).Model)[0].Id.Should().Be(accToDelete.Id);
+            ((ViewResult)result).Model.Should().BeOfType<CashAccount[]>();
+            ((CashAccount[])((ViewResult)result).Model)[0].Id.Should().Be(accToDelete.Id);
         }
 
         private Mock<ICashAccountProvider> GenerateMockCashAccountProvider()
         {
             Mock<ICashAccountProvider> mock = new Mock<ICashAccountProvider>();
-            mock.Setup(m => m.CashAccounts).Returns(new Account[]
+            mock.Setup(m => m.CashAccounts).Returns(new CashAccount[]
             {
-                new Account{ Id=1, InitialAmount=10, Name="Konto" },
-                new Account{ Id=2, InitialAmount=20, Name="Konto2"}
+                new CashAccount{ Id=1, InitialAmount=10, Name="Konto" },
+                new CashAccount{ Id=2, InitialAmount=20, Name="Konto2"}
             });
             return mock;
         }
