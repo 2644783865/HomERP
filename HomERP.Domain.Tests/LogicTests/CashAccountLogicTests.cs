@@ -14,9 +14,9 @@ using HomERP.Domain.Logic;
 namespace HomERP.Domain.Tests.LogicTests
 {
     [TestClass]
-    public class AccountLogicTests
+    public class CashAccountLogicTests
     {
-        private CashAccount PrepareExampleAccount()
+        private CashAccount PrepareExampleCashAccount()
         {
             return new CashAccount
             {
@@ -26,7 +26,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Should_Get_All_Accounts()
+        public void Should_Get_All_CashAccounts()
         {
             //arrange
             Mock<ICashAccountRepository> mock = new Mock<ICashAccountRepository>();
@@ -39,17 +39,17 @@ namespace HomERP.Domain.Tests.LogicTests
             CashAccountProvider provider = new CashAccountProvider(mock.Object);
 
             //act
-            IEnumerable<CashAccount> Accounts = provider.CashAccounts;
+            IEnumerable<CashAccount> CashAccounts = provider.CashAccounts;
 
             //assert
-            Accounts.Should().HaveCount(2, "you have 2 entities in the repository");
+            CashAccounts.Should().HaveCount(2, "you have 2 entities in the repository");
         }
 
         [TestMethod]
-        public void Should_Call_UserProvider_SaveAccount()
+        public void Should_Call_UserProvider_SaveCashAccount()
         {
             //arrange
-            CashAccount account = PrepareExampleAccount();
+            CashAccount account = PrepareExampleCashAccount();
             Mock<ICashAccountRepository> mock = new Mock<ICashAccountRepository>();
             mock.Setup(m => m.CashAccounts).Returns(new CashAccount[]
             {
@@ -69,7 +69,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Should_Call_UserProvider_DeleteAccount()
+        public void Should_Call_UserProvider_DeleteCashAccount()
         {
             //arrange
             Mock<ICashAccountRepository> mock = new Mock<ICashAccountRepository>();

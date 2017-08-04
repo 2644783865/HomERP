@@ -14,7 +14,7 @@ namespace HomERP.Domain.Entity
     {
         public int Id { get; set; }
         [Display(Name = "Konto")]
-        public CashAccount Account { get; set; }
+        public CashAccount CashAccount { get; set; }
         [Display(Name = "Kwota")]
         public decimal Amount { get; set; }
         public CashFlowDirection Direction { get; set; }
@@ -23,7 +23,7 @@ namespace HomERP.Domain.Entity
 
         public Payment()
         {
-            Account = new CashAccount();
+            CashAccount = new CashAccount();
             User = new User();
         }
     }

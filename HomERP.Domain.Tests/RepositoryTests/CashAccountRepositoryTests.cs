@@ -11,7 +11,7 @@ using HomERP.Domain.Entity;
 namespace HomERP.Domain.Tests.RepositoryTests
 {
     [TestClass]
-    public class AccountRepositoryTests
+    public class CashAccountRepositoryTests
     {
         private EfDbContext context;
         private ICashAccountRepository repository;
@@ -24,7 +24,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Should_Add_Account_To_Context_When_Saving_Repository()
+        public void Should_Add_CashAccount_To_Context_When_Saving_Repository()
         {
             //arrange
             CashAccount account = new CashAccount() { Name = "Konto", InitialAmount = 123.45m };
@@ -39,7 +39,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Should_Update_Context_When_Updating_Account()
+        public void Should_Update_Context_When_Updating_CashAccount()
         {
             //arrange
             CashAccount account = new CashAccount() { Name = "Portfel", InitialAmount = 0, };
@@ -57,7 +57,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void Should_Return_Deleted_Account_When_Deleting_From_Repository()
+        public void Should_Return_Deleted_CashAccount_When_Deleting_From_Repository()
         {
             //arrange
             CashAccount account = new CashAccount() { Name = "Portfel", InitialAmount = 0 };
@@ -66,7 +66,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
             int id = context.Accounts.First().Id;
             CashAccount deletedAccount = repository.DeleteCashAccount(id);
             //assert
-            id.Should().NotBe(0, "i already added an Account to repository, so it should be written to context.");
+            id.Should().NotBe(0, "i already added an CashAccount to repository, so it should be written to context.");
             deletedAccount.Id.Should().Be(id);
             deletedAccount.Name.Should().Be(account.Name);
             context.Accounts.Count().Should().Be(0);
