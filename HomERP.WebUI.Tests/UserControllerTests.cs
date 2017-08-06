@@ -15,76 +15,76 @@ using HomERP.WebUI.Controllers;
 namespace HomERP.WebUI.Tests
 {
     [TestClass]
-    public class UserControllerTests
+    public class FamilyUserControllerTests
     {
         [TestMethod]
-        public void Should_Call_UserProvider_When_Showing_Users()
+        public void Should_Call_FamilyUserProvider_When_Showing_Users()
         {
-            Mock<IUserProvider> mock = GenerateMockUserProvider();
-            UserController controller = new UserController(mock.Object);
+            Mock<IFamilyUserProvider> mock = GenerateMockFamilyUserProvider();
+            FamilyUserController controller = new FamilyUserController(mock.Object);
             //act
             var result = controller.Index();
             //assert
-            mock.VerifyGet(m => m.Users);
+            mock.VerifyGet(m => m.FamilyUsers);
             result.Should().BeOfType<ViewResult>();
         }
 
         [TestMethod]
-        public void Should_Get_Exact_User_When_Edit()
+        public void Should_Get_Exact_FamilyUser_When_Edit()
         {
             //arrange
-            Mock<IUserProvider> mock = GenerateMockUserProvider();
-            UserController controller = new UserController(mock.Object);
+            Mock<IFamilyUserProvider> mock = GenerateMockFamilyUserProvider();
+            FamilyUserController controller = new FamilyUserController(mock.Object);
             //act
             var result = controller.Edit(2);
             //assert
-            mock.Verify(m => m.Users);
+            mock.Verify(m => m.FamilyUsers);
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<User>();
-            ((User)((ViewResult)result).Model).Name.Should().Be("Alfred");
+            ((ViewResult)result).Model.Should().BeOfType<FamilyUser>();
+            ((FamilyUser)((ViewResult)result).Model).Name.Should().Be("Alfred");
         }
 
         [TestMethod]
-        public void Should_Modify_User_When_Correct_User_Given()
+        public void Should_Modify_FamilyUser_When_Correct_User_Given()
         {
             //arrange
-            Mock<IUserProvider> mock = GenerateMockUserProvider();
-            UserController controller = new UserController(mock.Object);
-            User accToEdit = mock.Object.Users.First();
+            Mock<IFamilyUserProvider> mock = GenerateMockFamilyUserProvider();
+            FamilyUserController controller = new FamilyUserController(mock.Object);
+            FamilyUser accToEdit = mock.Object.FamilyUsers.First();
             accToEdit.Name = "Anzelm";
             //act
             var result = controller.Edit(accToEdit);
             //assert
-            mock.Verify(m => m.SaveUser(accToEdit));
+            mock.Verify(m => m.SaveFamilyUser(accToEdit));
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<User[]>();
+            ((ViewResult)result).Model.Should().BeOfType<FamilyUser[]>();
         }
 
         [TestMethod]
-        public void Should_Return_Deleted_User()
+        public void Should_Return_Deleted_FamilyUser()
         {
             //arrange
-            Mock<IUserProvider> mock = GenerateMockUserProvider();
-            mock.Setup(m => m.DeleteUser(1)).Returns(mock.Object.Users.First());
-            UserController controller = new UserController(mock.Object);
-            User accToDelete = mock.Object.Users.First();
+            Mock<IFamilyUserProvider> mock = GenerateMockFamilyUserProvider();
+            mock.Setup(m => m.DeleteFamilyUser(1)).Returns(mock.Object.FamilyUsers.First());
+            FamilyUserController controller = new FamilyUserController(mock.Object);
+            FamilyUser accToDelete = mock.Object.FamilyUsers.First();
             //act
             var result = controller.Delete(accToDelete.Id);
             //arrange
-            mock.Verify(m => m.DeleteUser(accToDelete.Id));
+            mock.Verify(m => m.DeleteFamilyUser(accToDelete.Id));
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<User[]>();
-            ((User[])((ViewResult)result).Model)[0].Id.Should().Be(accToDelete.Id);
+            ((ViewResult)result).Model.Should().BeOfType<FamilyUser[]>();
+            ((FamilyUser[])((ViewResult)result).Model)[0].Id.Should().Be(accToDelete.Id);
         }
 
-        private static Mock<IUserProvider> GenerateMockUserProvider()
+        private static Mock<IFamilyUserProvider> GenerateMockFamilyUserProvider()
         {
             //arrange
-            Mock<IUserProvider> mock = new Mock<IUserProvider>();
-            mock.Setup(m => m.Users).Returns(new User[]
+            Mock<IFamilyUserProvider> mock = new Mock<IFamilyUserProvider>();
+            mock.Setup(m => m.FamilyUsers).Returns(new FamilyUser[]
             {
-                new User{ Id=1, Name="Marcin", Email = "marcin@homerp.pl" },
-                new User{ Id=2, Name="Alfred", Email = "alfred@homerp.pl" }
+                new FamilyUser{ Id=1, Name="Marcin", Email = "marcin@homerp.pl" },
+                new FamilyUser{ Id=2, Name="Alfred", Email = "alfred@homerp.pl" }
             });
             return mock;
         }

@@ -53,9 +53,9 @@ namespace HomERP.WebUI.Tests
             {
                 new CashAccount{ Id = 1, Name = "Portfel"}
             });
-            mock.Setup(u => u.Users).Returns(new User[]
+            mock.Setup(u => u.FamilyUsers).Returns(new FamilyUser[]
             {
-                new User { Id = 1, Name="Marcin" }
+                new FamilyUser { Id = 1, Name="Marcin" }
             });
             PaymentController controller = new PaymentController(mock.Object);
             //act
@@ -63,7 +63,7 @@ namespace HomERP.WebUI.Tests
             //assert
             mock.Verify(p => p.Payments);
             mock.Verify(a => a.CashAccounts);
-            mock.Verify(u => u.Users);
+            mock.Verify(u => u.FamilyUsers);
             result.Should().BeOfType<ViewResult>();
         }
 

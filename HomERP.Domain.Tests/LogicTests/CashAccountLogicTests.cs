@@ -46,7 +46,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Should_Call_UserProvider_SaveCashAccount()
+        public void Should_Call_FamilyUserProvider_SaveCashAccount()
         {
             //arrange
             CashAccount account = PrepareExampleCashAccount();
@@ -69,7 +69,7 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Should_Call_UserProvider_DeleteCashAccount()
+        public void Should_Call_FamilyUserProvider_DeleteCashAccount()
         {
             //arrange
             Mock<ICashAccountRepository> mock = new Mock<ICashAccountRepository>();

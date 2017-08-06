@@ -8,7 +8,7 @@ using HomERP.Domain.Entity.Abstract;
 
 namespace HomERP.Domain.Entity
 {
-    public class User : IUser
+    public class FamilyUser : IFamilyUser
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -13,6 +13,6 @@ namespace HomERP.Domain.Logic.Abstract
         Payment DeletePayment(int paymentId);
 
         IEnumerable<CashAccount> CashAccounts { get; }
-        IEnumerable<User> Users { get; }
+        IEnumerable<FamilyUser> FamilyUsers { get; }
     }
 }

@@ -8,10 +8,10 @@ using HomERP.Domain.Entity;
 
 namespace HomERP.Domain.Repository.Abstract
 {
-    public interface IUserRepository
+    public interface IFamilyUserRepository
     {
-        IEnumerable<User> Users { get; }
-        void SaveUser(User user);
-        User DeleteUser(int userId);
+        IEnumerable<FamilyUser> FamilyUsers { get; }
+        void SaveFamilyUser(FamilyUser user);
+        FamilyUser DeleteFamilyUser(int userId);
     }
 }

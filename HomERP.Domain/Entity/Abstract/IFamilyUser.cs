@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomERP.Domain.Entity.Abstract
 {
-    public interface IUser
+    public interface IFamilyUser
     {
         int Id { get; set; }
         string Name { get; set; }

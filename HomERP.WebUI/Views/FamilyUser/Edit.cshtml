@@ -1,10 +1,10 @@
-﻿@model HomERP.Domain.Entity.User
+﻿@model HomERP.Domain.Entity.FamilyUser
 @{
     ViewData["Title"] = "Edit";
 }
 
 <h2>Użytkownik</h2>
-@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Edit", "FamilyUser", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="col-lg-4 col-sm-6 col-xs-10 col-xs-offset-1">
         @Html.HiddenFor(u => u.Id)
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="form-group text-right">
-            @Html.ActionLink("Anuluj", "Index", "User", null, new { @class = "btn btn-default" })
+            @Html.ActionLink("Anuluj", "Index", "FamilyUser", null, new { @class = "btn btn-default" })
             <input type="submit" value="Zapisz" class="btn btn-primary" />
         </div>
     </div>

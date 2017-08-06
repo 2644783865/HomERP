@@ -14,6 +14,7 @@ using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Logic;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Repository.EntityFramework;
+using HomERP.Domain.Services;
 
 namespace HomERP.WebUI
 {
@@ -69,10 +70,13 @@ namespace HomERP.WebUI
             services
                 .AddTransient<IPaymentProvider, PaymentProvider>()
                 .AddTransient<IPaymentRepository, EfPaymentRepository>()
-                .AddTransient<IUserProvider, UserProvider>()
-                .AddTransient<IUserRepository, EfUserRepository>()
+                .AddTransient<IFamilyUserProvider, FamilyUserProvider>()
+                .AddTransient<IFamilyUserRepository, EfFamilyUserRepository>()
                 .AddTransient<ICashAccountProvider, CashAccountProvider>()
                 .AddTransient<ICashAccountRepository, EfCashAccountRepository>();
+            services
+                .AddTransient<IEmailSender, AuthMessageSender>()
+                .AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

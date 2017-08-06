@@ -9,41 +9,41 @@ using HomERP.Domain.Repository.EntityFramework;
 
 namespace HomERP.WebUI.Controllers
 {
-    public class UserController : Controller
+    public class FamilyUserController : Controller
     {
-        IUserProvider provider;
-        public UserController(IUserProvider provider)
+        IFamilyUserProvider provider;
+        public FamilyUserController(IFamilyUserProvider provider)
         {
             this.provider = provider;
         }
         public IActionResult Index()
         {
-            return View(provider.Users);
+            return View(provider.FamilyUsers);
         }
 
         public IActionResult Edit(int id)
         {
-            User user = provider.Users.FirstOrDefault(u => u.Id == id);
+            FamilyUser user = provider.FamilyUsers.FirstOrDefault(u => u.Id == id);
             return View(user);
         }
 
         [HttpPost]
-        public IActionResult Edit(User model)
+        public IActionResult Edit(FamilyUser model)
         {
-            provider.SaveUser(model);
-            return View("Index", provider.Users);
+            provider.SaveFamilyUser(model);
+            return View("Index", provider.FamilyUsers);
         }
 
         public IActionResult Add()
         {
-            User user = new User();
+            FamilyUser user = new FamilyUser();
             return View("Edit", user);
         }
 
         public IActionResult Delete(int id)
         {
-            provider.DeleteUser(id);
-            return View("Index", provider.Users);
+            provider.DeleteFamilyUser(id);
+            return View("Index", provider.FamilyUsers);
         }
     }
 }

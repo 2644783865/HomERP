@@ -10,7 +10,7 @@ namespace HomERP.Domain.Entity.Abstract
     {
         DateTime CreatedTime { get; set; }
         DateTime ModifiedTime { get; set; }
-        IUser UserCreated { get; set; }
-        IUser UserModified { get; set; }
+        IFamilyUser FamilyUserCreated { get; set; }
+        IFamilyUser FamilyUserModified { get; set; }
     }
 }

@@ -8,39 +8,39 @@ using HomERP.Domain.Repository.Abstract;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
-    public class EfUserRepository : IUserRepository
+    public class EfFamilyUserRepository : IFamilyUserRepository
     {
         private EfDbContext context;
-        public EfUserRepository(EfDbContext context)
+        public EfFamilyUserRepository(EfDbContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<User> Users
+        public IEnumerable<FamilyUser> FamilyUsers
         {
-            get { return context.Users; }
+            get { return context.FamilyUsers; }
         }
 
-        public User DeleteUser(int userId)
+        public FamilyUser DeleteFamilyUser(int userId)
         {
-            User userToDelete = context.Users.Find(userId);
+            FamilyUser userToDelete = context.FamilyUsers.Find(userId);
             if(userToDelete!=null)
             {
-                context.Users.Remove(userToDelete);
+                context.FamilyUsers.Remove(userToDelete);
             }
             context.SaveChanges();
             return userToDelete;
         }
 
-        public void SaveUser(User user)
+        public void SaveFamilyUser(FamilyUser user)
         {
             if (user.Id==0)
             {
-                context.Users.Add(user);
+                context.FamilyUsers.Add(user);
             }
             else
             {
-                User userToUpdate = context.Users.Find(user.Id);
+                FamilyUser userToUpdate = context.FamilyUsers.Find(user.Id);
                 userToUpdate.Email = user.Email;
                 userToUpdate.Name = user.Name;
                 userToUpdate.PasswordHash = user.PasswordHash;

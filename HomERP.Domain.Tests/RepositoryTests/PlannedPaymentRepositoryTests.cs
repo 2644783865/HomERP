@@ -28,7 +28,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Test_AddPlannedPayment()
         {
             //arrange
-            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), User = new User() { Name = "Zenon" }, Status = Helpers.PaymentStatus.Proposal };
+            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), FamilyUser = new FamilyUser() { Name = "Zenon" }, Status = Helpers.PaymentStatus.Proposal };
             //act
             repository.SavePlannedPayment(payment);
             //assert
@@ -45,7 +45,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Test_EditPlannedPayment()
         {
             //arrange
-            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), User = new User() { Name = "Zenon" }, Status = Helpers.PaymentStatus.Proposal };
+            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), FamilyUser = new FamilyUser() { Name = "Zenon" }, Status = Helpers.PaymentStatus.Proposal };
             repository.SavePlannedPayment(payment);
             PlannedPayment testPayment = repository.PlannedPayments.Where(a => a.Amount == 100).First();
             testPayment.Amount = 120;
@@ -66,7 +66,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Test_DeletePlannedPayment()
         {
             //arrange
-            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), User = new User() { Name = "Zenon" } };
+            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), FamilyUser = new FamilyUser() { Name = "Zenon" } };
             repository.SavePlannedPayment(payment);
             //act
             int id = context.Payments.First().Id;
