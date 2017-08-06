@@ -107,6 +107,8 @@ namespace HomERP.WebUI
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            Domain.Authentication.Helpers.RolesData.SeedRoles(app.ApplicationServices).Wait();
         }
     }
 }
