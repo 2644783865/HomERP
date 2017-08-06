@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using HomERP.Domain.Authentication;
 using HomERP.Domain.Logic.Abstract;
@@ -37,7 +38,7 @@ namespace HomERP.WebUI
         {
             services.AddDbContext<Domain.Repository.EntityFramework.EfDbContext>(options => options.UseSqlServer("Server=localhost;Database=HomERP;Trusted_Connection=True;"));
 
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<EfDbContext>()
                 .AddDefaultTokenProviders();
 
