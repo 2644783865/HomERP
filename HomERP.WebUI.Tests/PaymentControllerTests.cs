@@ -13,6 +13,8 @@ using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Entity;
 using HomERP.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Reflection;
 
 namespace HomERP.WebUI.Tests
 {
@@ -107,6 +109,19 @@ namespace HomERP.WebUI.Tests
             //assert
             mock.Verify(p => p.DeletePayment(itemToDeleteId));
             result.Should().BeOfType<RedirectToActionResult>();
+        }
+
+        [TestMethod]
+        public void Verify_PaymentController_Is_Decorated_With_Authorize_Attribute()
+        {
+            var type = typeof(PaymentController);
+            var methodInfo = type.GetMethod("Index", new Type[] {});
+
+            var attributes = methodInfo.GetCustomAttributes(typeof(AuthorizeAttribute), true);
+            var classAttributes = type.GetTypeInfo().GetCustomAttributes(typeof(AuthorizeAttribute));
+
+            attributes.Should().BeEmpty();
+            classAttributes.Should().NotBeEmpty();
         }
     }
 }

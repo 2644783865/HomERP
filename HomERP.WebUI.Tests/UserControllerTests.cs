@@ -10,7 +10,8 @@ using FluentAssertions;
 using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Entity;
 using HomERP.WebUI.Controllers;
-
+using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomERP.WebUI.Tests
 {
@@ -87,6 +88,16 @@ namespace HomERP.WebUI.Tests
                 new FamilyUser{ Id=2, Name="Alfred", Email = "alfred@homerp.pl" }
             });
             return mock;
+        }
+
+        [TestMethod]
+        public void Verify_FamilyUserController_Is_Decorated_With_Authorize_Attribute()
+        {
+            var type = typeof(FamilyUserController);
+
+            var classAttributes = type.GetTypeInfo().GetCustomAttributes(typeof(AuthorizeAttribute));
+
+            classAttributes.Should().NotBeEmpty();
         }
     }
 }

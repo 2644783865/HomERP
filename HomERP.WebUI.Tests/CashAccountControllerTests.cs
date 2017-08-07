@@ -10,7 +10,8 @@ using FluentAssertions;
 using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Entity;
 using HomERP.WebUI.Controllers;
-
+using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomERP.WebUI.Tests
 {
@@ -92,6 +93,16 @@ namespace HomERP.WebUI.Tests
                 new CashAccount{ Id=2, InitialAmount=20, Name="Konto2"}
             });
             return mock;
+        }
+
+        [TestMethod]
+        public void Verify_CashAccountController_Is_Decorated_With_Authorize_Attribute()
+        {
+            var type = typeof(CashAccountController);
+
+            var classAttributes = type.GetTypeInfo().GetCustomAttributes(typeof(AuthorizeAttribute));
+
+            classAttributes.Should().NotBeEmpty();
         }
     }
 }

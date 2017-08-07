@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HomERP.Domain.Entity;
 using HomERP.Domain.Logic.Abstract;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomERP.WebUI.Controllers
 {
+    [Authorize]
     public class CashAccountController : Controller
     {
         private ICashAccountProvider provider;
