@@ -8,15 +8,16 @@ namespace HomERP.WebUI.Models.AccountViewModels
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Email jest wymagany.")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Hasło jest wymagane.")]
         [DataType(DataType.Password)]
+        [Display(Name = "Hasło")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Zapamiętaj hasło")]
         public bool RememberMe { get; set; }
     }
 }

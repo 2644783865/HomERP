@@ -16,10 +16,10 @@ namespace HomERP.WebUI.Models.AccountViewModels
 
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Zapamiętaj w przeglądarce")]
         public bool RememberBrowser { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Zapamiętaj hasło")]
         public bool RememberMe { get; set; }
     }
 }
