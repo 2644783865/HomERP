@@ -40,7 +40,8 @@ namespace HomERP.WebUI
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<EfDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddErrorDescriber<HomERP.Domain.Authentication.Helpers.PolishIdentityErrorDescriber>();
 
             // Add framework services.
             services.AddMvc();
