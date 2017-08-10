@@ -20,5 +20,6 @@ namespace HomERP.Domain.Repository.EntityFramework
         public DbSet<FamilyUser> FamilyUsers { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PlannedPayment> PlannedPayments { get; set; }
+        public DbSet<Family> Families { get; set; }
     }
 }
