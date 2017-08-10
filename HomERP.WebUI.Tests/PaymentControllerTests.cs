@@ -13,6 +13,8 @@ using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Entity;
 using HomERP.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Reflection;
 
 namespace HomERP.WebUI.Tests
 {
@@ -49,21 +51,21 @@ namespace HomERP.WebUI.Tests
                 new Payment { Id = 2, Amount = 200 }
             }
             );
-            mock.Setup(a => a.Accounts).Returns(new Account[]
+            mock.Setup(a => a.CashAccounts).Returns(new CashAccount[]
             {
-                new Account{ Id = 1, Name = "Portfel"}
+                new CashAccount{ Id = 1, Name = "Portfel"}
             });
-            mock.Setup(u => u.Users).Returns(new User[]
+            mock.Setup(u => u.FamilyUsers).Returns(new FamilyUser[]
             {
-                new User { Id = 1, Name="Marcin" }
+                new FamilyUser { Id = 1, Name="Marcin" }
             });
             PaymentController controller = new PaymentController(mock.Object);
             //act
             var result = controller.Edit(1);
             //assert
             mock.Verify(p => p.Payments);
-            mock.Verify(a => a.Accounts);
-            mock.Verify(u => u.Users);
+            mock.Verify(a => a.CashAccounts);
+            mock.Verify(u => u.FamilyUsers);
             result.Should().BeOfType<ViewResult>();
         }
 
@@ -107,6 +109,19 @@ namespace HomERP.WebUI.Tests
             //assert
             mock.Verify(p => p.DeletePayment(itemToDeleteId));
             result.Should().BeOfType<RedirectToActionResult>();
+        }
+
+        [TestMethod]
+        public void Verify_PaymentController_Is_Decorated_With_Authorize_Attribute()
+        {
+            var type = typeof(PaymentController);
+            var methodInfo = type.GetMethod("Index", new Type[] {});
+
+            var attributes = methodInfo.GetCustomAttributes(typeof(AuthorizeAttribute), true);
+            var classAttributes = type.GetTypeInfo().GetCustomAttributes(typeof(AuthorizeAttribute));
+
+            attributes.Should().BeEmpty();
+            classAttributes.Should().NotBeEmpty();
         }
     }
 }

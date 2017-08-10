@@ -14,17 +14,17 @@ namespace HomERP.Domain.Entity
     {
         public int Id { get; set; }
         [Display(Name = "Konto")]
-        public Account Account { get; set; }
+        public CashAccount CashAccount { get; set; }
         [Display(Name = "Kwota")]
         public decimal Amount { get; set; }
         public CashFlowDirection Direction { get; set; }
         public DateTime Time { get; set; }
-        public User User { get; set; }
+        public FamilyUser FamilyUser { get; set; }
 
         public Payment()
         {
-            Account = new Account();
-            User = new User();
+            CashAccount = new CashAccount();
+            FamilyUser = new FamilyUser();
         }
     }
 }

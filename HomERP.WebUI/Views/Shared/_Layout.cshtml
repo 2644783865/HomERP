@@ -13,101 +13,7 @@
 </head>
 <body>
     <div class="container body-content">
-        <div class="col-xs-12">
-            <div class="row">
-                <div class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar-content">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            @Html.ActionLink("HomERP", "Index", "Home", null, new { @class = "navbar-brand" })
-                        </div>
-                        <div class="collapse navbar-collapse" id="mynavbar-content">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Finanse <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            @Html.ActionLink("Płatności", "Index", "Payment")
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            @Html.ActionLink("Konta", "Index", "Account")
-                                        </li>
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Portfele</a>
-                                        </li>
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Kredyty</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Podsumowanie</a>
-                                        </li>
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Oszczędzanie</a>
-                                        </li>
-
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dokumenty<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Odebrane</a>
-                                        </li>
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Do zapłaty <span class="badge">2</span></a>
-                                        </li>
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Wysłane</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Majątek<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Wyposażenie</a>
-                                        </li>
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Biblioteka</a>
-                                        </li>
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Przeglądy i remonty</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rodzina<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Informacje</a>
-                                        </li>
-                                        <li>
-                                            @Html.ActionLink("Użytkownicy", "Index", "User")
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kalendarz<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li style="text-decoration-line:line-through">
-                                            <a href="#">Przypomnienia <span class="badge">3</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li><a href="#">Wyloguj</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_MainMenu")
         <div class="row">
             <div class="col-xs-12">
                 @RenderBody()
@@ -120,5 +26,6 @@
     </div>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

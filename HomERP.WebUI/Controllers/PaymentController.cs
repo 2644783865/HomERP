@@ -7,9 +7,11 @@ using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Entity;
 using HomERP.WebUI.Models;
 using HomERP.Domain.Repository.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomERP.WebUI.Controllers
 {
+    [Authorize]
     public class PaymentController : Controller
     {
         private IPaymentProvider provider;
@@ -43,8 +45,8 @@ namespace HomERP.WebUI.Controllers
             }
             else
             {
-                model1.AccountList = provider.Accounts;
-                model1.UserList = provider.Users;
+                model1.CashAccountList = provider.CashAccounts;
+                model1.FamilyUserList = provider.FamilyUsers;
                 return View(model1);
             }
         }

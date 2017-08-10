@@ -20,10 +20,10 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Initialize()
         {
             context = new EfDbContext(HomERP.Domain.Tests.Context.MemoryContext.GenerateContextOptions());
-            Account acc = new Account { Id = 1, Name = "Konto" };
-            User user = new User() { Id = 1, Name = "Zenon" };
-            context.Accounts.Add(acc);
-            context.Users.Add(user);
+            CashAccount acc = new CashAccount { Id = 1, Name = "Konto" };
+            FamilyUser user = new FamilyUser() { Id = 1, Name = "Zenon" };
+            context.CashAccounts.Add(acc);
+            context.FamilyUsers.Add(user);
             context.SaveChanges();
             repository = new EfPaymentRepository(context);
         }
@@ -34,11 +34,11 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Payment payment = new Payment
             {
-                Account = new Account { Id = 1, Name = "Konto" },
+                CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
                 Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0),
-                User = new User() { Id = 1, Name = "Zenon" }
+                FamilyUser = new FamilyUser() { Id = 1, Name = "Zenon" }
             };
             //act
             repository.SavePayment(payment);
@@ -57,11 +57,11 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Payment payment = new Payment
             {
-                Account = new Account { Id = 1, Name = "Konto" },
+                CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
                 Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0),
-                User = new User() { Id = 1, Name = "Zenon" }
+                FamilyUser = new FamilyUser() { Id = 1, Name = "Zenon" }
             };
             repository.SavePayment(payment);
             Payment testPayment = repository.Payments.Where(a => a.Amount == 100).First();
@@ -83,11 +83,11 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Payment payment = new Payment
             {
-                Account = new Account { Id = 1, Name = "Konto" },
+                CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
                 Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0),
-                User = new User() { Id = 1, Name = "Zenon" }
+                FamilyUser = new FamilyUser() { Id = 1, Name = "Zenon" }
             };
             repository.SavePayment(payment);
             //act
@@ -106,11 +106,11 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //arrange
             Payment payment = new Payment
             {
-                Account = new Account { Id = 2, Name = "Konto2" },
+                CashAccount = new CashAccount { Id = 2, Name = "Konto2" },
                 Amount = 100,
                 Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0),
-                User = new User() { Id = 2, Name = "Marcin" }
+                FamilyUser = new FamilyUser() { Id = 2, Name = "Marcin" }
             };
             //act
             

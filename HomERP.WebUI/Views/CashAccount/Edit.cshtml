@@ -1,0 +1,35 @@
+﻿@model HomERP.Domain.Entity.CashAccount
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Konto</h2>
+
+@using (Html.BeginForm("Edit", "CashAccount", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="col-lg-4 col-sm-6 col-xs-10 col-xs-offset-1">
+
+        @Html.HiddenFor(a => a.Id)
+        <div class="form-group">
+            @Html.LabelFor(a => a.Name, null, new { @class = "control-label col-sm-5" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(a => a.Name, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(a => a.InitialAmount, null, new { @class = "control-label col-sm-5" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(a => a.InitialAmount, null, new { @class = "form-control text-right" })
+            </div>
+        </div>
+        <div class="form-group text-right">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                @Html.ActionLink("Anuluj", "Index", "CashAccount", null, new { @class = "btn btn-default" })
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </div>
+        </div>
+}
+

@@ -14,7 +14,7 @@ namespace HomERP.Domain.Repository.Abstract
         void SavePayment(Payment payment);
         Payment DeletePayment(int paymentId);
 
-        IEnumerable<Account> Accounts { get; }
-        IEnumerable<User> Users { get; }
+        IEnumerable<CashAccount> CashAccounts { get; }
+        IEnumerable<FamilyUser> FamilyUsers { get; }
     }
 }
