@@ -46,12 +46,12 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Index(ManageMessageId? message = null)
         {
             ViewData["StatusMessage"] =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Twoje hasło zostało zmienione."
+                : message == ManageMessageId.SetPasswordSuccess ? "Twoje hasło zostało ustawione."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Dwuskładnikowe uwierzytelnianie zostało włączone."
+                : message == ManageMessageId.Error ? "Wystapił błąd."
+                : message == ManageMessageId.AddPhoneSuccess ? "Numer telefonu został dodany."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Numer telefonu został usunięty."
                 : "";
 
             var user = await GetCurrentUserAsync();
