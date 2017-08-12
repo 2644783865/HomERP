@@ -4,6 +4,7 @@ using System.Text;
 using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Logic.Abstract;
+using HomERP.Domain.Authentication;
 
 namespace HomERP.Domain.Logic
 {
@@ -25,6 +26,11 @@ namespace HomERP.Domain.Logic
         public void SaveFamily(Family family)
         {
             repository.SaveFamily(family);
+        }
+
+        public Family FamilyForUser(ApplicationUser user)
+        {
+            return repository.FamilyForUser(user);
         }
     }
 }

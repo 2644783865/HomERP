@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using HomERP.Domain.Authentication;
 using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
@@ -42,6 +44,12 @@ namespace HomERP.Domain.Repository.EntityFramework
                 familyToUpdate.Description = family.Description;
             }
             context.SaveChanges();
+        }
+
+        public Family FamilyForUser(ApplicationUser user)
+        {
+            var userWithFamily = context.Users.Include(u => u.Family).Single(u => u.Id == user.Id);
+            return userWithFamily.Family;
         }
     }
 }
