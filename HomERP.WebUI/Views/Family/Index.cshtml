@@ -17,9 +17,21 @@ else
     <hr />
     <span>Członkowie rodziny:</span>
     <hr />
-    @foreach (var member in Model.FamilyMembers)
-    {
-        @member.UserName
-        <br />
-    }
+    <table class="table table-condensed table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FamilyMembers.FirstOrDefault().UserName)</th>
+                <th>@Html.DisplayNameFor(model => model.FamilyMembers.FirstOrDefault().Email)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model.FamilyMembers)
+            {
+                <tr>
+                    <td>@member.UserName</td>
+                    <td>@member.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
