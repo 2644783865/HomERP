@@ -29,13 +29,7 @@ namespace HomERP.Domain.Tests.LogicTests
         public void Should_Get_All_Families()
         {
             //arrange
-            Mock<IFamilyRepository> mock = new Mock<IFamilyRepository>();
-            mock.Setup(m => m.Families).Returns(new Family[]
-            {
-                new Family { Name = "Rodzina Kowalskich", Description = "" },
-                new Family { Name = "Rodzina Iksińskich", Description = "Jeszcze bardziej sympatyczna rodzina Iksińskich" }
-            }
-            );
+            Mock<IFamilyRepository> mock = this.PrepareMockFamilyRepository();
             FamilyProvider provider = new FamilyProvider(mock.Object);
 
             //act
@@ -46,17 +40,11 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Should_Call_FamilyProvider_SaveFamily()
+        public void Should_Call_FamilyRepository_SaveFamily()
         {
             //arrange
             Family Family = PrepareExampleFamily();
-            Mock<IFamilyRepository> mock = new Mock<IFamilyRepository>();
-            mock.Setup(m => m.Families).Returns(new Family[]
-            {
-                new Family { Name = "Rodzina Kowalskich", Description = "" },
-                new Family { Name = "Rodzina Iksińskich", Description = "Jeszcze bardziej sympatyczna rodzina Iksińskich" }
-            }
-                );
+            Mock<IFamilyRepository> mock = this.PrepareMockFamilyRepository();
             FamilyProvider provider = new FamilyProvider(mock.Object);
 
             //act
@@ -69,16 +57,10 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Should_Call_FamilyProvider_DeleteUser()
+        public void Should_Call_FamilyRepository_DeleteUser()
         {
             //arrange
-            Mock<IFamilyRepository> mock = new Mock<IFamilyRepository>();
-            mock.Setup(m => m.Families).Returns(new Family[]
-            {
-                new Family { Name = "Rodzina Kowalskich", Description = "" },
-                new Family { Name = "Rodzina Iksińskich", Description = "Jeszcze bardziej sympatyczna rodzina Iksińskich" }
-            }
-                );
+            Mock<IFamilyRepository> mock = this.PrepareMockFamilyRepository();
             Family familyToDelete = mock.Object.Families.Skip(1).First();
             FamilyProvider provider = new FamilyProvider(mock.Object);
 
@@ -89,5 +71,15 @@ namespace HomERP.Domain.Tests.LogicTests
             mock.Verify(m => m.DeleteFamily(familyToDelete.Id));
         }
 
+        private Mock<IFamilyRepository> PrepareMockFamilyRepository()
+        {
+            Mock<IFamilyRepository> mock = new Mock<IFamilyRepository>();
+            mock.Setup(m => m.Families).Returns(new Family[]
+            {
+                new Family { Name = "Rodzina Kowalskich", Description = "" },
+                new Family { Name = "Rodzina Iksińskich", Description = "Jeszcze bardziej sympatyczna rodzina Iksińskich" }
+            });
+            return mock;
+        }
     }
 }
