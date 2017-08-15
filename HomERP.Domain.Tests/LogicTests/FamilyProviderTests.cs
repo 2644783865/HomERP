@@ -10,6 +10,7 @@ using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Logic;
+using HomERP.Domain.Authentication;
 
 namespace HomERP.Domain.Tests.LogicTests
 {
@@ -69,6 +70,21 @@ namespace HomERP.Domain.Tests.LogicTests
 
             //assert if repository delete method has been called with proper identifier
             mock.Verify(m => m.DeleteFamily(familyToDelete.Id));
+        }
+
+        [TestMethod]
+        public void Should_Call_FamilyRepository_FamilyForUser()
+        {
+            //arrange
+            Mock<IFamilyRepository> mock = this.PrepareMockFamilyRepository();
+            FamilyProvider provider = new FamilyProvider(mock.Object);
+            ApplicationUser user = new ApplicationUser { Id = "1", UserName = "User", Email = "user@homerp.pl", Family = provider.Families.First() };
+
+            //act
+            Family userFamily = provider.FamilyForUser(user);
+
+            //assert
+            mock.Verify(m => m.FamilyForUser(user));
         }
 
         private Mock<IFamilyRepository> PrepareMockFamilyRepository()
