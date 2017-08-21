@@ -17,13 +17,11 @@ namespace HomERP.WebUI.Controllers
     public class FamilyController : Controller
     {
         IFamilyProvider provider;
-        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public FamilyController(IFamilyProvider provider, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public FamilyController(IFamilyProvider provider, UserManager<ApplicationUser> userManager)
         {
             this.provider = provider;
-            this.signInManager = signInManager;
             this.userManager = userManager;
         }
 
