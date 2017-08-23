@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using HomERP.Domain.Entity.Abstract;
-
 namespace HomERP.Domain.Entity
 {
-    public class FamilyUser : IFamilyUser
+    public class FamilyUser
     {
         public int Id { get; set; }
         public string Name { get; set; }
