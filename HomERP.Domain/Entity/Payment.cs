@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-using HomERP.Domain.Entity.Abstract;
 using HomERP.Domain.Helpers;
 
 namespace HomERP.Domain.Entity
 {
-    public class Payment : IOperation
+    public class Payment
     {
         public int Id { get; set; }
         [Display(Name = "Konto")]

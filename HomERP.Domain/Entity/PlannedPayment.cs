@@ -9,7 +9,7 @@ using HomERP.Domain.Helpers;
 
 namespace HomERP.Domain.Entity
 {
-    public class PlannedPayment:Payment, IOperation
+    public class PlannedPayment:Payment
     {
         public PaymentStatus Status { get; set; }
     }
