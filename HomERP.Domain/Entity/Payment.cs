@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 using HomERP.Domain.Helpers;
 
@@ -11,9 +12,12 @@ namespace HomERP.Domain.Entity
 {
     public class Payment
     {
+        [Key]
         public int Id { get; set; }
         [Display(Name = "Konto")]
-        public CashAccount CashAccount { get; set; }
+        public int CashAccountId { get; set; }
+        [ForeignKey(nameof(CashAccountId))]
+        public virtual CashAccount CashAccount { get; set; }
         [Display(Name = "Kwota")]
         public decimal Amount { get; set; }
         public CashFlowDirection Direction { get; set; }
