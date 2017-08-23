@@ -5,7 +5,6 @@ using FluentAssertions;
 
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Repository.EntityFramework;
-using HomERP.Domain.Entity.Abstract;
 using HomERP.Domain.Entity;
 
 namespace HomERP.Domain.Tests.RepositoryTests
