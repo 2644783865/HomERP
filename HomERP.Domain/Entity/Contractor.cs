@@ -7,9 +7,9 @@ using HomERP.Domain.Helpers;
 
 namespace HomERP.Domain.Entity
 {
-    public class Company
+    public class Contractor
     {
-        public SubjectKind Kind { get; } = SubjectKind.Company;
+        public ContractorKind Kind { get; } = ContractorKind.Company;
 
         public string Name { get; set; }
     }
