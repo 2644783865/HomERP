@@ -9,10 +9,12 @@ namespace HomERP.Domain.Entity
 {
     public class CashAccount
     {
+        [Key]
         public int Id { get; set; }
         [Display(Name = "Stan początkowy")]
         public decimal InitialAmount { get; set; }
         [Display(Name="Nazwa konta")]
         public string Name { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }
