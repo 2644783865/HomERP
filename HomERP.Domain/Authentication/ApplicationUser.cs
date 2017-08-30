@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using HomERP.Domain.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomERP.Domain.Authentication
 {
@@ -15,6 +16,8 @@ namespace HomERP.Domain.Authentication
         [Display(Name ="Nazwa użytkownika")]
         public override string UserName { get; set; }
 
-        public Family Family { get; set; }
+        public int FamilyId { get; set; }
+        [ForeignKey(nameof(FamilyId))]
+        public virtual Family Family { get; set; }
     }
 }

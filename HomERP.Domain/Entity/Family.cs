@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomERP.Domain.Authentication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -14,5 +15,6 @@ namespace HomERP.Domain.Entity
         public string Name { get; set; }
         [StringLength(200, ErrorMessage = "Opis może mieć max. {0} znaków.")]
         public string Description { get; set; }
+        public virtual ICollection<ApplicationUser> FamilyMembers { get; }
     }
 }
