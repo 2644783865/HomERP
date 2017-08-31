@@ -14,6 +14,13 @@ namespace HomERP.Domain.Repository.EntityFramework
 {
     public class EfDbContext : IdentityDbContext<ApplicationUser>
     {
+        //parameterless constructor used for creating migrations
+        public EfDbContext()
+            : base(new DbContextOptionsBuilder()
+                  .UseSqlServer("Server=localhost;Database=HomERP;Trusted_Connection=True;")
+                  .Options)
+        { }
+
         public EfDbContext(DbContextOptions<EfDbContext> options) : base(options) { }
 
         public DbSet<CashAccount> CashAccounts { get; set; }
