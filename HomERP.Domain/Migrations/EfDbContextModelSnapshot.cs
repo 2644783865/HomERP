@@ -125,7 +125,7 @@ namespace HomERP.Domain.Migrations
 
                     b.Property<decimal>("Amount");
 
-                    b.Property<int?>("CashAccountId");
+                    b.Property<int>("CashAccountId");
 
                     b.Property<int>("Direction");
 
@@ -268,15 +268,16 @@ namespace HomERP.Domain.Migrations
             modelBuilder.Entity("HomERP.Domain.Authentication.ApplicationUser", b =>
                 {
                     b.HasOne("HomERP.Domain.Entity.Family", "Family")
-                        .WithMany()
+                        .WithMany("FamilyMembers")
                         .HasForeignKey("FamilyId");
                 });
 
             modelBuilder.Entity("HomERP.Domain.Entity.Payment", b =>
                 {
                     b.HasOne("HomERP.Domain.Entity.CashAccount", "CashAccount")
-                        .WithMany()
-                        .HasForeignKey("CashAccountId");
+                        .WithMany("Payments")
+                        .HasForeignKey("CashAccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("HomERP.Domain.Entity.FamilyUser", "FamilyUser")
                         .WithMany()
