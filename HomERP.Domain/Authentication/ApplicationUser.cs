@@ -16,7 +16,7 @@ namespace HomERP.Domain.Authentication
         [Display(Name ="Nazwa użytkownika")]
         public override string UserName { get; set; }
 
-        public int FamilyId { get; set; }
+        public int? FamilyId { get; set; }
         [ForeignKey(nameof(FamilyId))]
         public virtual Family Family { get; set; }
     }
