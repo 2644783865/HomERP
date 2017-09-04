@@ -20,5 +20,22 @@ namespace HomERP.Domain.Repository.EntityFramework
                 return context.Users;
             }
         }
+
+        public void SaveUser(ApplicationUser user)
+        {
+            if (user.Id == string.Empty)
+            {
+                throw new Exception("Can't happen!");
+            }
+            else
+            {
+                ApplicationUser userToUpdate = context.Users.Find(user.Id);
+                if (userToUpdate!=null)
+                {
+                    userToUpdate.FamilyId = user.FamilyId;
+                }
+            }
+            context.SaveChanges();
+        }
     }
 }
