@@ -77,8 +77,10 @@ namespace HomERP.WebUI
                 .AddTransient<ICashAccountProvider, CashAccountProvider>()
                 .AddTransient<ICashAccountRepository, EfCashAccountRepository>()
                 .AddTransient<IFamilyProvider, FamilyProvider>()
-                .AddTransient<IFamilyRepository, EfFamilyRepository>();
-            
+                .AddTransient<IFamilyRepository, EfFamilyRepository>()
+                .AddTransient<IUserProvider, UserProvider>()
+                .AddTransient<IUserRepository, UserRepository>();
+
             services
                 .AddTransient<IEmailSender, AuthMessageSender>()
                 .AddTransient<ISmsSender, AuthMessageSender>();

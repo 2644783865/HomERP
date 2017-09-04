@@ -17,11 +17,13 @@ namespace HomERP.WebUI.Controllers
     public class FamilyController : Controller
     {
         IFamilyProvider provider;
+        IUserProvider userProvider;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public FamilyController(IFamilyProvider provider, UserManager<ApplicationUser> userManager)
+        public FamilyController(IFamilyProvider provider, IUserProvider userProvider, UserManager<ApplicationUser> userManager)
         {
             this.provider = provider;
+            this.userProvider = userProvider;
             this.userManager = userManager;
         }
 
@@ -35,5 +37,32 @@ namespace HomERP.WebUI.Controllers
             };
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            ApplicationUser currentUser = await userManager.GetUserAsync(User);
+            Family model = provider.FamilyForUser(currentUser);
+            if (model == null) model = new Family();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Family model)
+        {
+            ApplicationUser currentUser = await userManager.GetUserAsync(User);
+            if (provider.SaveFamily(model, currentUser))
+            {
+                if (currentUser.FamilyId == null)
+                {
+                    currentUser.FamilyId = model.Id;
+                    userProvider.SaveUser(currentUser);
+                }
+                return RedirectToAction("Index");
+            }
+            else
+                return View(model);
+        }
+
     }
 }
