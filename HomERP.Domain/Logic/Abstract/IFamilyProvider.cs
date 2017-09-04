@@ -9,7 +9,7 @@ namespace HomERP.Domain.Logic.Abstract
     public interface IFamilyProvider
     {
         IEnumerable<Family> Families { get; }
-        void SaveFamily(Family family);
+        bool SaveFamily(Family family, ApplicationUser currentUser);
         Family DeleteFamily(int familyId);
         Family FamilyForUser(ApplicationUser user);
     }
