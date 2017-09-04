@@ -9,5 +9,6 @@ namespace HomERP.Domain.Logic.Abstract
     public interface IUserProvider
     {
         IEnumerable<ApplicationUser> GetFamilyMembers(Family family);
+        void SaveUser(ApplicationUser user);
     }
 }

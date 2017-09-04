@@ -22,5 +22,10 @@ namespace HomERP.Domain.Logic
         {
             return repository.Users.Where(u=>u.Family.Id == family.Id);
         }
+
+        public void SaveUser(ApplicationUser user)
+        {
+            this.repository.SaveUser(user);
+        }
     }
 }
