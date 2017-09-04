@@ -48,8 +48,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public Family FamilyForUser(ApplicationUser user)
         {
-            var userWithFamily = context.Users.Include(u => u.Family).Single(u => u.Id == user.Id);
-            return userWithFamily.Family;
+            return context.Families.FirstOrDefault(f=>f.Id == user.FamilyId);
         }
     }
 }
