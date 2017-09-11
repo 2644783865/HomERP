@@ -95,17 +95,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rodzina<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li style="text-decoration-line:line-through">
-                                        <a href="#">Informacje</a>
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Użytkownicy", "Index", "FamilyUser")
-                                    </li>
-                                </ul>
-                            </li>
+                            <li class="nav-item"><a class="navbar-link" href="/Family">Rodzina</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kalendarz<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -114,9 +104,9 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                            <li class="nav-item">
                                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-                                    <button class="btn btn-link navbar-btn navbar-link" type="submit">Wyloguj się</button>
+                                    <button class="btn btn-default btn-outline-success navbar-btn navbar-link" type="submit">Wyloguj się</button>
                                 </form>
                             </li>
                         }
