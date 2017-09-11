@@ -23,7 +23,7 @@ namespace HomERP.Domain.Logic
             return repository.DeleteFamily(familyId);
         }
 
-        public bool SaveFamily(Family family, ApplicationUser currentUser)
+        public bool SaveFamily(Family family, IApplicationUser currentUser)
         {
             if (currentUser.FamilyId == null && family.Id == 0
                 || currentUser.FamilyId == family.Id)

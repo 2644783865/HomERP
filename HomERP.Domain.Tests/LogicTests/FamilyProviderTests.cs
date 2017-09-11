@@ -21,6 +21,7 @@ namespace HomERP.Domain.Tests.LogicTests
         {
             return new Family
             {
+                Id = 1,
                 Name = "Rodzina Kowalskich",
                 Description = "Bardzo sympatyczna rodzina Kowalskich"
             };
@@ -47,14 +48,17 @@ namespace HomERP.Domain.Tests.LogicTests
             Family Family = PrepareExampleFamily();
             Mock<IFamilyRepository> mock = this.PrepareMockFamilyRepository();
             FamilyProvider provider = new FamilyProvider(mock.Object);
+            Mock<IApplicationUser> mockUser = new Mock<IApplicationUser>();
+            mockUser.Setup(u => u.FamilyId).Returns(1);
 
             //act
-            provider.SaveFamily(Family);
+            bool result = provider.SaveFamily(Family, mockUser.Object);
 
             //assert
             //In this place we have to focus on that underlying repository method has been properly called
             //instead of wandering if entity has been properly saved - this is the repository responsibility.
             mock.Verify(m => m.SaveFamily(Family));
+            result.Should().BeTrue();
         }
 
         [TestMethod]
