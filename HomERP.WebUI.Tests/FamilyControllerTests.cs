@@ -38,6 +38,7 @@ namespace HomERP.WebUI.Tests
             //assert
             result.Should().BeOfType<Task<IActionResult>>();
             mockFamilyProvider.Verify(x => x.FamilyForUser(It.IsAny<ApplicationUser>()));
+            mockUserProvider.Verify(x => x.GetFamilyMembers(It.IsAny<Family>()), Times.Once);
         }
     }
 }

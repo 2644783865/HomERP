@@ -32,9 +32,9 @@ namespace HomERP.WebUI.Controllers
             ApplicationUser currentUser = await userManager.GetUserAsync(User);
             FamilyOverviewVM model = new FamilyOverviewVM
             {
-                Family = provider.FamilyForUser(currentUser),
-                FamilyMembers = new ApplicationUser[] { currentUser }
+                Family = provider.FamilyForUser(currentUser)                
             };
+            model.FamilyMembers = userProvider.GetFamilyMembers(model.Family);
             return View(model);
         }
 
