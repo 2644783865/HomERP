@@ -17,5 +17,7 @@ namespace HomERP.WebUI.Models.ManageViewModels
         public bool TwoFactor { get; set; }
 
         public bool BrowserRemembered { get; set; }
+
+        public string UserName { get; set; }
     }
 }

@@ -10,15 +10,21 @@
     <h4>Zmień swoje dane</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>Nazwa użytkownika:</dt>
+        <dd>
+            @Model.UserName - <a asp-controller="Manage" asp-action="ChangeUserName" class="btn-bracketed">Zmień</a>
+        </dd>
+    </dl>
+    <dl class="dl-horizontal">
         <dt>Hasło:</dt>
         <dd>
             @if (Model.HasPassword)
             {
-                <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Zmień</a>
+                        <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Zmień</a>
             }
             else
             {
-                <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Create</a>
+                        <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Create</a>
             }
         </dd>
     </dl>

@@ -65,7 +65,8 @@ namespace WebApplication2.Controllers
                 PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
-                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
+                UserName = user.UserName
             };
             return View(model);
         }
@@ -340,6 +341,20 @@ namespace WebApplication2.Controllers
                 await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
             }
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
+        }
+
+        //
+        // GET: /Manage/ChangeUserName
+        [HttpGet]
+        public async Task<IActionResult> ChangeUserName()
+        {
+            var user = await GetCurrentUserAsync();
+            ChangeUserNameViewModel model = new ChangeUserNameViewModel();
+            if (user != null)
+            {
+                model.UserName = user.UserName;
+            }
+            return View(model);
         }
 
         #region Helpers
