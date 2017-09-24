@@ -9,7 +9,7 @@ using HomERP.Domain.Helpers;
 namespace HomERP.Domain.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20170806143943_Initial-Migration")]
+    [Migration("20170901195338_Initial-Migration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,8 @@ namespace HomERP.Domain.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<int?>("FamilyId");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -58,6 +60,8 @@ namespace HomERP.Domain.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FamilyId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -80,6 +84,23 @@ namespace HomERP.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CashAccounts");
+                });
+
+            modelBuilder.Entity("HomERP.Domain.Entity.Family", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Families");
                 });
 
             modelBuilder.Entity("HomERP.Domain.Entity.FamilyUser", b =>
@@ -105,7 +126,7 @@ namespace HomERP.Domain.Migrations
 
                     b.Property<decimal>("Amount");
 
-                    b.Property<int?>("CashAccountId");
+                    b.Property<int>("CashAccountId");
 
                     b.Property<int>("Direction");
 
@@ -245,11 +266,19 @@ namespace HomERP.Domain.Migrations
                     b.HasDiscriminator().HasValue("PlannedPayment");
                 });
 
+            modelBuilder.Entity("HomERP.Domain.Authentication.ApplicationUser", b =>
+                {
+                    b.HasOne("HomERP.Domain.Entity.Family", "Family")
+                        .WithMany("FamilyMembers")
+                        .HasForeignKey("FamilyId");
+                });
+
             modelBuilder.Entity("HomERP.Domain.Entity.Payment", b =>
                 {
                     b.HasOne("HomERP.Domain.Entity.CashAccount", "CashAccount")
-                        .WithMany()
-                        .HasForeignKey("CashAccountId");
+                        .WithMany("Payments")
+                        .HasForeignKey("CashAccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("HomERP.Domain.Entity.FamilyUser", "FamilyUser")
                         .WithMany()

@@ -1,0 +1,36 @@
+﻿@model HomERP.WebUI.Models.FamilyViewModels.FamilyOverviewVM
+
+@if (Model.Family == null)
+{
+    <h2>Rodzina</h2>
+    <div class="panel">
+        <div class="panel-heading">Uwaga</div>
+        <div class="panel-body">Nie należysz jeszcze do żadnej rodziny. Aby dołączyc do istniejącej, musisz otrzymać zaproszenie.
+        Możesz także utworzyć własną rodzinę.</div>
+        <div class="panel-footer"><a asp-controller="Family" asp-action="Edit" class="btn btn-default">Utwórz rodzinę...</a></div>
+    </div>
+}
+else
+{
+    <h2>Rodzina: @Model.Family.Name</h2>
+    <span>@Model.Family.Description</span>
+    <hr />
+    <h3>Członkowie rodziny:</h3>
+    <table class="table table-condensed table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FamilyMembers.FirstOrDefault().UserName)</th>
+                <th>@Html.DisplayNameFor(model => model.FamilyMembers.FirstOrDefault().Email)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model.FamilyMembers)
+            {
+                <tr>
+                    <td>@member.UserName</td>
+                    <td>@member.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
