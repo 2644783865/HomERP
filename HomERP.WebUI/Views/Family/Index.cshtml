@@ -1,8 +1,8 @@
 ﻿@model HomERP.WebUI.Models.FamilyViewModels.FamilyOverviewVM
 
-<h2>Rodzina</h2>
 @if (Model.Family == null)
 {
+    <h2>Rodzina</h2>
     <div class="panel">
         <div class="panel-heading">Uwaga</div>
         <div class="panel-body">Nie należysz jeszcze do żadnej rodziny. Aby dołączyc do istniejącej, musisz otrzymać zaproszenie.
@@ -12,11 +12,10 @@
 }
 else
 {
-    <h3>Nazwa: @Model.Family.Name</h3>
+    <h2>Rodzina: @Model.Family.Name</h2>
     <span>@Model.Family.Description</span>
     <hr />
-    <span>Członkowie rodziny:</span>
-    <hr />
+    <h3>Członkowie rodziny:</h3>
     <table class="table table-condensed table-striped table-bordered">
         <thead>
             <tr>
