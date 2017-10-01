@@ -11,8 +11,9 @@ using HomERP.WebUI.Models;
 using HomERP.WebUI.Models.ManageViewModels;
 using HomERP.Domain.Services;
 using HomERP.Domain.Authentication;
+using HomERP.Domain.Logic.Abstract;
 
-namespace WebApplication2.Controllers
+namespace HomERP.WebUI.Controllers
 {
     [Authorize]
     public class ManageController : Controller
@@ -23,6 +24,7 @@ namespace WebApplication2.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly IUserProvider userProvider;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
@@ -30,7 +32,8 @@ namespace WebApplication2.Controllers
           IOptions<IdentityCookieOptions> identityCookieOptions,
           IEmailSender emailSender,
           ISmsSender smsSender,
-          ILoggerFactory loggerFactory)
+          ILoggerFactory loggerFactory,
+          IUserProvider userProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,6 +41,7 @@ namespace WebApplication2.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
+            this.userProvider = userProvider;
         }
 
         //
@@ -52,6 +56,7 @@ namespace WebApplication2.Controllers
                 : message == ManageMessageId.Error ? "Wystapił błąd."
                 : message == ManageMessageId.AddPhoneSuccess ? "Numer telefonu został dodany."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Numer telefonu został usunięty."
+                : message == ManageMessageId.ChangeUsernameSuccess ? "Nazwa użytkownika została zmieniona."
                 : "";
 
             var user = await GetCurrentUserAsync();
@@ -357,6 +362,17 @@ namespace WebApplication2.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ChangeUserName(string UserName)
+        {
+            ManageMessageId? message = ManageMessageId.Error;
+            var user = await GetCurrentUserAsync();
+            user.UserName = UserName;
+            this.userProvider.SaveUser(user);
+            message = ManageMessageId.ChangeUsernameSuccess;
+            return RedirectToAction(nameof(Index), new { Message = message });
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)
@@ -376,6 +392,7 @@ namespace WebApplication2.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            ChangeUsernameSuccess,
             Error
         }
 

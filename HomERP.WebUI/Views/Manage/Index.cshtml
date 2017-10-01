@@ -4,7 +4,10 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<p class="text-success">@ViewData["StatusMessage"]</p>
+@if (!string.IsNullOrWhiteSpace(@ViewData["StatusMessage"].ToString()))
+{
+    <p class="alert alert-success alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>@ViewData["StatusMessage"]</p>
+}
 
 <div>
     <h4>Zmień swoje dane</h4>
