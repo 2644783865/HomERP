@@ -56,7 +56,6 @@ namespace HomERP.WebUI.Controllers
                 : message == ManageMessageId.Error ? "Wystapił błąd."
                 : message == ManageMessageId.AddPhoneSuccess ? "Numer telefonu został dodany."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Numer telefonu został usunięty."
-                : message == ManageMessageId.ChangeUsernameSuccess ? "Nazwa użytkownika została zmieniona."
                 : "";
 
             var user = await GetCurrentUserAsync();
@@ -348,31 +347,6 @@ namespace HomERP.WebUI.Controllers
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
 
-        //
-        // GET: /Manage/ChangeUserName
-        [HttpGet]
-        public async Task<IActionResult> ChangeUserName()
-        {
-            var user = await GetCurrentUserAsync();
-            ChangeUserNameViewModel model = new ChangeUserNameViewModel();
-            if (user != null)
-            {
-                model.UserName = user.UserName;
-            }
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ChangeUserName(string UserName)
-        {
-            ManageMessageId? message = ManageMessageId.Error;
-            var user = await GetCurrentUserAsync();
-            user.UserName = UserName;
-            this.userProvider.SaveUser(user);
-            message = ManageMessageId.ChangeUsernameSuccess;
-            return RedirectToAction(nameof(Index), new { Message = message });
-        }
-
         #region Helpers
 
         private void AddErrors(IdentityResult result)
@@ -392,7 +366,6 @@ namespace HomERP.WebUI.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            ChangeUsernameSuccess,
             Error
         }
 
