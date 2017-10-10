@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace HomERP.WebUI.Models.ManageViewModels
 {
-    public class ChangeUserNameViewModel
+    public class ChangeEmailViewModel
     {
-        [Required (ErrorMessage = "Nazwa uzytkownika jest wymagana.")]
-        [Display(Name = "Nazwa użytkownika")]
-        public string UserName { get; set; }
+        [Required (ErrorMessage = "Email jest wymagany.")]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
     }
 }

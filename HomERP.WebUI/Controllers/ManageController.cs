@@ -56,6 +56,7 @@ namespace HomERP.WebUI.Controllers
                 : message == ManageMessageId.Error ? "Wystapił błąd."
                 : message == ManageMessageId.AddPhoneSuccess ? "Numer telefonu został dodany."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Numer telefonu został usunięty."
+                : message == ManageMessageId.ChangeEmailSuccess ? "Email użytkownika został zmieniony."
                 : "";
 
             var user = await GetCurrentUserAsync();
@@ -70,7 +71,8 @@ namespace HomERP.WebUI.Controllers
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
                 BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
-                UserName = user.UserName
+                UserName = user.UserName,
+                Email = user.Email
             };
             return View(model);
         }
@@ -347,6 +349,30 @@ namespace HomERP.WebUI.Controllers
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
 
+        // GET: /Manage/ChangeEmail
+        [HttpGet]
+        public async Task<IActionResult> ChangeEmail()
+        {
+            var user = await GetCurrentUserAsync();
+            ChangeEmailViewModel model = new ChangeEmailViewModel();
+            if (user != null)
+            {
+                model.Email = user.Email;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeEmail(string Email)
+        {
+            ManageMessageId? message = ManageMessageId.Error;
+            var user = await GetCurrentUserAsync();
+            user.Email = Email;
+            await _userManager.UpdateAsync(user);
+            message = ManageMessageId.ChangeEmailSuccess;
+            return RedirectToAction(nameof(Index), new { Message = message });
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)
@@ -366,6 +392,7 @@ namespace HomERP.WebUI.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            ChangeEmailSuccess,
             Error
         }
 
