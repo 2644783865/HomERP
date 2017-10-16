@@ -8,9 +8,9 @@ namespace HomERP.WebUI.Models.AccountViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Email jest wymagany.")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Nazwa użytkownika jest wymagana.")]
+        [Display(Name = "Nazwa użytkownika")]
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Hasło jest wymagane.")]
         [DataType(DataType.Password)]

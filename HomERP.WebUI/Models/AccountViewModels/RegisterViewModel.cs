@@ -8,6 +8,10 @@ namespace HomERP.WebUI.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "Nazwa użytkownika jest wymagana.")]
+        [Display(Name = "Nazwa użytkownika")]
+        public string UserName { get; set; }
+
         [Required(ErrorMessage = "Email jest wymagany.")]
         [EmailAddress]
         [Display(Name = "Email")]
