@@ -34,8 +34,5 @@ namespace HomERP.Domain.Logic
 
         public IEnumerable<CashAccount> CashAccounts
         { get { return paymentRepository.CashAccounts; } }
-
-        public IEnumerable<FamilyUser> FamilyUsers
-        { get { return paymentRepository.FamilyUsers; } }
     }
 }

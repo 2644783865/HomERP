@@ -22,12 +22,10 @@ namespace HomERP.Domain.Entity
         public decimal Amount { get; set; }
         public CashFlowDirection Direction { get; set; }
         public DateTime Time { get; set; }
-        public FamilyUser FamilyUser { get; set; }
 
         public Payment()
         {
             CashAccount = new CashAccount();
-            FamilyUser = new FamilyUser();
         }
     }
 }

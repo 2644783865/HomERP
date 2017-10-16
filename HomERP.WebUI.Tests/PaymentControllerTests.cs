@@ -55,17 +55,12 @@ namespace HomERP.WebUI.Tests
             {
                 new CashAccount{ Id = 1, Name = "Portfel"}
             });
-            mock.Setup(u => u.FamilyUsers).Returns(new FamilyUser[]
-            {
-                new FamilyUser { Id = 1, Name="Marcin" }
-            });
             PaymentController controller = new PaymentController(mock.Object);
             //act
             var result = controller.Edit(1);
             //assert
             mock.Verify(p => p.Payments);
             mock.Verify(a => a.CashAccounts);
-            mock.Verify(u => u.FamilyUsers);
             result.Should().BeOfType<ViewResult>();
         }
 

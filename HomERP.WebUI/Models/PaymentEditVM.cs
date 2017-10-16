@@ -11,13 +11,11 @@ namespace HomERP.WebUI.Models
     {
         public Payment Payment { get; set; }
         public IEnumerable<CashAccount> CashAccountList { get; set; }
-        public IEnumerable<FamilyUser> FamilyUserList { get; set; }
 
         public PaymentEditVM() { }
         public PaymentEditVM(IPaymentProvider provider)
         {
             CashAccountList = provider.CashAccounts;
-            FamilyUserList = provider.FamilyUsers;
         }
     }
 }
