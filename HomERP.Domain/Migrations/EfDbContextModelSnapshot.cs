@@ -76,11 +76,15 @@ namespace HomERP.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("FamilyId");
+
                     b.Property<decimal>("InitialAmount");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FamilyId");
 
                     b.ToTable("CashAccounts");
                 });
@@ -250,6 +254,14 @@ namespace HomERP.Domain.Migrations
                     b.HasOne("HomERP.Domain.Entity.Family", "Family")
                         .WithMany("FamilyMembers")
                         .HasForeignKey("FamilyId");
+                });
+
+            modelBuilder.Entity("HomERP.Domain.Entity.CashAccount", b =>
+                {
+                    b.HasOne("HomERP.Domain.Entity.Family", "Family")
+                        .WithMany("FamilyAccounts")
+                        .HasForeignKey("FamilyId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("HomERP.Domain.Entity.Payment", b =>

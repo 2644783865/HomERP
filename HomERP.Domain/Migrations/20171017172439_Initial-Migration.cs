@@ -10,20 +10,6 @@ namespace HomERP.Domain.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CashAccounts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    InitialAmount = table.Column<decimal>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CashAccounts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Families",
                 columns: table => new
                 {
@@ -35,21 +21,6 @@ namespace HomERP.Domain.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Families", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FamilyUsers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Email = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    PasswordHash = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FamilyUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,34 +84,24 @@ namespace HomERP.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payments",
+                name: "CashAccounts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Amount = table.Column<decimal>(nullable: false),
-                    CashAccountId = table.Column<int>(nullable: false),
-                    Direction = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    FamilyUserId = table.Column<int>(nullable: true),
-                    Time = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<int>(nullable: true)
+                    FamilyId = table.Column<int>(nullable: false),
+                    InitialAmount = table.Column<decimal>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.PrimaryKey("PK_CashAccounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Payments_CashAccounts_CashAccountId",
-                        column: x => x.CashAccountId,
-                        principalTable: "CashAccounts",
+                        name: "FK_CashAccounts_Families_FamilyId",
+                        column: x => x.FamilyId,
+                        principalTable: "Families",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Payments_FamilyUsers_FamilyUserId",
-                        column: x => x.FamilyUserId,
-                        principalTable: "FamilyUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -229,6 +190,30 @@ namespace HomERP.Domain.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Amount = table.Column<decimal>(nullable: false),
+                    CashAccountId = table.Column<int>(nullable: false),
+                    Direction = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Time = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_CashAccounts_CashAccountId",
+                        column: x => x.CashAccountId,
+                        principalTable: "CashAccounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_FamilyId",
                 table: "AspNetUsers",
@@ -246,14 +231,14 @@ namespace HomERP.Domain.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CashAccounts_FamilyId",
+                table: "CashAccounts",
+                column: "FamilyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_CashAccountId",
                 table: "Payments",
                 column: "CashAccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payments_FamilyUserId",
-                table: "Payments",
-                column: "FamilyUserId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -304,9 +289,6 @@ namespace HomERP.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "CashAccounts");
-
-            migrationBuilder.DropTable(
-                name: "FamilyUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
