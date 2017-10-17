@@ -45,6 +45,7 @@ namespace HomERP.Domain.Repository.EntityFramework
                 {
                     cashAccountToUpdate.InitialAmount = cashAccount.InitialAmount;
                     cashAccountToUpdate.Name = cashAccount.Name;
+                    cashAccountToUpdate.Family = cashAccount.Family;
                 }
             }
             context.SaveChanges();

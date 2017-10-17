@@ -19,6 +19,8 @@ namespace HomERP.Domain.Entity
         public string Description { get; set; }
         public virtual ICollection<ApplicationUser> FamilyMembers { get; }
 
+        public virtual ICollection<CashAccount> FamilyAccounts { get; set; }
+
         public Family()
         {
             FamilyMembers = new List<ApplicationUser>();
