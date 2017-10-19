@@ -19,9 +19,16 @@ namespace HomERP.WebUI.Helpers
             this.httpContextAccessor = httpContextAccessor;
             this.context = this.httpContextAccessor.HttpContext;
         }
-        public Family GetFamily()
+        public Family Family
         {
-            return context.Session.Get<Family>("Family");
+            get
+            {
+                return context.Session.Get<Family>("Family");
+            }
+            set
+            {
+                context.Session.Set<Family>("Family", value);
+            }
         }
     }
 }

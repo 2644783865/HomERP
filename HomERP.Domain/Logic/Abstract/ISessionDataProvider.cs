@@ -7,6 +7,6 @@ namespace HomERP.Domain.Logic.Abstract
 {
     public interface ISessionDataProvider
     {
-        Family GetFamily();
+        Family Family { get; set; }
     }
 }

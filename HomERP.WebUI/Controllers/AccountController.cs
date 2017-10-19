@@ -28,6 +28,7 @@ namespace HomERP.WebUI.Controllers
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
         private readonly IFamilyProvider familyProvider;
+        private readonly ISessionDataProvider sessionDataProvider;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -36,7 +37,8 @@ namespace HomERP.WebUI.Controllers
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory,
-            IFamilyProvider familyProvider)
+            IFamilyProvider familyProvider,
+            ISessionDataProvider sessionDataProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -45,6 +47,7 @@ namespace HomERP.WebUI.Controllers
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
             this.familyProvider = familyProvider;
+            this.sessionDataProvider = sessionDataProvider;
         }
 
         //
@@ -75,9 +78,8 @@ namespace HomERP.WebUI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    ApplicationUser user = await _userManager.FindByNameAsync(model.UserName); //await _userManager.GetUserAsync(HttpContext.User);
-                    Domain.Entity.Family family = familyProvider.FamilyForUser(user);
-                    HttpContext.Session.Set<Domain.Entity.Family>("Family", family);
+                    ApplicationUser user = await _userManager.FindByNameAsync(model.UserName);
+                    sessionDataProvider.Family = familyProvider.FamilyForUser(user);
                     _logger.LogInformation(1, "Użytkownik zalogowany.");
                     return RedirectToLocal(returnUrl);
                 }

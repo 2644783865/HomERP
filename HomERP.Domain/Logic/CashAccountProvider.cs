@@ -18,7 +18,7 @@ namespace HomERP.Domain.Logic
         {
             this.repository = repository;
             this.sessionProvider = sessionProvider;
-            this.Family = sessionProvider.GetFamily();
+            this.Family = sessionProvider.Family;
         }
 
         public Family Family
