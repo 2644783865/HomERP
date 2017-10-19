@@ -23,7 +23,10 @@ namespace HomERP.WebUI.Helpers
         {
             get
             {
-                return context.Session.Get<Family>("Family");
+                Family family = context.Session.Get<Family>("Family");
+                if (family != null && family.Id <= 0)
+                { family = null; }
+                return family;
             }
             set
             {

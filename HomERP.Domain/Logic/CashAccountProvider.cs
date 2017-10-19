@@ -18,20 +18,17 @@ namespace HomERP.Domain.Logic
         {
             this.repository = repository;
             this.sessionProvider = sessionProvider;
-            this.Family = sessionProvider.Family;
-        }
-
-        public Family Family
-        {
-            set
-            {
-                if (value.Id <= 0) throw new ArgumentException();
-                this.family = value;
-            }
+            this.family = sessionProvider.Family;
         }
 
         public IEnumerable<CashAccount> CashAccounts
-        { get { return repository.CashAccounts.Where(ca => ca.Family.Id == family.Id); } }
+        {
+            get
+            {
+                if (this.family == null) throw new ArgumentNullException("CashAccount requires an user to have a family.");
+                return repository.CashAccounts.Where(ca => ca.Family.Id == this.family.Id);
+            }
+        }
 
         public CashAccount DeleteCashAccount(int cashAccountId)
         {

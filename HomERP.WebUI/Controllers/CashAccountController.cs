@@ -21,7 +21,15 @@ namespace HomERP.WebUI.Controllers
 
         public IActionResult Index()
         {
-            return View(provider.CashAccounts);
+            try
+            {
+                return View(provider.CashAccounts);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return RedirectToAction("Index", "Family");
+            }
+
         }
 
         public IActionResult Edit(int id)

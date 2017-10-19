@@ -32,17 +32,20 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<ICashAccountRepository> mock = new Mock<ICashAccountRepository>();
             mock.Setup(m => m.CashAccounts).Returns(new CashAccount[]
             {
-                new CashAccount { InitialAmount=100, Name = "Konto1"},
-                new CashAccount { InitialAmount=65.02m, Name = "Konto2"}
-            }
-                );
-            CashAccountProvider provider = new CashAccountProvider(mock.Object);
+                new CashAccount { InitialAmount=100, Name = "Konto1", FamilyId = 1, Family = new Family { Id = 1 } },
+                new CashAccount { InitialAmount=65.02m, Name = "Konto2", FamilyId = 1, Family = new Family { Id = 1 }},
+                new CashAccount { InitialAmount=50.00m, Name = "Konto3", FamilyId = 2, Family = new Family { Id = 2 }}
+            });
+
+            Mock<ISessionDataProvider> sessionProvider = new Mock<ISessionDataProvider>();
+            sessionProvider.Setup(s => s.Family).Returns(new Family { Id = 1, Name = "Super Family" });
+            CashAccountProvider provider = new CashAccountProvider(mock.Object, sessionProvider.Object);
 
             //act
             IEnumerable<CashAccount> CashAccounts = provider.CashAccounts;
 
             //assert
-            CashAccounts.Should().HaveCount(2, "you have 2 entities in the repository");
+            CashAccounts.Should().HaveCount(2, "you have 2 account for your Family and one for another Family");
         }
     }
 }

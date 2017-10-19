@@ -10,6 +10,5 @@ namespace HomERP.Domain.Logic.Abstract
         IEnumerable<CashAccount> CashAccounts { get; }
         void SaveCashAccount(CashAccount account);
         CashAccount DeleteCashAccount(int accountId);
-        Family Family { set; }
     }
 }
