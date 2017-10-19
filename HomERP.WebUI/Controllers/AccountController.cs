@@ -12,6 +12,9 @@ using Microsoft.Extensions.Options;
 using HomERP.Domain.Authentication;
 using HomERP.WebUI.Models.AccountViewModels;
 using HomERP.Domain.Services;
+using HomERP.Domain.Logic.Abstract;
+using Microsoft.AspNetCore.Http;
+using HomERP.WebUI.Helpers;
 
 namespace HomERP.WebUI.Controllers
 {
@@ -24,6 +27,7 @@ namespace HomERP.WebUI.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+        private readonly IFamilyProvider familyProvider;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -31,7 +35,8 @@ namespace HomERP.WebUI.Controllers
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IFamilyProvider familyProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,6 +44,7 @@ namespace HomERP.WebUI.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            this.familyProvider = familyProvider;
         }
 
         //
@@ -69,6 +75,9 @@ namespace HomERP.WebUI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    ApplicationUser user = await _userManager.FindByNameAsync(model.UserName); //await _userManager.GetUserAsync(HttpContext.User);
+                    Domain.Entity.Family family = familyProvider.FamilyForUser(user);
+                    HttpContext.Session.Set<Domain.Entity.Family>("Family", family);
                     _logger.LogInformation(1, "Użytkownik zalogowany.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -107,6 +116,7 @@ namespace HomERP.WebUI.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
