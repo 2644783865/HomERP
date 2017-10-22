@@ -13,7 +13,7 @@ namespace HomERP.Domain.Authentication.Helpers
 {
     public static class RolesData
     {
-        private static readonly string[] Roles = new string[] { "Administrator", "FamilyHead", "User"};
+        private static readonly string[] Roles = new string[] { "Administrator", "FamilyMember", "User"};
 
         public static async Task SeedRoles(IServiceProvider serviceProvider)
         {
