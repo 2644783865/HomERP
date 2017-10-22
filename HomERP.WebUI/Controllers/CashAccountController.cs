@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HomERP.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "FamilyMember")]
     public class CashAccountController : Controller
     {
         private ICashAccountProvider provider;
@@ -21,15 +21,7 @@ namespace HomERP.WebUI.Controllers
 
         public IActionResult Index()
         {
-            try
-            {
-                return View(provider.CashAccounts);
-            }
-            catch (ArgumentNullException ex)
-            {
-                return RedirectToAction("Index", "Family");
-            }
-
+            return View(provider.CashAccounts);
         }
 
         public IActionResult Edit(int id)

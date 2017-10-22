@@ -25,7 +25,6 @@ namespace HomERP.Domain.Logic
         {
             get
             {
-                if (this.family == null) throw new ArgumentNullException("CashAccount requires an user to have a family.");
                 return repository.CashAccounts.Where(ca => ca.Family.Id == this.family.Id);
             }
         }
