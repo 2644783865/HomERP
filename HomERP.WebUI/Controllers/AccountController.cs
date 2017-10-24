@@ -152,6 +152,8 @@ namespace HomERP.WebUI.Controllers
         [HttpGet]
         public IActionResult AccessDenied()
         {
+            /// TODO: When [Authorize(Roles = "xxxxxx")] fires, user lands here. Find out how to get list of reqired roles.
+
             return View();
         }
 

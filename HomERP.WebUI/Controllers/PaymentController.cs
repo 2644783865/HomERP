@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HomERP.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "FamilyMember")]
     public class PaymentController : Controller
     {
         private IPaymentProvider provider;
