@@ -22,6 +22,8 @@ namespace HomERP.Domain.Entity
         public virtual ICollection<ApplicationUser> FamilyMembers { get; }
         [JsonIgnore]
         public virtual ICollection<CashAccount> FamilyAccounts { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Contractor> FamilyContractors { get; set; }
 
         public Family()
         {
