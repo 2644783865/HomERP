@@ -24,6 +24,7 @@ namespace HomERP.Domain.Repository.EntityFramework
         public EfDbContext(DbContextOptions<EfDbContext> options) : base(options) { }
 
         public DbSet<CashAccount> CashAccounts { get; set; }
+        public DbSet<Contractor> Contractors { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PlannedPayment> PlannedPayments { get; set; }
         public DbSet<Family> Families { get; set; }
