@@ -45,7 +45,6 @@ namespace HomERP.Domain.Repository.EntityFramework
                 paymentToUpdate.Amount = payment.Amount;
                 paymentToUpdate.Direction = payment.Direction;
                 paymentToUpdate.Time = payment.Time;
-                paymentToUpdate.FamilyUser = payment.FamilyUser;
                 paymentToUpdate.Status = Helpers.PaymentStatus.Accepted;
             }
             context.SaveChanges();

@@ -19,12 +19,20 @@ namespace HomERP.WebUI.Controllers
         IFamilyProvider provider;
         IUserProvider userProvider;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly ISessionDataProvider sessionDataProvider;
 
-        public FamilyController(IFamilyProvider provider, IUserProvider userProvider, UserManager<ApplicationUser> userManager)
+        public FamilyController(IFamilyProvider provider,
+            IUserProvider userProvider, 
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ISessionDataProvider sessionDataProvider)
         {
             this.provider = provider;
             this.userProvider = userProvider;
             this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.sessionDataProvider = sessionDataProvider;
         }
 
         public async Task<IActionResult> Index()
@@ -57,7 +65,10 @@ namespace HomERP.WebUI.Controllers
                 {
                     currentUser.FamilyId = model.Id;
                     userProvider.SaveUser(currentUser);
+                    sessionDataProvider.Family = model;
                 }
+                await userManager.AddToRoleAsync(currentUser, "FamilyMember");
+                await signInManager.SignInAsync(currentUser, isPersistent: false);
                 return RedirectToAction("Index");
             }
             else

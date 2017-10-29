@@ -16,6 +16,9 @@ using HomERP.Domain.Logic;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Repository.EntityFramework;
 using HomERP.Domain.Services;
+using HomERP.Domain.Entity;
+using Microsoft.AspNetCore.Http;
+using HomERP.WebUI.Helpers;
 
 namespace HomERP.WebUI
 {
@@ -44,7 +47,13 @@ namespace HomERP.WebUI
                 .AddErrorDescriber<HomERP.Domain.Authentication.Helpers.PolishIdentityErrorDescriber>();
 
             // Add framework services.
-            services.AddMvc();
+            services
+                .AddMvc();
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); ;
+            
 
             // Configure Identity
             services.Configure<IdentityOptions>(options =>
@@ -72,14 +81,13 @@ namespace HomERP.WebUI
             services
                 .AddTransient<IPaymentProvider, PaymentProvider>()
                 .AddTransient<IPaymentRepository, EfPaymentRepository>()
-                .AddTransient<IFamilyUserProvider, FamilyUserProvider>()
-                .AddTransient<IFamilyUserRepository, EfFamilyUserRepository>()
                 .AddTransient<ICashAccountProvider, CashAccountProvider>()
                 .AddTransient<ICashAccountRepository, EfCashAccountRepository>()
                 .AddTransient<IFamilyProvider, FamilyProvider>()
                 .AddTransient<IFamilyRepository, EfFamilyRepository>()
                 .AddTransient<IUserProvider, UserProvider>()
-                .AddTransient<IUserRepository, UserRepository>();
+                .AddTransient<IUserRepository, UserRepository>()
+                .AddTransient<ISessionDataProvider, SessionDataProvider>();
 
             services
                 .AddTransient<IEmailSender, AuthMessageSender>()
@@ -106,7 +114,7 @@ namespace HomERP.WebUI
             app.UseStaticFiles();
 
             app.UseIdentity();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

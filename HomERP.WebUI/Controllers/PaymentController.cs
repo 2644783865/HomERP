@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HomERP.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "FamilyMember")]
     public class PaymentController : Controller
     {
         private IPaymentProvider provider;
@@ -46,7 +46,6 @@ namespace HomERP.WebUI.Controllers
             else
             {
                 model1.CashAccountList = provider.CashAccounts;
-                model1.FamilyUserList = provider.FamilyUsers;
                 return View(model1);
             }
         }

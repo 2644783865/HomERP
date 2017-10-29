@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
@@ -18,7 +19,7 @@ namespace HomERP.Domain.Repository.EntityFramework
 //        private EfDbContext context = new EfDbContext();
         public IEnumerable<CashAccount> CashAccounts
         {
-            get { return context.CashAccounts; }
+            get { return context.CashAccounts.Include(a=>a.Family); }
         }
 
         public CashAccount DeleteCashAccount(int cashAccountId)
@@ -36,6 +37,8 @@ namespace HomERP.Domain.Repository.EntityFramework
         {
             if (cashAccount.Id==0)
             {
+                cashAccount.FamilyId = cashAccount.Family.Id;
+                cashAccount.Family = null;
                 context.CashAccounts.Add(cashAccount);
             }
             else
@@ -45,6 +48,7 @@ namespace HomERP.Domain.Repository.EntityFramework
                 {
                     cashAccountToUpdate.InitialAmount = cashAccount.InitialAmount;
                     cashAccountToUpdate.Name = cashAccount.Name;
+                    cashAccountToUpdate.FamilyId = cashAccount.Family.Id;
                 }
             }
             context.SaveChanges();

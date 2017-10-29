@@ -39,15 +39,13 @@ namespace HomERP.Integration.Tests.MSSQLServer
                 .UseSqlServer("Server=localhost;Database=" + databaseName + "; Trusted_Connection=True;");
             EfDbContext context = new EfDbContext(builder.Options);
 
-            FamilyUser user = new FamilyUser { Email = "marcin@homerp.pl", Name = "Marcin" };
             CashAccount account = new CashAccount { InitialAmount = 10, Name = "Portfel" };
             Payment payment = new Payment
             {
                 CashAccount = account,
                 Amount = 100,
                 Direction = Domain.Helpers.CashFlowDirection.Increase,
-                Time = DateTime.Now,
-                FamilyUser = user
+                Time = DateTime.Now
             };
 
             context.Payments.Add(payment);

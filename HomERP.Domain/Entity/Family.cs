@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace HomERP.Domain.Entity
 {
@@ -17,7 +18,10 @@ namespace HomERP.Domain.Entity
         [StringLength(200, ErrorMessage = "Opis może mieć max. {0} znaków.")]
         [Display(Name = "Opis")]
         public string Description { get; set; }
+        [JsonIgnore]
         public virtual ICollection<ApplicationUser> FamilyMembers { get; }
+        [JsonIgnore]
+        public virtual ICollection<CashAccount> FamilyAccounts { get; set; }
 
         public Family()
         {

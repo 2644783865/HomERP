@@ -32,7 +32,10 @@ namespace HomERP.WebUI.Tests
             mockFamilyProvider.Setup(m => m.FamilyForUser(It.IsAny<ApplicationUser>()))
                 .Returns( new Family { Id = 1, Name = "Rodzinka" });
             Mock<IUserProvider> mockUserProvider = new Mock<IUserProvider>();
-            FamilyController controller = new FamilyController(mockFamilyProvider.Object, mockUserProvider.Object, mockUserManager.Object);
+            Mock<SignInManager<ApplicationUser>> mockSignInManager = new Mock<SignInManager<ApplicationUser>>();
+            Mock<ISessionDataProvider> mockSessionDataProvider = new Mock<ISessionDataProvider>();
+            FamilyController controller = new FamilyController(mockFamilyProvider.Object, mockUserProvider.Object, mockUserManager.Object,
+                null, null);
             //act
             var result = controller.Index();
             //assert
@@ -56,7 +59,9 @@ namespace HomERP.WebUI.Tests
             mockFamilyProvider.Setup(m => m.FamilyForUser(It.IsAny<ApplicationUser>()))
                 .Returns(new Family { Id = 1, Name = "Rodzinka" });
             Mock<IUserProvider> mockUserProvider = new Mock<IUserProvider>();
-            FamilyController controller =  new FamilyController(mockFamilyProvider.Object, mockUserProvider.Object, mockUserManager.Object);
+            Mock<ISessionDataProvider> mockSessionDataProvider = new Mock<ISessionDataProvider>();
+            FamilyController controller = new FamilyController(mockFamilyProvider.Object, mockUserProvider.Object, mockUserManager.Object,
+                null, null);
             //act
             var result = controller.Edit();
             //assert

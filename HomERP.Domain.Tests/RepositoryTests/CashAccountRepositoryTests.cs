@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Repository.EntityFramework;
@@ -26,7 +27,12 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Should_Add_CashAccount_To_Context_When_Saving_Repository()
         {
             //arrange
-            CashAccount account = new CashAccount() { Name = "Konto", InitialAmount = 123.45m };
+            CashAccount account = new CashAccount
+            {
+                Name = "Konto",
+                InitialAmount = 123.45m,
+                Family = new Family { Id = 1, Name = "Rodzinka" }
+            };
             //act
             repository.SaveCashAccount(account);
             //assert
@@ -41,7 +47,14 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Should_Update_Context_When_Updating_CashAccount()
         {
             //arrange
-            CashAccount account = new CashAccount() { Name = "Portfel", InitialAmount = 0, };
+            CashAccount account = new CashAccount()
+            {
+                Name = "Portfel",
+                InitialAmount = 0,
+                Family = new Family { Id = 1, Name = "Rodzinka" }
+            };
+            context.Families.Add(new Family { Id = 1, Name = "Rodzinka" });
+            context.SaveChanges();
             repository.SaveCashAccount(account);
             CashAccount testAccount = repository.CashAccounts.Where(a => a.Name == "Portfel").First();
             testAccount.Name = "Portfel Zenka";
@@ -59,7 +72,12 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Should_Return_Deleted_CashAccount_When_Deleting_From_Repository()
         {
             //arrange
-            CashAccount account = new CashAccount() { Name = "Portfel", InitialAmount = 0 };
+            CashAccount account = new CashAccount()
+            {
+                Name = "Portfel",
+                InitialAmount = 0,
+                Family = new Family { Id = 1, Name = "Rodzinka" }
+            };
             repository.SaveCashAccount(account);
             //act
             int id = context.CashAccounts.First().Id;

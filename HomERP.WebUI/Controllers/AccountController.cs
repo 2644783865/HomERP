@@ -12,6 +12,9 @@ using Microsoft.Extensions.Options;
 using HomERP.Domain.Authentication;
 using HomERP.WebUI.Models.AccountViewModels;
 using HomERP.Domain.Services;
+using HomERP.Domain.Logic.Abstract;
+using Microsoft.AspNetCore.Http;
+using HomERP.WebUI.Helpers;
 
 namespace HomERP.WebUI.Controllers
 {
@@ -24,6 +27,8 @@ namespace HomERP.WebUI.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+        private readonly IFamilyProvider familyProvider;
+        private readonly ISessionDataProvider sessionDataProvider;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -31,7 +36,9 @@ namespace HomERP.WebUI.Controllers
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IFamilyProvider familyProvider,
+            ISessionDataProvider sessionDataProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,6 +46,8 @@ namespace HomERP.WebUI.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            this.familyProvider = familyProvider;
+            this.sessionDataProvider = sessionDataProvider;
         }
 
         //
@@ -69,6 +78,8 @@ namespace HomERP.WebUI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    ApplicationUser user = await _userManager.FindByNameAsync(model.UserName);
+                    sessionDataProvider.Family = familyProvider.FamilyForUser(user);
                     _logger.LogInformation(1, "Użytkownik zalogowany.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -107,6 +118,7 @@ namespace HomERP.WebUI.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -133,6 +145,16 @@ namespace HomERP.WebUI.Controllers
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        //
+        // GET /Account/AccessDenied
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            /// TODO: When [Authorize(Roles = "xxxxxx")] fires, user lands here. Find out how to get list of reqired roles.
+
+            return View();
         }
 
         #region Helpers

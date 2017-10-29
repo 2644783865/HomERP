@@ -16,5 +16,8 @@ namespace HomERP.Domain.Entity
         [Display(Name="Nazwa konta")]
         public string Name { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
+
+        public int FamilyId { get; set; }
+        public Family Family { get; set; }
     }
 }

@@ -76,11 +76,15 @@ namespace HomERP.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("FamilyId");
+
                     b.Property<decimal>("InitialAmount");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FamilyId");
 
                     b.ToTable("CashAccounts");
                 });
@@ -102,22 +106,6 @@ namespace HomERP.Domain.Migrations
                     b.ToTable("Families");
                 });
 
-            modelBuilder.Entity("HomERP.Domain.Entity.FamilyUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PasswordHash");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FamilyUsers");
-                });
-
             modelBuilder.Entity("HomERP.Domain.Entity.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -132,15 +120,11 @@ namespace HomERP.Domain.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<int?>("FamilyUserId");
-
                     b.Property<DateTime>("Time");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CashAccountId");
-
-                    b.HasIndex("FamilyUserId");
 
                     b.ToTable("Payments");
 
@@ -272,16 +256,20 @@ namespace HomERP.Domain.Migrations
                         .HasForeignKey("FamilyId");
                 });
 
+            modelBuilder.Entity("HomERP.Domain.Entity.CashAccount", b =>
+                {
+                    b.HasOne("HomERP.Domain.Entity.Family", "Family")
+                        .WithMany("FamilyAccounts")
+                        .HasForeignKey("FamilyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("HomERP.Domain.Entity.Payment", b =>
                 {
                     b.HasOne("HomERP.Domain.Entity.CashAccount", "CashAccount")
                         .WithMany("Payments")
                         .HasForeignKey("CashAccountId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("HomERP.Domain.Entity.FamilyUser", "FamilyUser")
-                        .WithMany()
-                        .HasForeignKey("FamilyUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
