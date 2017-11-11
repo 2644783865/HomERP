@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HomERP.Domain.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace HomERP.Domain.Entity
 {
@@ -37,7 +38,7 @@ namespace HomERP.Domain.Entity
         public int FamilyId { get; set; }
         [ForeignKey(nameof(FamilyId))]
         public virtual Family Family { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<Payment> Payments { get; set; }
     }
 }

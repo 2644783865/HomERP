@@ -9,9 +9,10 @@ using HomERP.Domain.Helpers;
 namespace HomERP.Domain.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171111142617_Add-Contractor-To-Payment")]
+    partial class AddContractorToPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
