@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using HomERP.Domain.Entity;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
@@ -15,7 +16,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             this.context = context;
         }
 
-        public IEnumerable<Contractor> Contractors { get { return context.Contractors; } }
+        public IQueryable<Contractor> Contractors { get { return context.Contractors; } }
 
         public async Task<bool> DeleteContractorAsync(int contractorId)
         {

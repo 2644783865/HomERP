@@ -10,10 +10,10 @@ namespace HomERP.Domain.Repository.Abstract
 {
     public interface IPaymentRepository
     {
-        IEnumerable<Payment> Payments { get; }
+        IQueryable<Payment> Payments { get; }
         void SavePayment(Payment payment);
         Payment DeletePayment(int paymentId);
 
-        IEnumerable<CashAccount> CashAccounts { get; }
+        IQueryable<CashAccount> CashAccounts { get; }
     }
 }

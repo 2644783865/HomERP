@@ -180,7 +180,7 @@ namespace HomERP.Domain.Tests.LogicTests
             {
                 new Family { Name = "Rodzina Kowalskich", Description = "" },
                 new Family { Name = "Rodzina Iksińskich", Description = "Jeszcze bardziej sympatyczna rodzina Iksińskich" }
-            });
+            }.AsQueryable());
             return mock;
         }
     }

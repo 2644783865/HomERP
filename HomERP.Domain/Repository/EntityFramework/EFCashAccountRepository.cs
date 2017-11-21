@@ -17,7 +17,7 @@ namespace HomERP.Domain.Repository.EntityFramework
         }
         private EfDbContext context;
 //        private EfDbContext context = new EfDbContext();
-        public IEnumerable<CashAccount> CashAccounts
+        public IQueryable<CashAccount> CashAccounts
         {
             get { return context.CashAccounts.Include(a=>a.Family); }
         }

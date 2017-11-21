@@ -10,7 +10,7 @@ namespace HomERP.Domain.Repository.Abstract
 {
     public interface IContractorRepository
     {
-        IEnumerable<Contractor> Contractors { get; }
+        IQueryable<Contractor> Contractors { get; }
         Task<bool> SaveContractorAsync(Contractor contractor);
         Task<bool> DeleteContractorAsync(int contractorId);
     }

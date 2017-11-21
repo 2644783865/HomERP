@@ -10,7 +10,7 @@ namespace HomERP.Domain.Repository.Abstract
 {
     public interface ICashAccountRepository
     {
-        IEnumerable<CashAccount> CashAccounts { get; }
+        IQueryable<CashAccount> CashAccounts { get; }
         void SaveCashAccount(CashAccount cashAccount);
         CashAccount DeleteCashAccount(int cashAccountId);
     }

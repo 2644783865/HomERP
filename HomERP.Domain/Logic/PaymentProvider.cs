@@ -19,7 +19,7 @@ namespace HomERP.Domain.Logic
             this.paymentRepository = repository;
         }
 
-        public IEnumerable<Payment> Payments
+        public IQueryable<Payment> Payments
         { get { return paymentRepository.Payments; } }
 
         public Payment DeletePayment(int paymentId)
@@ -32,7 +32,7 @@ namespace HomERP.Domain.Logic
             paymentRepository.SavePayment(payment);
         }
 
-        public IEnumerable<CashAccount> CashAccounts
+        public IQueryable<CashAccount> CashAccounts
         { get { return paymentRepository.CashAccounts; } }
     }
 }

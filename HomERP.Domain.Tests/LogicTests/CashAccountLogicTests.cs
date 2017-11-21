@@ -35,7 +35,7 @@ namespace HomERP.Domain.Tests.LogicTests
                 new CashAccount { InitialAmount=100, Name = "Konto1", FamilyId = 1, Family = new Family { Id = 1 } },
                 new CashAccount { InitialAmount=65.02m, Name = "Konto2", FamilyId = 1, Family = new Family { Id = 1 }},
                 new CashAccount { InitialAmount=50.00m, Name = "Konto3", FamilyId = 2, Family = new Family { Id = 2 }}
-            });
+            }.AsQueryable());
 
             Mock<ISessionDataProvider> sessionProvider = new Mock<ISessionDataProvider>();
             sessionProvider.Setup(s => s.Family).Returns(new Family { Id = 1, Name = "Super Family" });

@@ -21,7 +21,7 @@ namespace HomERP.Domain.Logic
             this.family = sessionProvider.Family;
         }
 
-        public IEnumerable<CashAccount> CashAccounts
+        public IQueryable<CashAccount> CashAccounts
         {
             get
             {

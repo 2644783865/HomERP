@@ -21,7 +21,7 @@ namespace HomERP.Domain.Logic
             this.family = sessionProvider.Family;
         }
 
-        public IEnumerable<Contractor> Contractors
+        public IQueryable<Contractor> Contractors
         {
             get
             {

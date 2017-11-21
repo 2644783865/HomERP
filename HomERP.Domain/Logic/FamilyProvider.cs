@@ -5,6 +5,7 @@ using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Authentication;
+using System.Linq;
 
 namespace HomERP.Domain.Logic
 {
@@ -16,7 +17,7 @@ namespace HomERP.Domain.Logic
             this.repository = repository;
         }
 
-        public IEnumerable<Family> Families { get { return repository.Families; } }
+        public IQueryable<Family> Families { get { return repository.Families; } }
 
         public Family DeleteFamily(int familyId)
         {

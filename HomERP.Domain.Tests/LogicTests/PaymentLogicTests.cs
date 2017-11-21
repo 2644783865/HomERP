@@ -35,8 +35,7 @@ namespace HomERP.Domain.Tests.LogicTests
             {
                 new Payment { Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
                 new Payment { Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
-            }
-                );
+            }.AsQueryable());
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act
             IEnumerable<Payment> Payments = provider.Payments;
@@ -53,8 +52,7 @@ namespace HomERP.Domain.Tests.LogicTests
             {
                 new Payment { Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
                 new Payment { Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
-            }
-                );
+            }.AsQueryable());
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act
             provider.SavePayment(payment);
@@ -74,8 +72,7 @@ namespace HomERP.Domain.Tests.LogicTests
             {
                 new Payment { Id = 1, Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
                 new Payment { Id = 2, Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
-            }
-                );
+            }.AsQueryable());
             Payment paymentToDelete = mock.Object.Payments.Where(p=>p.Id==2).First();
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act

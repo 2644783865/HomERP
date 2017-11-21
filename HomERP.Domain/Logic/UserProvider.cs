@@ -18,7 +18,7 @@ namespace HomERP.Domain.Logic
             this.repository = repository;
         }
 
-        public IEnumerable<ApplicationUser> GetFamilyMembers(Family family)
+        public IQueryable<ApplicationUser> GetFamilyMembers(Family family)
         {
             return repository.Users.Where(u=>u.Family.Id == family.Id);
         }

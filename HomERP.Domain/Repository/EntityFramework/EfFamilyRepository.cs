@@ -17,7 +17,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             this.context = context;
         }
 
-        public IEnumerable<Family> Families
+        public IQueryable<Family> Families
         { get { return context.Families; } }
 
         public Family DeleteFamily(int familyId)

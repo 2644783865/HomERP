@@ -16,7 +16,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             this.context = context;
         }
 
-        public IEnumerable<PlannedPayment> PlannedPayments
+        public IQueryable<PlannedPayment> PlannedPayments
         {
             get { return context.PlannedPayments; }
         }

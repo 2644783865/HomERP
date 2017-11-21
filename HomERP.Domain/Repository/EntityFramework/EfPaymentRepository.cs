@@ -17,7 +17,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             this.context = context;
         }
 
-        public IEnumerable<Payment> Payments
+        public IQueryable<Payment> Payments
         {
             get { return context.Payments.Include(p=>p.CashAccount); }
         }
@@ -51,7 +51,7 @@ namespace HomERP.Domain.Repository.EntityFramework
             context.SaveChanges();
         }
 
-        public IEnumerable<CashAccount> CashAccounts
+        public IQueryable<CashAccount> CashAccounts
         {
             get { return context.CashAccounts; }
         }

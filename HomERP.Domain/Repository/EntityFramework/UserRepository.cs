@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using HomERP.Domain.Authentication;
+using System.Linq;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
@@ -13,7 +14,7 @@ namespace HomERP.Domain.Repository.EntityFramework
         {
             this.context = context;
         }
-        public IEnumerable<ApplicationUser> Users
+        public IQueryable<ApplicationUser> Users
         {
             get
             {

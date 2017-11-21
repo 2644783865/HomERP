@@ -30,8 +30,7 @@ namespace HomERP.WebUI.Tests
             {
                 new Payment{ Amount=100},
                 new Payment {Amount=200}
-            }
-            );
+            }.AsQueryable());
             PaymentController controller = new PaymentController(mock.Object);
             //act
             var result = controller.Index();
@@ -49,12 +48,11 @@ namespace HomERP.WebUI.Tests
             {
                 new Payment { Id = 1, Amount = 100 },
                 new Payment { Id = 2, Amount = 200 }
-            }
-            );
+            }.AsQueryable());
             mock.Setup(a => a.CashAccounts).Returns(new CashAccount[]
             {
                 new CashAccount{ Id = 1, Name = "Portfel"}
-            });
+            }.AsQueryable());
             PaymentController controller = new PaymentController(mock.Object);
             //act
             var result = controller.Edit(1);
@@ -74,7 +72,7 @@ namespace HomERP.WebUI.Tests
             {
                 payment,
                 new Payment{Id = 2, Amount = 50, Time = new DateTime(2017, 1, 1) }
-            });
+            }.AsQueryable());
             PaymentController controller = new PaymentController(mock.Object);
             PaymentEditVM model = new PaymentEditVM
             {
@@ -96,7 +94,7 @@ namespace HomERP.WebUI.Tests
             {
                 new Payment { Id = 1, Amount = 100 },
                 new Payment { Id = 2, Amount = 200 }
-            });
+            }.AsQueryable());
             PaymentController controller = new PaymentController(mock.Object);
             int itemToDeleteId = 2;
             //act

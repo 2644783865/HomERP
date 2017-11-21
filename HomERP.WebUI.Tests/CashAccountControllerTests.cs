@@ -27,7 +27,7 @@ namespace HomERP.WebUI.Tests
             {
                 new CashAccount{ Id=1, InitialAmount=10, Name="Konto" },
                 new CashAccount{ Id=2, InitialAmount=20, Name="Konto2"}
-            });
+            }.AsQueryable());
             CashAccountController controller = new CashAccountController(mock.Object);
             //act
             var result = controller.Index();
@@ -91,7 +91,7 @@ namespace HomERP.WebUI.Tests
             {
                 new CashAccount{ Id=1, InitialAmount=10, Name="Konto" },
                 new CashAccount{ Id=2, InitialAmount=20, Name="Konto2"}
-            });
+            }.AsQueryable());
             return mock;
         }
 
