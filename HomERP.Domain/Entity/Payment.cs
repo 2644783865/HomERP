@@ -23,6 +23,10 @@ namespace HomERP.Domain.Entity
         public CashFlowDirection Direction { get; set; }
         public DateTime Time { get; set; }
 
+        public int ContractorId { get; set; }
+        [ForeignKey(nameof(ContractorId))]
+        public virtual Contractor Contractor { get; set; }
+
         public Payment()
         {
             CashAccount = new CashAccount();
