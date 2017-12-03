@@ -12,7 +12,7 @@ namespace HomERP.Domain.Entity
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "Nazwa musi mieć od {0} do {1} znaków.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Nazwa musi mieć od {2} do {1} znaków.")]
         [Display(Name = "Nazwa rodziny")]
         public string Name { get; set; }
         [StringLength(200, ErrorMessage = "Opis może mieć max. {0} znaków.")]

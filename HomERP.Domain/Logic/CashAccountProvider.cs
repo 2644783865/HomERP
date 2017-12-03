@@ -21,11 +21,11 @@ namespace HomERP.Domain.Logic
             this.family = sessionProvider.Family;
         }
 
-        public IQueryable<CashAccount> CashAccounts
+        public IEnumerable<CashAccount> CashAccounts
         {
             get
             {
-                return repository.CashAccounts.Where(ca => ca.Family.Id == this.family.Id);
+                return repository.CashAccounts.Where(ca => ca.Family.Id == this.family.Id).AsEnumerable();
             }
         }
 
