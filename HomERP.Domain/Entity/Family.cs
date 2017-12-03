@@ -11,11 +11,11 @@ namespace HomERP.Domain.Entity
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Nazwa rodziny jest obowiązkowa.")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "Nazwa musi mieć od {2} do {1} znaków.")]
         [Display(Name = "Nazwa rodziny")]
         public string Name { get; set; }
-        [StringLength(200, ErrorMessage = "Opis może mieć max. {0} znaków.")]
+        [StringLength(200, ErrorMessage = "Opis może mieć max. {1} znaków.")]
         [Display(Name = "Opis")]
         public string Description { get; set; }
         [JsonIgnore]
