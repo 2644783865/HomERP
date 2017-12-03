@@ -9,12 +9,13 @@
 @using (Html.BeginForm("Edit", "CashAccount", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="col-lg-4 col-sm-6 col-xs-10 col-xs-offset-1">
-
+        <div asp-validation-summary="All" class="text-danger"></div>
         @Html.HiddenFor(a => a.Id)
         <div class="form-group">
             @Html.LabelFor(a => a.Name, null, new { @class = "control-label col-sm-5" })
             <div class="col-sm-7">
                 @Html.TextBoxFor(a => a.Name, null, new { @class = "form-control" })
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
