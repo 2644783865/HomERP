@@ -36,7 +36,6 @@ namespace HomERP.Domain.Entity
         public bool Enabled { get; set; }
 
         public int FamilyId { get; set; }
-        [ForeignKey(nameof(FamilyId))]
         public virtual Family Family { get; set; }
         [JsonIgnore]
         public virtual ICollection<Payment> Payments { get; set; }

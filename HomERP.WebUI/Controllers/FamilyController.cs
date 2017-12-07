@@ -58,6 +58,10 @@ namespace HomERP.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Family model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             ApplicationUser currentUser = await userManager.GetUserAsync(User);
             if (provider.SaveFamily(model, currentUser))
             {

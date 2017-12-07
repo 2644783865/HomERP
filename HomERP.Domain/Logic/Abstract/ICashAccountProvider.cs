@@ -8,7 +8,7 @@ namespace HomERP.Domain.Logic.Abstract
 {
     public interface ICashAccountProvider
     {
-        IQueryable<CashAccount> CashAccounts { get; }
+        IEnumerable<CashAccount> CashAccounts { get; }
         void SaveCashAccount(CashAccount account);
         CashAccount DeleteCashAccount(int accountId);
     }

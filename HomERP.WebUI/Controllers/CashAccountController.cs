@@ -33,6 +33,10 @@ namespace HomERP.WebUI.Controllers
         [HttpPost]
         public IActionResult Edit(CashAccount cashAccount)
         {
+            if(!ModelState.IsValid)
+            {
+                return View(cashAccount);
+            }
             provider.SaveCashAccount(cashAccount);
             return View("Index", provider.CashAccounts);
         }

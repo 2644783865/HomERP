@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using HomERP.Domain.Entity;
 using HomERP.Domain.Authentication;
-
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace HomERP.Domain.Repository.EntityFramework
 {
@@ -28,5 +28,30 @@ namespace HomERP.Domain.Repository.EntityFramework
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PlannedPayment> PlannedPayments { get; set; }
         public DbSet<Family> Families { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Family>()
+                .HasMany(f => f.FamilyAccounts)
+                .WithOne(acc => acc.Family)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Family>()
+                .HasMany(f => f.FamilyContractors)
+                .WithOne(contractor => contractor.Family)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Contractor>()
+                .HasMany(cont => cont.Payments)
+                .WithOne(payment => payment.Contractor)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<CashAccount>()
+                .HasMany(acc => acc.Payments)
+                .WithOne(payment => payment.CashAccount)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(builder);
+        }
     }
 }
