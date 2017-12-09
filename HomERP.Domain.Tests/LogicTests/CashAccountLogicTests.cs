@@ -32,9 +32,9 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<ICashAccountRepository> mock = new Mock<ICashAccountRepository>();
             mock.Setup(m => m.CashAccounts).Returns(new CashAccount[]
             {
-                new CashAccount { InitialAmount=100, Name = "Konto1", FamilyId = 1, Family = new Family { Id = 1 } },
-                new CashAccount { InitialAmount=65.02m, Name = "Konto2", FamilyId = 1, Family = new Family { Id = 1 }},
-                new CashAccount { InitialAmount=50.00m, Name = "Konto3", FamilyId = 2, Family = new Family { Id = 2 }}
+                new CashAccount { InitialAmount=100, Name = "Konto1", Family = new Family { Id = 1 } },
+                new CashAccount { InitialAmount=65.02m, Name = "Konto2", Family = new Family { Id = 1 }},
+                new CashAccount { InitialAmount=50.00m, Name = "Konto3", Family = new Family { Id = 2 }}
             }.AsQueryable());
 
             Mock<ISessionDataProvider> sessionProvider = new Mock<ISessionDataProvider>();

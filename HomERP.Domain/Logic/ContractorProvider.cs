@@ -34,7 +34,7 @@ namespace HomERP.Domain.Logic
             Contractor contractorToDelete = repository.Contractors.Where(x => x.Id == contractorId).FirstOrDefault();
             if (contractorToDelete == null)
             { return false; }
-            if (contractorToDelete.FamilyId != this.family.Id)
+            if (contractorToDelete.Family.Id != this.family.Id)
             { return false; }
 
             if (contractorToDelete.Payments.Count>0)

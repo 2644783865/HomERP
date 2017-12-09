@@ -45,7 +45,6 @@ namespace HomERP.Domain.Repository.EntityFramework
                 Payment paymentToUpdate = context.Payments.Find(payment.Id);
                 paymentToUpdate.CashAccount = payment.CashAccount;
                 paymentToUpdate.Amount = payment.Amount;
-                paymentToUpdate.Direction = payment.Direction;
                 paymentToUpdate.Time = payment.Time;
             }
             context.SaveChanges();

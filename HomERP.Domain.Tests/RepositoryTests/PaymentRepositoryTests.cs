@@ -33,7 +33,6 @@ namespace HomERP.Domain.Tests.RepositoryTests
             {
                 CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
-                Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0)
             };
             //act
@@ -43,7 +42,6 @@ namespace HomERP.Domain.Tests.RepositoryTests
             context.Payments.Count().Should().Be(1, "when we add one object to empty collection, there should be only this one.");
             var resultPayment = context.Payments.FirstOrDefault();
             resultPayment.Amount.Should().Be(payment.Amount);
-            resultPayment.Direction.Should().Be(payment.Direction);
             resultPayment.Time.Should().Be(payment.Time);
         }
 
@@ -55,20 +53,17 @@ namespace HomERP.Domain.Tests.RepositoryTests
             {
                 CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
-                Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0)
             };
             repository.SavePayment(payment);
             Payment testPayment = repository.Payments.Where(a => a.Amount == 100).First();
             testPayment.Amount = 120;
-            testPayment.Direction = Helpers.CashFlowDirection.Decrease;
             testPayment.Time = new DateTime(2017, 2, 3, 15, 12, 00);
             //act
             repository.SavePayment(testPayment);
             //assert
             context.Payments.Count().Should().Be(1);
             Payment resultPayment = context.Payments.Where(a => a.Amount == testPayment.Amount).First();
-            resultPayment.Direction.Should().Be(testPayment.Direction);
             resultPayment.Time.Should().Be(testPayment.Time);
         }
 
@@ -80,7 +75,6 @@ namespace HomERP.Domain.Tests.RepositoryTests
             {
                 CashAccount = new CashAccount { Id = 1, Name = "Konto" },
                 Amount = 100,
-                Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0)
             };
             repository.SavePayment(payment);
@@ -102,7 +96,6 @@ namespace HomERP.Domain.Tests.RepositoryTests
             {
                 CashAccount = new CashAccount { Id = 2, Name = "Konto2" },
                 Amount = 100,
-                Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 12, 0, 0)
             };
             //act

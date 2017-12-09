@@ -43,7 +43,6 @@ namespace HomERP.Domain.Repository.EntityFramework
                 PlannedPayment paymentToUpdate = context.PlannedPayments.Find(payment.Id);
                 paymentToUpdate.CashAccount = payment.CashAccount;
                 paymentToUpdate.Amount = payment.Amount;
-                paymentToUpdate.Direction = payment.Direction;
                 paymentToUpdate.Time = payment.Time;
                 paymentToUpdate.Status = Helpers.PaymentStatus.Accepted;
             }

@@ -14,17 +14,12 @@ namespace HomERP.Domain.Entity
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Konto")]
-        public int CashAccountId { get; set; }
-        [ForeignKey(nameof(CashAccountId))]
-        public virtual CashAccount CashAccount { get; set; }
         [Display(Name = "Kwota")]
         public decimal Amount { get; set; }
-        public CashFlowDirection Direction { get; set; }
         public DateTime Time { get; set; }
 
-        public int ContractorId { get; set; }
-        [ForeignKey(nameof(ContractorId))]
+        [Display(Name = "Konto")]
+        public virtual CashAccount CashAccount { get; set; }
         public virtual Contractor Contractor { get; set; }
 
         public Payment()

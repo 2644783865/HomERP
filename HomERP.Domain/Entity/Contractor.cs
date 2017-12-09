@@ -35,9 +35,7 @@ namespace HomERP.Domain.Entity
         public string Description { get; set; }
         public bool Enabled { get; set; }
 
-        public int FamilyId { get; set; }
-        public virtual Family Family { get; set; }
-        [JsonIgnore]
+        public Family Family { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
     }
 }

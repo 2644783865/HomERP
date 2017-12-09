@@ -21,7 +21,6 @@ namespace HomERP.Domain.Tests.LogicTests
             return new Payment
             {
                 Amount = 102,
-                Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 10, 0, 0)
             };
         }
@@ -33,8 +32,8 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();
             mock.Setup(m => m.Payments).Returns(new Payment[]
             {
-                new Payment { Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
-                new Payment { Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
+                new Payment { Amount=100},
+                new Payment { Amount=65.02m}
             }.AsQueryable());
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act
@@ -50,8 +49,8 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();
             mock.Setup(m => m.Payments).Returns(new Payment[]
             {
-                new Payment { Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
-                new Payment { Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
+                new Payment { Amount=100},
+                new Payment { Amount=65.02m}
             }.AsQueryable());
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act
@@ -70,8 +69,8 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();
             mock.Setup(m => m.Payments).Returns(new Payment[]
             {
-                new Payment { Id = 1, Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
-                new Payment { Id = 2, Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
+                new Payment { Id = 1, Amount=100},
+                new Payment { Id = 2, Amount=65.02m}
             }.AsQueryable());
             Payment paymentToDelete = mock.Object.Payments.Where(p=>p.Id==2).First();
             PaymentProvider provider = new PaymentProvider(mock.Object);
