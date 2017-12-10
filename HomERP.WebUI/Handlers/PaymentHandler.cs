@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HomERP.WebUI.Models.PaymentViewModels;
 using HomERP.Domain.Logic.Abstract;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using HomERP.WebUI.ModelMapping;
 
 namespace HomERP.WebUI.Handlers
 {
@@ -18,7 +19,7 @@ namespace HomERP.WebUI.Handlers
             this.provider = provider;
         }
 
-        public IEnumerable<PaymentVM> Payments => provider.Payments.Select(p=>EntityToView(p));
+        public IEnumerable<PaymentVM> Payments => provider.Payments.Select(p=>p.ToViewModel());
 
         public void Delete(int id)
         {
@@ -28,16 +29,11 @@ namespace HomERP.WebUI.Handlers
         public PaymentEditVM Edit(int id)
         {
             PaymentEditVM model = new PaymentEditVM(provider);
-            if (id>0)
+            if (id==0)
             {
-                var payment = provider.Payments.FirstOrDefault(p=>p.Id == id);
-                model.Id = payment.Id;
-                model.Amount = payment.Amount;
-                model.CashAccountId = payment.CashAccount.Id;
-                model.Time = payment.Time;
+                return model;
             }
-            return model;
-            //throw new NotImplementedException();
+            return model.AddEntity(provider.Payments.FirstOrDefault(p => p.Id == id));
         }
 
         public PaymentEditVM Edit(PaymentEditVM model)
@@ -53,34 +49,12 @@ namespace HomERP.WebUI.Handlers
 
         public bool Save(PaymentEditVM model)
         {
-            provider.SavePayment(ViewToEntity(model));
+            provider.SavePayment(model.ToEntity());
             return true;
             //throw new NotImplementedException();
         }
 
-        private PaymentVM EntityToView(Domain.Entity.Payment payment)
-        {
-            PaymentVM viewModel = new PaymentVM
-            {
-                Id = payment.Id,
-                Amount = payment.Amount,
-                CashAccountName = payment.CashAccount.Name,
-                Time = payment.Time
-            };
-            return viewModel;
-        }
 
-        private Domain.Entity.Payment ViewToEntity(PaymentEditVM paymentVM)
-        {
-            Domain.Entity.Payment payment = new Domain.Entity.Payment
-            {
-                Id = paymentVM.Id,
-                Amount = paymentVM.Amount,
-                CashAccount = new Domain.Entity.CashAccount { Id = paymentVM.CashAccountId },
-                Time = paymentVM.Time
-            };
-            return payment;
-        }
 
 
     }
