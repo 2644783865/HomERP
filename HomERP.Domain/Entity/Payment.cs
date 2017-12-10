@@ -19,6 +19,8 @@ namespace HomERP.Domain.Entity
         public DateTime Time { get; set; }
 
         [Display(Name = "Konto")]
+//        public int CashAccountId { get; set; }
+//        [ForeignKey(nameof(CashAccountId))]
         public virtual CashAccount CashAccount { get; set; }
         public virtual Contractor Contractor { get; set; }
 

@@ -64,7 +64,7 @@ namespace HomERP.WebUI.Tests
             //assert
             mock.Verify(m => m.SaveCashAccount(accToEdit));
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<CashAccount[]>();
+            ((ViewResult)result).Model.Should().BeOfType<IEnumerable<CashAccount>>();
         }
 
         [TestMethod]

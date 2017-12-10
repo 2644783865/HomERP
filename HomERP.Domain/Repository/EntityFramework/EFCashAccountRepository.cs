@@ -35,6 +35,17 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public void SaveCashAccount(CashAccount cashAccount)
         {
+            if (cashAccount==null)
+            {
+                return;
+            }
+            if (cashAccount.Family==null)
+            {
+                return;
+            }
+            Family family = context.Families.Find(cashAccount.Family.Id);
+            cashAccount.Family = family;
+
             if (cashAccount.Id==0)
             {
                 context.CashAccounts.Add(cashAccount);

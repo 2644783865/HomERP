@@ -19,6 +19,8 @@ using HomERP.Domain.Services;
 using HomERP.Domain.Entity;
 using Microsoft.AspNetCore.Http;
 using HomERP.WebUI.Helpers;
+using HomERP.WebUI.Handlers.Abstract;
+using HomERP.WebUI.Handlers;
 
 namespace HomERP.WebUI
 {
@@ -87,7 +89,8 @@ namespace HomERP.WebUI
                 .AddTransient<IFamilyRepository, EfFamilyRepository>()
                 .AddTransient<IUserProvider, UserProvider>()
                 .AddTransient<IUserRepository, UserRepository>()
-                .AddTransient<ISessionDataProvider, SessionDataProvider>();
+                .AddTransient<ISessionDataProvider, SessionDataProvider>()
+                .AddTransient<IPaymentHandler, PaymentHandler>();
 
             services
                 .AddTransient<IEmailSender, AuthMessageSender>()

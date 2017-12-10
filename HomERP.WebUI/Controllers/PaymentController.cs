@@ -3,66 +3,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using HomERP.Domain.Logic.Abstract;
-using HomERP.Domain.Entity;
-using HomERP.WebUI.Models;
-using HomERP.Domain.Repository.EntityFramework;
+using HomERP.WebUI.Models.PaymentViewModels;
 using Microsoft.AspNetCore.Authorization;
+using HomERP.WebUI.Handlers.Abstract;
 
 namespace HomERP.WebUI.Controllers
 {
     [Authorize(Roles = "FamilyMember")]
     public class PaymentController : Controller
     {
-        private IPaymentProvider provider;
-        public PaymentController(IPaymentProvider provider)
+        private IPaymentHandler handler;
+        public PaymentController(IPaymentHandler handler)
         {
-            this.provider = provider;
+            this.handler = handler;
         }
 
         public IActionResult Index()
         {
-            return View(provider.Payments);
+            return View(handler.Payments);
         }
 
         public IActionResult Edit(int id)
         {
-            Payment payment = provider.Payments.FirstOrDefault(p => p.Id == id);
-            PaymentEditVM model = new PaymentEditVM(provider)
-            {
-                Payment = payment,
-            };
+            PaymentEditVM model = handler.Edit(id);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(PaymentEditVM model1)
+        public IActionResult Edit(PaymentEditVM model)
         {
             if (ModelState.IsValid)
             {
-                provider.SavePayment(model1.Payment);
+                handler.Save(model);
                 return RedirectToAction("Index");
             }
             else
             {
-                model1.CashAccountList = provider.CashAccounts;
-                return View(model1);
+                model = handler.Edit(model);
+                return View(model);
             }
         }
 
         public IActionResult Add()
         {
-            PaymentEditVM model = new PaymentEditVM(provider)
-            {
-                Payment = new Payment() { Time = DateTime.Now.Date }
-            };
+            PaymentEditVM model = handler.Edit();
             return View("Edit", model);
         }
 
         public IActionResult Delete(int id)
         {
-            provider.DeletePayment(id);
-            return RedirectToAction("Index", provider.Payments);
+            handler.Delete(id);
+            return RedirectToAction("Index", handler.Payments);
         }
     }
 }
