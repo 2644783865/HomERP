@@ -22,18 +22,18 @@ namespace HomERP.Domain.Repository.EntityFramework
             get { return context.Payments.Include(p=>p.CashAccount); }
         }
 
-        public Payment DeletePayment(int paymentId)
+        public bool DeletePayment(int paymentId)
         {
             Payment paymentToDelete = context.Payments.Find(paymentId);
             if(paymentToDelete!=null)
             {
                 context.Payments.Remove(paymentToDelete);
             }
-            context.SaveChanges();
-            return paymentToDelete;
+            int result = context.SaveChanges();
+            return result == 1;
         }
 
-        public void SavePayment(Payment payment)
+        public bool SavePayment(Payment payment)
         {
             payment.CashAccount = this.CashAccounts.First(a=>a.Id == payment.CashAccount.Id);
             if(payment.Id==0)
@@ -47,7 +47,8 @@ namespace HomERP.Domain.Repository.EntityFramework
                 paymentToUpdate.Amount = payment.Amount;
                 paymentToUpdate.Time = payment.Time;
             }
-            context.SaveChanges();
+            int result = context.SaveChanges();
+            return result == 1;
         }
 
         public IQueryable<CashAccount> CashAccounts

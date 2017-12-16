@@ -22,14 +22,14 @@ namespace HomERP.Domain.Logic
         public IQueryable<Payment> Payments
         { get { return paymentRepository.Payments; } }
 
-        public Payment DeletePayment(int paymentId)
+        public bool DeletePayment(int paymentId)
         {
             return paymentRepository.DeletePayment(paymentId);
         }
 
-        public void SavePayment(Payment payment)
+        public bool SavePayment(Payment payment)
         {
-            paymentRepository.SavePayment(payment);
+            return paymentRepository.SavePayment(payment);
         }
 
         public IQueryable<CashAccount> CashAccounts

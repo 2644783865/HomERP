@@ -10,8 +10,8 @@ namespace HomERP.Domain.Logic.Abstract
     public interface IPaymentProvider
     {
         IQueryable<Payment> Payments { get; }
-        void SavePayment(Payment payment);
-        Payment DeletePayment(int paymentId);
+        bool SavePayment(Payment payment);
+        bool DeletePayment(int paymentId);
 
         IQueryable<CashAccount> CashAccounts { get; }
     }

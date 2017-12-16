@@ -15,6 +15,6 @@ namespace HomERP.WebUI.Handlers.Abstract
         PaymentEditVM Edit(int id = 0);
         PaymentEditVM Edit(PaymentEditVM model);
         bool Save(PaymentEditVM model);
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

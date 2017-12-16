@@ -21,9 +21,9 @@ namespace HomERP.WebUI.Handlers
 
         public IEnumerable<PaymentVM> Payments => provider.Payments.Select(p=>p.ToViewModel());
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return provider.DeletePayment(id);
         }
 
         public PaymentEditVM Edit(int id)
