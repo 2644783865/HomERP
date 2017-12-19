@@ -80,11 +80,10 @@ namespace HomERP.Domain.Tests.RepositoryTests
             repository.SavePayment(payment);
             //act
             int id = context.Payments.First().Id;
-            Payment deletedPayment = repository.DeletePayment(id);
+            bool result = repository.DeletePayment(id);
             //assert
             id.Should().NotBe(0, "i already added a Payment to repository, so it should be written to context.");
-            deletedPayment.Id.Should().Be(id);
-            deletedPayment.Amount.Should().Be(payment.Amount);
+            result.Should().BeTrue();
             context.Payments.Count().Should().Be(0);
         }
 
