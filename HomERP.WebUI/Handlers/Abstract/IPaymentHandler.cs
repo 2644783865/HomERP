@@ -14,7 +14,7 @@ namespace HomERP.WebUI.Handlers.Abstract
         // wybrana płatność do edycji
         PaymentEditVM Edit(int id = 0);
         PaymentEditVM Edit(PaymentEditVM model);
-        bool Save(PaymentEditVM model);
-        bool Delete(int id);
+        Task<bool> SaveAsync(PaymentEditVM model);
+        Task<bool> DeleteAsync(int id);
     }
 }

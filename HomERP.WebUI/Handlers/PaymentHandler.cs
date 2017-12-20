@@ -21,9 +21,9 @@ namespace HomERP.WebUI.Handlers
 
         public IEnumerable<PaymentVM> Payments => provider.Payments.Select(p=>p.ToViewModel());
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            return provider.DeletePayment(id);
+            return await provider.DeletePaymentAsync(id);
         }
 
         public PaymentEditVM Edit(int id)
@@ -47,11 +47,9 @@ namespace HomERP.WebUI.Handlers
             //throw new NotImplementedException();
         }
 
-        public bool Save(PaymentEditVM model)
+        public async Task<bool> SaveAsync(PaymentEditVM model)
         {
-            provider.SavePayment(model.ToEntity());
-            return true;
-            //throw new NotImplementedException();
+            return await provider.SavePaymentAsync(model.ToEntity());
         }
 
 

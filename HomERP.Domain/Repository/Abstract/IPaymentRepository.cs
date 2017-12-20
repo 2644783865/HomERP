@@ -11,8 +11,8 @@ namespace HomERP.Domain.Repository.Abstract
     public interface IPaymentRepository
     {
         IQueryable<Payment> Payments { get; }
-        bool SavePayment(Payment payment);
-        bool DeletePayment(int paymentId);
+        Task<bool> SavePaymentAsync(Payment payment);
+        Task<bool> DeletePaymentAsync(int paymentId);
 
         IQueryable<CashAccount> CashAccounts { get; }
     }

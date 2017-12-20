@@ -7,6 +7,7 @@ using System.Text;
 using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Logic.Abstract;
+using System.Threading.Tasks;
 
 namespace HomERP.Domain.Logic
 {
@@ -22,14 +23,14 @@ namespace HomERP.Domain.Logic
         public IQueryable<Payment> Payments
         { get { return paymentRepository.Payments; } }
 
-        public bool DeletePayment(int paymentId)
+        public async Task<bool> DeletePaymentAsync(int paymentId)
         {
-            return paymentRepository.DeletePayment(paymentId);
+            return await paymentRepository.DeletePaymentAsync(paymentId);
         }
 
-        public bool SavePayment(Payment payment)
+        public async Task<bool> SavePaymentAsync(Payment payment)
         {
-            return paymentRepository.SavePayment(payment);
+            return await paymentRepository.SavePaymentAsync(payment);
         }
 
         public IQueryable<CashAccount> CashAccounts

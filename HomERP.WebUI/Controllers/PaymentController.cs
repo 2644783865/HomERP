@@ -30,11 +30,11 @@ namespace HomERP.WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(PaymentEditVM model)
+        public async Task<IActionResult> Edit(PaymentEditVM model)
         {
             if (ModelState.IsValid)
             {
-                handler.Save(model);
+                await handler.SaveAsync(model);
                 return RedirectToAction("Index");
             }
             else
@@ -50,9 +50,9 @@ namespace HomERP.WebUI.Controllers
             return View("Edit", model);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            handler.Delete(id);
+            await handler.DeleteAsync(id);
             return RedirectToAction("Index", handler.Payments);
         }
     }
