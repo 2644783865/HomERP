@@ -8,7 +8,7 @@ namespace HomERP.WebUI.Models.ManageViewModels
 {
     public class SetPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="Hasło jest wymagane.")]
         [StringLength(100, ErrorMessage = "{0} musi składać się z min. {2} i max. {1} znaków.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Nowe hasło")]
