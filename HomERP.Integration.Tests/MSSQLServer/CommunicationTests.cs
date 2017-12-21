@@ -44,7 +44,6 @@ namespace HomERP.Integration.Tests.MSSQLServer
             {
                 CashAccount = account,
                 Amount = 100,
-                Direction = Domain.Helpers.CashFlowDirection.Increase,
                 Time = DateTime.Now
             };
 

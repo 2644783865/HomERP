@@ -27,7 +27,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Test_AddPlannedPayment()
         {
             //arrange
-            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), Status = Helpers.PaymentStatus.Proposal };
+            PlannedPayment payment = new PlannedPayment() { Amount = 100, Time = new DateTime(2017, 1, 1, 12, 0, 0), Status = Helpers.PaymentStatus.Proposal };
             //act
             repository.SavePlannedPayment(payment);
             //assert
@@ -35,7 +35,6 @@ namespace HomERP.Domain.Tests.RepositoryTests
             context.PlannedPayments.Count().Should().Be(1, "when we add one object to empty collection, there should be only this one.");
             var resultPayment = context.PlannedPayments.FirstOrDefault();
             resultPayment.Amount.Should().Be(payment.Amount);
-            resultPayment.Direction.Should().Be(payment.Direction);
             resultPayment.Time.Should().Be(payment.Time);
             resultPayment.Status.Should().Be(payment.Status);
         }
@@ -44,11 +43,10 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Test_EditPlannedPayment()
         {
             //arrange
-            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0), Status = Helpers.PaymentStatus.Proposal };
+            PlannedPayment payment = new PlannedPayment() { Amount = 100, Time = new DateTime(2017, 1, 1, 12, 0, 0), Status = Helpers.PaymentStatus.Proposal };
             repository.SavePlannedPayment(payment);
             PlannedPayment testPayment = repository.PlannedPayments.Where(a => a.Amount == 100).First();
             testPayment.Amount = 120;
-            testPayment.Direction = Helpers.CashFlowDirection.Decrease;
             testPayment.Time = new DateTime(2017, 2, 3, 15, 12, 00);
             testPayment.Status = Helpers.PaymentStatus.Accepted;
             //act
@@ -56,7 +54,6 @@ namespace HomERP.Domain.Tests.RepositoryTests
             //assert
             context.PlannedPayments.Count().Should().Be(1);
             PlannedPayment resultPayment = context.PlannedPayments.Where(a => a.Amount == testPayment.Amount).First();
-            resultPayment.Direction.Should().Be(testPayment.Direction);
             resultPayment.Time.Should().Be(testPayment.Time);
             resultPayment.Status = testPayment.Status;
         }
@@ -65,7 +62,7 @@ namespace HomERP.Domain.Tests.RepositoryTests
         public void Test_DeletePlannedPayment()
         {
             //arrange
-            PlannedPayment payment = new PlannedPayment() { Amount = 100, Direction = Helpers.CashFlowDirection.Increase, Time = new DateTime(2017, 1, 1, 12, 0, 0)};
+            PlannedPayment payment = new PlannedPayment() { Amount = 100, Time = new DateTime(2017, 1, 1, 12, 0, 0)};
             repository.SavePlannedPayment(payment);
             //act
             int id = context.Payments.First().Id;

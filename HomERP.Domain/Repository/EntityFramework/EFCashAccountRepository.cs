@@ -35,10 +35,19 @@ namespace HomERP.Domain.Repository.EntityFramework
 
         public void SaveCashAccount(CashAccount cashAccount)
         {
+            if (cashAccount==null)
+            {
+                return;
+            }
+            if (cashAccount.Family==null)
+            {
+                return;
+            }
+            Family family = context.Families.Find(cashAccount.Family.Id);
+            cashAccount.Family = family;
+
             if (cashAccount.Id==0)
             {
-                cashAccount.FamilyId = cashAccount.Family.Id;
-                cashAccount.Family = null;
                 context.CashAccounts.Add(cashAccount);
             }
             else
@@ -48,7 +57,7 @@ namespace HomERP.Domain.Repository.EntityFramework
                 {
                     cashAccountToUpdate.InitialAmount = cashAccount.InitialAmount;
                     cashAccountToUpdate.Name = cashAccount.Name;
-                    cashAccountToUpdate.FamilyId = cashAccount.Family.Id;
+                    cashAccountToUpdate.Family = cashAccount.Family;
                 }
             }
             context.SaveChanges();

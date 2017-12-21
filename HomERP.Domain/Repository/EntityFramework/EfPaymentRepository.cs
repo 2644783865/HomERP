@@ -22,18 +22,18 @@ namespace HomERP.Domain.Repository.EntityFramework
             get { return context.Payments.Include(p=>p.CashAccount); }
         }
 
-        public Payment DeletePayment(int paymentId)
+        public async Task<bool> DeletePaymentAsync(int paymentId)
         {
             Payment paymentToDelete = context.Payments.Find(paymentId);
             if(paymentToDelete!=null)
             {
                 context.Payments.Remove(paymentToDelete);
             }
-            context.SaveChanges();
-            return paymentToDelete;
+            int result = await context.SaveChangesAsync();
+            return result == 1;
         }
 
-        public void SavePayment(Payment payment)
+        public async Task<bool> SavePaymentAsync(Payment payment)
         {
             payment.CashAccount = this.CashAccounts.First(a=>a.Id == payment.CashAccount.Id);
             if(payment.Id==0)
@@ -45,10 +45,14 @@ namespace HomERP.Domain.Repository.EntityFramework
                 Payment paymentToUpdate = context.Payments.Find(payment.Id);
                 paymentToUpdate.CashAccount = payment.CashAccount;
                 paymentToUpdate.Amount = payment.Amount;
-                paymentToUpdate.Direction = payment.Direction;
                 paymentToUpdate.Time = payment.Time;
+                if (context.Entry(paymentToUpdate).State == EntityState.Unchanged)
+                {
+                    return true;
+                }
             }
-            context.SaveChanges();
+            int result = await context.SaveChangesAsync();
+            return result == 1;
         }
 
         public IQueryable<CashAccount> CashAccounts

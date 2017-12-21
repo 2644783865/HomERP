@@ -64,7 +64,6 @@ namespace HomERP.WebUI.Tests
             //assert
             mock.Verify(m => m.SaveCashAccount(accToEdit));
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<CashAccount[]>();
         }
 
         [TestMethod]
@@ -80,8 +79,6 @@ namespace HomERP.WebUI.Tests
             //arrange
             mock.Verify(m => m.DeleteCashAccount(accToDelete.Id));
             result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<CashAccount[]>();
-            ((CashAccount[])((ViewResult)result).Model)[0].Id.Should().Be(accToDelete.Id);
         }
 
         private Mock<ICashAccountProvider> GenerateMockCashAccountProvider()

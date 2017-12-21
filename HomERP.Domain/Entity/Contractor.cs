@@ -14,10 +14,10 @@ namespace HomERP.Domain.Entity
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Typ kontrahenta jest wymagany.")]
         public ContractorKind Kind { get; } = ContractorKind.Company;
-        [Required]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "Nazwa musi mieć od {0} do {1} znaków.")]
+        [Required(ErrorMessage ="Nazwa skrócona jest wymagana.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Nazwa musi mieć od {1} do {2} znaków.")]
         public string ShortName { get; set; }
         public string Name { get; set; }
         public string NIP { get; set; }
@@ -35,9 +35,7 @@ namespace HomERP.Domain.Entity
         public string Description { get; set; }
         public bool Enabled { get; set; }
 
-        public int FamilyId { get; set; }
-        public virtual Family Family { get; set; }
-        [JsonIgnore]
+        public Family Family { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
     }
 }

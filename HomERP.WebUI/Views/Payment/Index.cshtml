@@ -1,10 +1,10 @@
-﻿@model IEnumerable<HomERP.Domain.Entity.Payment>
+﻿@model IEnumerable<HomERP.WebUI.Models.PaymentViewModels.PaymentVM>
 
     @{
         ViewData["Title"] = "View";
     }
 
-<h2>Lista operacji @Html.ActionLink("Dodaj", "Add", "Payment", null, new { @class = "btn btn-default" }) </h2>
+<h2>Lista operacji <a class="btn btn-default" asp-controller="Payment" asp-action="Add">Dodaj</a></h2>
 <table class="table table-condensed table-striped table-bordered">
     <thead>
         <tr>
@@ -19,21 +19,15 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.CashAccount.Name</td>
+                <td>@item.CashAccountName</td>
                 <td class="text-right">
-                    @if (item.Direction == HomERP.Domain.Helpers.CashFlowDirection.Decrease)
-                    {
-                        @:-
-                    }
                     @item.Amount
                 </td>
                 <td>@item.Time</td>
                 <td></td>
                 <td>
-                    @Html.ActionLink("Edytuj", "Edit", "Payment",
-                    new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
-                    @Html.ActionLink("Usuń", "Delete", "Payment",
-                    new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                    <a asp-controller="Payment" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-default btn-xs">Edytuj</a>
+                    <a asp-controller="Payment" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-default btn-xs">Usuń</a>
                 </td>
             </tr>
         }

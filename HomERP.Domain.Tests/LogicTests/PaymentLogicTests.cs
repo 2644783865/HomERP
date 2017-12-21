@@ -10,6 +10,7 @@ using HomERP.Domain.Entity;
 using HomERP.Domain.Repository.Abstract;
 using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Logic;
+using System.Threading.Tasks;
 
 namespace HomERP.Domain.Tests.LogicTests
 {
@@ -21,7 +22,6 @@ namespace HomERP.Domain.Tests.LogicTests
             return new Payment
             {
                 Amount = 102,
-                Direction = Helpers.CashFlowDirection.Increase,
                 Time = new DateTime(2017, 1, 1, 10, 0, 0)
             };
         }
@@ -33,8 +33,8 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();
             mock.Setup(m => m.Payments).Returns(new Payment[]
             {
-                new Payment { Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
-                new Payment { Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
+                new Payment { Amount=100},
+                new Payment { Amount=65.02m}
             }.AsQueryable());
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act
@@ -44,44 +44,42 @@ namespace HomERP.Domain.Tests.LogicTests
         }
 
         [TestMethod]
-        public void Should_Call_UserProvider_SavePayment()
+        public async Task Should_Call_UserProvider_SavePayment()
         {
             Payment payment = PrepareExamplePayment();
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();
             mock.Setup(m => m.Payments).Returns(new Payment[]
             {
-                new Payment { Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
-                new Payment { Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
+                new Payment { Amount=100},
+                new Payment { Amount=65.02m}
             }.AsQueryable());
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act
-            provider.SavePayment(payment);
+            bool result = await provider.SavePaymentAsync(payment);
             //assert
             //In this place we have to focus on that underlying repository method has been properly called
             //instead of wandering if entity has been properly saved - this is the repository responsibility.
-            mock.Verify(m => m.SavePayment(payment));
+            mock.Verify(m => m.SavePaymentAsync(payment));
+            result.Should().BeTrue();
 
         }
 
         [TestMethod]
-        public void Should_Call_UserProvider_DeletePayment()
+        public async Task Should_Call_UserProvider_DeletePayment()
         {
             //arrange
             Mock<IPaymentRepository> mock = new Mock<IPaymentRepository>();
             mock.Setup(m => m.Payments).Returns(new Payment[]
             {
-                new Payment { Id = 1, Amount=100, Direction= Helpers.CashFlowDirection.Decrease},
-                new Payment { Id = 2, Amount=65.02m, Direction= Helpers.CashFlowDirection.Decrease}
+                new Payment { Id = 1, Amount=100},
+                new Payment { Id = 2, Amount=65.02m}
             }.AsQueryable());
             Payment paymentToDelete = mock.Object.Payments.Where(p=>p.Id==2).First();
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act
-
-            provider.DeletePayment(paymentToDelete.Id);
+            await provider.DeletePaymentAsync(paymentToDelete.Id);
             //assert if repository delete method has been called with proper identifier
-            
-            mock.Verify(m => m.DeletePayment(2));
-
+            mock.Verify(m => m.DeletePaymentAsync(2));
         }
     }
 }

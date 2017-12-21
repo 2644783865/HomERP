@@ -23,9 +23,9 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<IContractorRepository> mock = new Mock<IContractorRepository>();
             mock.Setup(x => x.Contractors).Returns(new Contractor[]
             {
-                new Contractor {Id=1, ShortName = "Firma1", FamilyId = 1, Family = new Family { Id = 1 } },
-                new Contractor {Id=2, ShortName = "Firma2", FamilyId = 1, Family = new Family { Id = 1 } },
-                new Contractor {Id=3, ShortName = "Firma3", FamilyId = 2, Family = new Family { Id = 2 } },
+                new Contractor {Id=1, ShortName = "Firma1", Family = new Family { Id = 1 } },
+                new Contractor {Id=2, ShortName = "Firma2", Family = new Family { Id = 1 } },
+                new Contractor {Id=3, ShortName = "Firma3", Family = new Family { Id = 2 } },
             }.AsQueryable());
             Mock<ISessionDataProvider> sessionProvider = new Mock<ISessionDataProvider>();
             sessionProvider.Setup(s => s.Family).Returns(new Family { Id = 1, Name = "Super Family" });
@@ -45,7 +45,7 @@ namespace HomERP.Domain.Tests.LogicTests
             IContractorRepository mockRepository = mock.Object;
             Mock<ISessionDataProvider> sessionProvider = new Mock<ISessionDataProvider>();
             sessionProvider.Setup(s => s.Family).Returns(new Family { Id = 1, Name = "Super Family" });
-            Contractor newContractor = new Contractor { Id = 0, ShortName = "Firma1", FamilyId = 0 };
+            Contractor newContractor = new Contractor { Id = 0, ShortName = "Firma1", Family = new Family { Id = 1, Name = "Super Family" } };
             IContractorProvider provider = new ContractorProvider(mockRepository, sessionProvider.Object);
             //act
             var result = await provider.SaveContractorAsync(newContractor);
@@ -97,9 +97,9 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<IContractorRepository> mock = new Mock<IContractorRepository>();
             mock.Setup(x => x.Contractors).Returns(new Contractor[]
             {
-                new Contractor {Id=1, ShortName = "Firma1", FamilyId = 1, Family = new Family { Id = 1 }, Payments = new Payment[]{ } },
-                new Contractor {Id=2, ShortName = "Firma2", FamilyId = 1, Family = new Family { Id = 1 } },
-                new Contractor {Id=3, ShortName = "Firma3", FamilyId = 2, Family = new Family { Id = 2 } },
+                new Contractor {Id=1, ShortName = "Firma1", Family = new Family { Id = 1 }, Payments = new Payment[]{ } },
+                new Contractor {Id=2, ShortName = "Firma2", Family = new Family { Id = 1 } },
+                new Contractor {Id=3, ShortName = "Firma3", Family = new Family { Id = 2 } },
             }.AsQueryable());
             mock.Setup(x => x.DeleteContractorAsync(It.IsAny<int>())).Returns(Task.FromResult<bool>(true));
             IContractorRepository mockRepository = mock.Object;
@@ -121,9 +121,9 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<IContractorRepository> mock = new Mock<IContractorRepository>();
             mock.Setup(x => x.Contractors).Returns(new Contractor[]
             {
-                new Contractor {Id=1, ShortName = "Firma1", FamilyId = 1, Family = new Family { Id = 1 } },
-                new Contractor {Id=2, ShortName = "Firma2", FamilyId = 1, Family = new Family { Id = 1 } },
-                new Contractor {Id=3, ShortName = "Firma3", FamilyId = 2, Family = new Family { Id = 2 } },
+                new Contractor {Id=1, ShortName = "Firma1", Family = new Family { Id = 1 } },
+                new Contractor {Id=2, ShortName = "Firma2", Family = new Family { Id = 1 } },
+                new Contractor {Id=3, ShortName = "Firma3", Family = new Family { Id = 2 } },
             }.AsQueryable());
             mock.Setup(x => x.DeleteContractorAsync(It.IsAny<int>())).Returns(Task.FromResult<bool>(true));
             IContractorRepository mockRepository = mock.Object;
@@ -145,14 +145,14 @@ namespace HomERP.Domain.Tests.LogicTests
             Mock<IContractorRepository> mock = new Mock<IContractorRepository>();
             mock.Setup(x => x.Contractors).Returns(new Contractor[]
             {
-                new Contractor {Id=1, ShortName = "Firma1", FamilyId = 1, Family = new Family { Id = 1 },
+                new Contractor {Id=1, ShortName = "Firma1", Family = new Family { Id = 1 },
                     Payments = new Payment[]
                     {
                         new Payment {Id = 1}
                     }
                 },
-                new Contractor {Id=2, ShortName = "Firma2", FamilyId = 1, Family = new Family { Id = 1 } },
-                new Contractor {Id=3, ShortName = "Firma3", FamilyId = 1, Family = new Family { Id = 2 } },
+                new Contractor {Id=2, ShortName = "Firma2", Family = new Family { Id = 1 } },
+                new Contractor {Id=3, ShortName = "Firma3", Family = new Family { Id = 2 } },
             }.AsQueryable());
             mock.Setup(x => x.DeleteContractorAsync(It.IsAny<int>())).Returns(Task.FromResult<bool>(true));
             IContractorRepository mockRepository = mock.Object;
