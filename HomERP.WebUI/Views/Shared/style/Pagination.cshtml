@@ -1,0 +1,40 @@
+﻿@model HomERP.WebUI.Models.Shared.PageInfo
+@if (Model == null)
+{
+    return;
+}
+
+<div class="text-center">
+    <ul class="pagination">
+        @{
+            int pages = Model.Pages;
+            if (pages > 1)
+            {
+                for (int i = 1; i <= pages; i++)
+                {
+
+                    if (i == Model.CurrentPage)
+                    {
+                    <li class="active"><a href="#">@i</a></li>
+                    }
+                    else
+                    {
+                        if (i == 1 || i == 2
+                            || i == pages || i == pages - 1
+                            || i == Model.CurrentPage - 2 || i == Model.CurrentPage - 1 || i == Model.CurrentPage || i == Model.CurrentPage + 1 || i == Model.CurrentPage + 2
+                            || i == 3 && Model.CurrentPage == 6
+                            || i == pages - 2 && Model.CurrentPage == pages - 5)
+                        {
+                        <li><a href="?page=@i">@i</a></li>
+                        }
+                        else if (i == Model.CurrentPage - 3 || i == Model.CurrentPage + 3)
+                        {
+                        <li><a href="#">...</a></li>
+                            }
+                        }
+                    }
+                }
+            }
+    </ul>
+</div>
+

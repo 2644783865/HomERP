@@ -1,0 +1,9 @@
+﻿@model HomERP.WebUI.Models.Shared.Message
+
+@if (Model.Text != null && Model.Text.Length > 0)
+{
+    <div class="alert alert-dismissable alert-@Model.Type fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        @Model.Text
+    </div>
+}

@@ -6,6 +6,7 @@ using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Repository.Abstract;
 using System.Linq;
 using HomERP.Domain.Authentication;
+using System.Threading.Tasks;
 
 namespace HomERP.Domain.Logic
 {
@@ -21,31 +22,28 @@ namespace HomERP.Domain.Logic
             this.family = sessionProvider.Family;
         }
 
-        public IEnumerable<CashAccount> CashAccounts
+        public IQueryable<CashAccount> CashAccounts
         {
             get
             {
-                return repository.CashAccounts.Where(ca => ca.Family.Id == this.family.Id).AsEnumerable();
+                return repository.CashAccounts.Where(ca => ca.Family.Id == this.family.Id);
             }
         }
 
-        public CashAccount DeleteCashAccount(int cashAccountId)
+        public async Task<bool> DeleteRangeAsync(IEnumerable<int> identifiers)
         {
-            var cashAccountToDelete = repository.CashAccounts.Where(ca => ca.Id == cashAccountId && ca.Family.Id == this.family.Id).FirstOrDefault();
-            if (cashAccountToDelete.Id == cashAccountId)
-            {
-                return repository.DeleteCashAccount(cashAccountId);
-            }
-            return null;
+            int result = await repository.DeleteRangeAsync(c => identifiers.Contains(c.Id) && c.Family.Id == family.Id);
+            return result == identifiers.Count();
         }
 
-        public void SaveCashAccount(CashAccount cashAccount)
+        public async Task<bool> SaveCashAccountAsync(CashAccount cashAccount)
         {
             if (cashAccount.Id == 0) cashAccount.Family = this.family;
             if (cashAccount.Family.Id == this.family.Id)
             {
-                repository.SaveCashAccount(cashAccount);
+                return await repository.SaveCashAccountAsync(cashAccount);
             }
+            return false;
         }
     }
 }

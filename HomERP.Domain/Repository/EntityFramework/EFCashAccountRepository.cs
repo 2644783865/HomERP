@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using HomERP.Domain.Entity;
@@ -16,32 +17,21 @@ namespace HomERP.Domain.Repository.EntityFramework
             this.context = context;
         }
         private EfDbContext context;
-//        private EfDbContext context = new EfDbContext();
+
         public IQueryable<CashAccount> CashAccounts
         {
             get { return context.CashAccounts.Include(a=>a.Family); }
         }
 
-        public CashAccount DeleteCashAccount(int cashAccountId)
-        {
-            CashAccount acc = context.CashAccounts.Find(cashAccountId);
-            if (acc!=null)
-            {
-                context.CashAccounts.Remove(acc);
-                context.SaveChanges();
-            }
-            return acc;
-        }
-
-        public void SaveCashAccount(CashAccount cashAccount)
+        public async Task<bool> SaveCashAccountAsync(CashAccount cashAccount)
         {
             if (cashAccount==null)
             {
-                return;
+                return false;
             }
             if (cashAccount.Family==null)
             {
-                return;
+                return false;
             }
             Family family = context.Families.Find(cashAccount.Family.Id);
             cashAccount.Family = family;
@@ -58,9 +48,20 @@ namespace HomERP.Domain.Repository.EntityFramework
                     cashAccountToUpdate.InitialAmount = cashAccount.InitialAmount;
                     cashAccountToUpdate.Name = cashAccount.Name;
                     cashAccountToUpdate.Family = cashAccount.Family;
+                    if (context.Entry(cashAccountToUpdate).State == EntityState.Unchanged)
+                    {
+                        return true;
+                    }
                 }
             }
-            context.SaveChanges();
+            int result = await context.SaveChangesAsync();
+            return result == 1;
+        }
+
+        public async Task<int> DeleteRangeAsync(Expression<Func<CashAccount, bool>> predicate)
+        {
+            context.CashAccounts.RemoveRange(context.CashAccounts.Where(predicate));
+            return await context.SaveChangesAsync();
         }
     }
 }
