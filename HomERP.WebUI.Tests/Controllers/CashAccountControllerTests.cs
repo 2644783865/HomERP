@@ -13,7 +13,7 @@ using HomERP.WebUI.Controllers;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 
-namespace HomERP.WebUI.Tests
+namespace HomERP.WebUI.Tests.Controllers
 {
     [TestClass]
     public class CashAccountControllerTests

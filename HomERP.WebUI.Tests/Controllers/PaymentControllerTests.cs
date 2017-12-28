@@ -19,7 +19,7 @@ using HomERP.WebUI.Handlers.Abstract;
 using HomERP.WebUI.Models.PaymentViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace HomERP.WebUI.Tests
+namespace HomERP.WebUI.Tests.Controllers
 {
     [TestClass]
     public class PaymentControllerTests
