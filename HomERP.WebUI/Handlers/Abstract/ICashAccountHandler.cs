@@ -15,7 +15,6 @@ namespace HomERP.WebUI.Handlers.Abstract
         // wybrana płatność do edycji
         CashAccountVM Edit(int id = 0);
         Task<bool> EditAsync(CashAccountVM model);
-        Task<bool> DeleteRangeAsync(IEnumerable<int> identifiers);
-        Task<PageInfo> PerformDeletion(int[] id, int page);
+        Task<Message> PerformDeletion(IEnumerable<int> identifiers);
     }
 }

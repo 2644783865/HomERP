@@ -53,9 +53,10 @@ namespace HomERP.WebUI.Controllers
 
             if (submit.ToLower() == "delete")
             {
-                PageInfo model = await handler.PerformDeletion(id, page);
+                PageInfo model = HttpContext.Session.Get<PageInfo>("cashaccountpageinfo") ?? new PageInfo();
+                Message message = await handler.PerformDeletion(id);
+                model.Message = message;
                 HttpContext.Session.Set<PageInfo>("cashaccountpageinfo", model);
-                return RedirectToAction("Index", page);
             }
 
             return RedirectToAction("Index");

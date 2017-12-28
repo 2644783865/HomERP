@@ -22,7 +22,7 @@ namespace HomERP.WebUI.Handlers
             this.sessionProvider = sessionProvider;
         }
 
-        public async Task<bool> DeleteRangeAsync(IEnumerable<int> identifiers)
+        private async Task<bool> DeleteRangeAsync(IEnumerable<int> identifiers)
         {
             return await this.provider.DeleteRangeAsync(identifiers);
         }
@@ -48,27 +48,26 @@ namespace HomERP.WebUI.Handlers
             return model;
         }
 
-        public async Task<PageInfo> PerformDeletion(int[] id, int page)
+        public async Task<Message> PerformDeletion(IEnumerable<int> identifiers)
         {
-            var model = new PageInfo();
-            model.CurrentPage = page;
-            if (id.Count() == 0)
+            Message model = new Message();
+            if (identifiers.Count() == 0)
             {
-                model.Message.Text = "Nie zaznaczono pozycji do skasowania.";
-                model.Message.Type = "info";
+                model.Text = "Nie zaznaczono pozycji do skasowania.";
+                model.Type = "info";
             }
             else
             {
-                bool result = await this.DeleteRangeAsync(id);
+                bool result = await this.DeleteRangeAsync(identifiers);
                 if (result)
                 {
-                    model.Message.Text = "Zaznaczone pozycje zostały usunięte.";
-                    model.Message.Type = "success";
+                    model.Text = "Zaznaczone pozycje zostały usunięte.";
+                    model.Type = "success";
                 }
                 else
                 {
-                    model.Message.Text = "Nie można usunąć niektórych zaznaczonych pozycji.";
-                    model.Message.Type = "danger";
+                    model.Text = "Nie można usunąć niektórych zaznaczonych pozycji.";
+                    model.Type = "danger";
                 }
             }
             return model;
