@@ -31,7 +31,10 @@ namespace HomERP.Domain.Logic
 
         public async Task<bool> DeleteRangeAsync(IEnumerable<int> identifiers)
         {
-            IEnumerable<int> idsOfMyFamily = this.CashAccounts.Where(a => a.Family.Id == this.family.Id && identifiers.Contains(a.Id)).Select(a => a.Id);
+            IEnumerable<int> idsOfMyFamily = this.CashAccounts
+                .Where(a => a.Family.Id == this.family.Id && identifiers.Contains(a.Id))
+                .Select(a => a.Id)
+                .ToList();
             if (idsOfMyFamily.Count() == 0)
             {
                 return false;
