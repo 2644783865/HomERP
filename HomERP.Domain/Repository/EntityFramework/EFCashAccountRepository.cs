@@ -58,10 +58,12 @@ namespace HomERP.Domain.Repository.EntityFramework
             return result == 1;
         }
 
-        public async Task<int> DeleteRangeAsync(Expression<Func<CashAccount, bool>> predicate)
+        public async Task<int> DeleteRangeAsync(IEnumerable<int> identifiers)
         {
-            context.CashAccounts.RemoveRange(context.CashAccounts.Where(predicate));
+            context.CashAccounts.RemoveRange(context.CashAccounts.Where(c => identifiers.Contains(c.Id)));
             return await context.SaveChangesAsync();
         }
+
+        
     }
 }

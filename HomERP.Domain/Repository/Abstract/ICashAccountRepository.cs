@@ -12,6 +12,6 @@ namespace HomERP.Domain.Repository.Abstract
     {
         IQueryable<CashAccount> CashAccounts { get; }
         Task<bool> SaveCashAccountAsync(CashAccount cashAccount);
-        Task<int> DeleteRangeAsync(System.Linq.Expressions.Expression<Func<CashAccount, bool>> predicate);
+        Task<int> DeleteRangeAsync(IEnumerable<int> identifiers);
     }
 }

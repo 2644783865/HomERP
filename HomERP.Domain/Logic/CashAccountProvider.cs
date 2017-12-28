@@ -5,7 +5,6 @@ using HomERP.Domain.Entity;
 using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Repository.Abstract;
 using System.Linq;
-using HomERP.Domain.Authentication;
 using System.Threading.Tasks;
 
 namespace HomERP.Domain.Logic
@@ -32,7 +31,12 @@ namespace HomERP.Domain.Logic
 
         public async Task<bool> DeleteRangeAsync(IEnumerable<int> identifiers)
         {
-            int result = await repository.DeleteRangeAsync(c => identifiers.Contains(c.Id) && c.Family.Id == family.Id);
+            IEnumerable<int> idsOfMyFamily = this.CashAccounts.Where(a => a.Family.Id == this.family.Id && identifiers.Contains(a.Id)).Select(a => a.Id);
+            if (idsOfMyFamily.Count() == 0)
+            {
+                return false;
+            }
+            int result = await repository.DeleteRangeAsync(idsOfMyFamily);
             return result == identifiers.Count();
         }
 

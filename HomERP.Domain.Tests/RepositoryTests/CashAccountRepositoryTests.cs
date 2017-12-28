@@ -82,13 +82,45 @@ namespace HomERP.Domain.Tests.RepositoryTests
                 Family = new Family { Id = 1, Name = "Rodzinka" }
             };
             await repository.SaveCashAccountAsync(account);
-            //act
             int id = context.CashAccounts.First().Id;
-            int result = await repository.DeleteRangeAsync(a=>a.Id == id);
+            //act
+            int result = await repository.DeleteRangeAsync(new int[] { id });
             //assert
             result.Should().Be(1);
             id.Should().NotBe(0, "i already added an CashAccount to repository, so it should be written to context.");
             context.CashAccounts.Count().Should().Be(0);
+        }
+
+        [TestMethod]
+        public async Task CashAccountRepository_Should_Fail_Deleting_NonExistent_Account()
+        {
+            //arrange
+            CashAccount account = new CashAccount()
+            {
+                Name = "Portfel",
+                InitialAmount = 0,
+                Family = new Family { Id = 1, Name = "Rodzinka" }
+            };
+            await repository.SaveCashAccountAsync(account);
+            int id = 5;
+            //act
+            int result = await repository.DeleteRangeAsync(new int[] { id });
+            //assert
+            result.Should().Be(0);
+            context.CashAccounts.Count().Should().Be(1);
+        }
+        [TestMethod]
+
+        public async Task CashAccountRepository_Should_Fail_Deleting_NotEmpty_Account()
+        {
+            //arrange
+            var ctx = HomERP.Domain.Tests.Context.SampleEntities.Context;
+            int id = ctx.CashAccounts.First().Id;
+            //act
+            int result = await repository.DeleteRangeAsync(new int[] { id });
+            //assert
+            result.Should().Be(0);
+            ctx.CashAccounts.Count().Should().Be(3);
         }
     }
 }

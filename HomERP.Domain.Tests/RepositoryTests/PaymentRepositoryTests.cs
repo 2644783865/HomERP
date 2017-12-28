@@ -88,25 +88,5 @@ namespace HomERP.Domain.Tests.RepositoryTests
             result.Should().BeTrue();
             context.Payments.Count().Should().Be(0);
         }
-
-        [TestMethod]
-        public void Should_Throw_InvalidOperationException_When_Adding_Payment_With_Nonexistent_Dictionary_Fields()
-        {
-            //arrange
-            Payment payment = new Payment
-            {
-                CashAccount = new CashAccount { Id = 2, Name = "Konto2" },
-                Amount = 100,
-                Time = new DateTime(2017, 1, 1, 12, 0, 0)
-            };
-            //act
-            
-            Action test = () =>
-            {
-                repository.SavePaymentAsync(payment);
-            };
-            //assert
-            test.ShouldThrow<InvalidOperationException>();
-        }
     }
 }
