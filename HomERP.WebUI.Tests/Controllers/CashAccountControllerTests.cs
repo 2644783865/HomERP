@@ -6,12 +6,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using FluentAssertions;
-
+using FluentAssertions.AspNetCore.Mvc;
 using HomERP.Domain.Logic.Abstract;
 using HomERP.Domain.Entity;
 using HomERP.WebUI.Controllers;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
+using HomERP.WebUI.Handlers.Abstract;
+using HomERP.WebUI.Models.Shared;
+using HomERP.WebUI.Models.CashAccount;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using HomERP.WebUI.Tests.Helpers;
 
 namespace HomERP.WebUI.Tests.Controllers
 {
@@ -19,77 +25,111 @@ namespace HomERP.WebUI.Tests.Controllers
     public class CashAccountControllerTests
     {
         [TestMethod]
-        public void Should_Call_CashAccountProvider_When_Showing_CashAccounts()
+        public void CashAccountController_Should_Call_CashAccountProvider_When_Showing_CashAccounts()
         {
             //arrange
-            Mock<ICashAccountProvider> mock = new Mock<ICashAccountProvider>();
-            mock.Setup(m => m.CashAccounts).Returns(new CashAccount[]
-            {
-                new CashAccount{ Id=1, InitialAmount=10, Name="Konto" },
-                new CashAccount{ Id=2, InitialAmount=20, Name="Konto2"}
-            }.AsQueryable());
-            CashAccountController controller = new CashAccountController(mock.Object);
+            Mock<ICashAccountHandler> handler = new Mock<ICashAccountHandler>();
+            handler.Setup(m => m.GetList(It.IsAny<PageInfo>())).Returns(new CashAccountListVM());
+            CashAccountController controller = new CashAccountController(handler.Object);
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            controller.HttpContext.Session = new SessionMock();
             //act
-            var result = controller.Index();
+            var result = controller.Index(0);
             //assert
-            mock.VerifyGet(m => m.CashAccounts);
-            result.Should().BeOfType<ViewResult>();
+            handler.Verify(m => m.GetList(It.IsAny<PageInfo>()));
+            result.Should().BeViewResult();
         }
 
         [TestMethod]
-        public void Should_Get_Exact_CashAccount_When_Edit()
+        public async Task CashAccountController_Should_Perform_Delete()
         {
             //arrange
-            Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
-            CashAccountController controller = new CashAccountController(mock.Object);
+            Mock<ICashAccountHandler> handler = new Mock<ICashAccountHandler>();
+            handler.Setup(m => m.PerformDeletion(It.IsAny<IEnumerable<int>>())).Returns(Task.FromResult<Message>(new Message()));
+            CashAccountController controller = new CashAccountController(handler.Object);
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            controller.HttpContext.Session = new SessionMock();
             //act
-            var result = controller.Edit(2);
+            var result = await controller.GroupAction(1, new int[] { 1, 2 }, "Delete");
             //assert
-            mock.Verify(m => m.CashAccounts);
-            result.Should().BeOfType<ViewResult>();
-            ((ViewResult)result).Model.Should().BeOfType<CashAccount>();
-            ((CashAccount)((ViewResult)result).Model).Name.Should().Be("Konto2");
+            result.Should().BeOfType<RedirectToActionResult>();
+            handler.Verify(m => m.PerformDeletion(new int[] { 1, 2 }));
         }
 
         [TestMethod]
-        public void Should_Modify_CashAccount_When_Correct_CashAccount_Given()
+        public async Task CashAccountController_Should_Take_No_Action()
         {
             //arrange
-            Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
-            CashAccountController controller = new CashAccountController(mock.Object);
-            CashAccount accToEdit = mock.Object.CashAccounts.First();
-            accToEdit.Name = "Konto zmienione";
+            Mock<ICashAccountHandler> handler = new Mock<ICashAccountHandler>();
+            handler.Setup(m => m.PerformDeletion(It.IsAny<IEnumerable<int>>())).Returns(Task.FromResult<Message>(new Message()));
+            CashAccountController controller = new CashAccountController(handler.Object);
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            controller.HttpContext.Session = new SessionMock();
             //act
-            var result = controller.Edit(accToEdit);
+            var result = await controller.GroupAction(1, new int[] { 1, 2 }, "blah");
             //assert
-            mock.Verify(m => m.SaveCashAccount(accToEdit));
-            result.Should().BeOfType<ViewResult>();
+            result.Should().BeOfType<RedirectToActionResult>();
+            handler.Verify(m => m.PerformDeletion(It.IsAny<IEnumerable<int>>()), Times.Never);
         }
 
         [TestMethod]
-        public void Should_Return_Deleted_CashAccount()
+        public void CashAccountController_Should_Call_Handler_Edit()
         {
             //arrange
-            Mock<ICashAccountProvider> mock = this.GenerateMockCashAccountProvider();
-            mock.Setup(m => m.DeleteCashAccount(1)).Returns(mock.Object.CashAccounts.First());
-            CashAccountController controller = new CashAccountController(mock.Object);
-            CashAccount accToDelete = mock.Object.CashAccounts.First();
+            Mock<ICashAccountHandler> handler = new Mock<ICashAccountHandler>();
+            handler.Setup(m => m.Edit(It.IsAny<int>())).Returns(new CashAccountVM());
+            CashAccountController controller = new CashAccountController(handler.Object);
             //act
-            var result = controller.Delete(accToDelete.Id);
-            //arrange
-            mock.Verify(m => m.DeleteCashAccount(accToDelete.Id));
-            result.Should().BeOfType<ViewResult>();
+            var result = controller.Edit(132);
+            //assert
+            result.Should().BeViewResult();
+            handler.Verify(m => m.Edit(132));
         }
 
-        private Mock<ICashAccountProvider> GenerateMockCashAccountProvider()
+        [TestMethod]
+        public async Task CashAccountController_Should_Call_Handler_EditAsync()
         {
-            Mock<ICashAccountProvider> mock = new Mock<ICashAccountProvider>();
-            mock.Setup(m => m.CashAccounts).Returns(new CashAccount[]
-            {
-                new CashAccount{ Id=1, InitialAmount=10, Name="Konto" },
-                new CashAccount{ Id=2, InitialAmount=20, Name="Konto2"}
-            }.AsQueryable());
-            return mock;
+            //arrange
+            Mock<ICashAccountHandler> handler = new Mock<ICashAccountHandler>();
+            handler.Setup(m => m.EditAsync(It.IsAny<CashAccountVM>())).Returns(Task.FromResult<bool>(true));
+            CashAccountController controller = new CashAccountController(handler.Object);
+            CashAccountVM account = new CashAccountVM();
+            //act
+            var result = await controller.Edit(account);
+            //assert
+            result.Should().BeOfType<RedirectToActionResult>();
+            handler.Verify(m => m.EditAsync(account));
+        }
+
+        [TestMethod]
+        public async Task CashAccountController_Should_Not_Call_Handler_EditAsync_When_Invalid_ModelState()
+        {
+            //arrange
+            Mock<ICashAccountHandler> handler = new Mock<ICashAccountHandler>();
+            handler.Setup(m => m.EditAsync(It.IsAny<CashAccountVM>())).Returns(Task.FromResult<bool>(true));
+            CashAccountController controller = new CashAccountController(handler.Object);
+            CashAccountVM account = new CashAccountVM();
+            controller.ModelState.AddModelError(string.Empty, "Zapis konta nie powiódł się!");
+            //act
+            var result = await controller.Edit(account);
+            //assert
+            result.Should().BeViewResult();
+            handler.Verify(m => m.EditAsync(account), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task CashAccountController_Should_Show_Edit_Again_When_Database_Error()
+        {
+            //arrange
+            Mock<ICashAccountHandler> handler = new Mock<ICashAccountHandler>();
+            handler.Setup(m => m.EditAsync(It.IsAny<CashAccountVM>())).Returns(Task.FromResult<bool>(false));
+            CashAccountController controller = new CashAccountController(handler.Object);
+            CashAccountVM account = new CashAccountVM();
+            //act
+            var result = await controller.Edit(account);
+            //assert
+            result.Should().BeViewResult();
+            handler.Verify(m => m.EditAsync(account));
         }
 
         [TestMethod]
