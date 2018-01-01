@@ -17,6 +17,10 @@ namespace HomERP.Domain.Entity
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Nazwa konta musi mieć od {2} do {1} znaków.")]
         [Display(Name="Nazwa konta")]
         public string Name { get; set; }
+        [Display(Name = "Opis")]
+        public string Description { get; set; }
+        [Display(Name = "Aktywny")]
+        public bool Active { get; set; }
 
         public Family Family { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }

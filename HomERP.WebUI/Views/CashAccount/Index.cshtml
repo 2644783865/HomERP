@@ -17,22 +17,41 @@
                     <th><span class="glyphicon glyphicon-ok"></span></th>
                     <th><label asp-for="@Model.CashAccounts.FirstOrDefault().Name"></label></th>
                     <th><label asp-for="@Model.CashAccounts.FirstOrDefault().InitialAmount"></label></th>
+                    <th><label asp-for="@Model.CashAccounts.FirstOrDefault().Description"></label></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.CashAccounts)
                 {
-                    <tr>
-                        <td><input type="checkbox" name="id" value="@item.Id"></td>
-                        <td>@item.Name</td>
-                        <td>@item.InitialAmount.ToString("C")</td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-default btn-xs" asp-action="Edit" asp-route-id="@item.Id"><span class="glyphicon glyphicon-search"></span> Edytuj</a>
-                            </div>
-                        </td>
-                    </tr>
+                    var activeClass = "";
+                    if (!item.Active)
+                    {
+                        activeClass = "text-danger";
+                    }
+
+                    if (item.Description == null)
+                    {
+                        item.Description = "";
+                    }
+                    var description = item.Description;
+                    var descriptionTitle = "";
+                    if (@description.Length > 20)
+                    {
+                        descriptionTitle = description;
+                        description = description.Substring(0, 20) + "...";
+                    }
+                        <tr class="@activeClass">
+                            <td><input type="checkbox" name="id" value="@item.Id"></td>
+                            <td>@item.Name</td>
+                            <td>@item.InitialAmount.ToString("C")</td>
+                            <td title="@descriptionTitle">@description</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-default btn-xs" asp-action="Edit" asp-route-id="@item.Id"><span class="glyphicon glyphicon-search"></span> Edytuj</a>
+                                </div>
+                            </td>
+                        </tr>
                 }
             </tbody>
         </table>

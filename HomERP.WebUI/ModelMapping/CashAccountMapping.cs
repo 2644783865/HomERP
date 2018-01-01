@@ -12,9 +12,11 @@ namespace HomERP.WebUI.ModelMapping
         {
             CashAccountVM viewModel = new CashAccountVM
             {
+                Active = account.Active,
+                Description = account.Description,
                 Id = account.Id,
                 InitialAmount = account.InitialAmount,
-                Name = account.Name,
+                Name = account.Name
             };
             return viewModel;
         }
@@ -23,16 +25,20 @@ namespace HomERP.WebUI.ModelMapping
         {
             Domain.Entity.CashAccount payment = new Domain.Entity.CashAccount
             {
+                Active = accountVM.Active,
+                Description = accountVM.Description,
                 Id = accountVM.Id,
                 InitialAmount = accountVM.InitialAmount,
-                Name = accountVM.Name,
-                Family = family
+                Family = family,
+                Name = accountVM.Name
             };
             return payment;
         }
 
         public static CashAccountVM AddEntity(this CashAccountVM accountVM, Domain.Entity.CashAccount account)
         {
+            accountVM.Active = account.Active;
+            accountVM.Description = account.Description;
             accountVM.Id = account.Id;
             accountVM.InitialAmount = account.InitialAmount;
             accountVM.Name = account.Name;

@@ -48,6 +48,8 @@ namespace HomERP.Domain.Repository.EntityFramework
                     cashAccountToUpdate.InitialAmount = cashAccount.InitialAmount;
                     cashAccountToUpdate.Name = cashAccount.Name;
                     cashAccountToUpdate.Family = cashAccount.Family;
+                    cashAccountToUpdate.Description = cashAccount.Description;
+                    cashAccountToUpdate.Active = cashAccount.Active;
                     if (context.Entry(cashAccountToUpdate).State == EntityState.Unchanged)
                     {
                         return true;
