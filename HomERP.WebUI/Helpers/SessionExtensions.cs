@@ -18,6 +18,10 @@ namespace HomERP.WebUI.Helpers
         public static T Get<T>(this ISession session, string key)
         {
             string value = session.GetString(key);
+            if (value == null)
+            {
+                return default(T);
+            }
             return JsonConvert.DeserializeObject<T>(value);
         }
     }

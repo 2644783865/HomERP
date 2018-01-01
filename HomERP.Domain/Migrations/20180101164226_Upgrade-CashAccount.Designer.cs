@@ -9,9 +9,10 @@ using HomERP.Domain.Helpers;
 namespace HomERP.Domain.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180101164226_Upgrade-CashAccount")]
+    partial class UpgradeCashAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

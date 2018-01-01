@@ -53,6 +53,7 @@ namespace HomERP.Domain.Tests.LogicTests
                 new Payment { Amount=100},
                 new Payment { Amount=65.02m}
             }.AsQueryable());
+            mock.Setup(m => m.SavePaymentAsync(It.IsAny<Payment>())).Returns(Task.FromResult<bool>(true));
             PaymentProvider provider = new PaymentProvider(mock.Object);
             //act
             bool result = await provider.SavePaymentAsync(payment);

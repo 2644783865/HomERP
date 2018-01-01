@@ -12,7 +12,7 @@ using HomERP.Domain.Entity;
 using HomERP.WebUI.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HomERP.WebUI.Tests
+namespace HomERP.WebUI.Tests.Controllers
 {
     [TestClass]
     public class FamilyControllerTests

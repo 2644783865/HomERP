@@ -1,37 +1,90 @@
-﻿@model IEnumerable<HomERP.Domain.Entity.CashAccount>
+﻿@model HomERP.WebUI.Models.CashAccount.CashAccountListVM
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Konta @Html.ActionLink("Dodaj", "Add", "CashAccount", null, new { @class = "btn btn-default" })</h2>
-<div class="col-xs-12 col-sm-10 col-md-7 col-lg-5">
-    <table class="table table-condensed table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.Name)</th>
-                <th>@Html.DisplayNameFor(model => model.InitialAmount)</th>
-                <th>Akcje</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<h2>Konta i portfele</h2>
+
+@Html.Partial("style/Message", Model.PageInfo.Message)
+
+<form asp-action="GroupAction" asp-route-page="@Model.PageInfo.CurrentPage">
+    <div class="table-responsive">
+        <table class="@Html.Partial("style/table")">
+            @Model.PageInfo.Info
+            <thead>
                 <tr>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td class="text-right">
-                        @item.InitialAmount
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", "CashAccount",
-                   new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
-                        @Html.ActionLink("Usuń", "Delete", "CashAccount",
-                   new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
-                    </td>
+                    <th><span class="glyphicon glyphicon-ok"></span></th>
+                    <th><label asp-for="@Model.CashAccounts.FirstOrDefault().Name"></label></th>
+                    <th><label asp-for="@Model.CashAccounts.FirstOrDefault().InitialAmount"></label></th>
+                    <th><label asp-for="@Model.CashAccounts.FirstOrDefault().Description"></label></th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CashAccounts)
+                {
+                    var activeClass = "";
+                    if (!item.Active)
+                    {
+                        activeClass = "text-danger";
+                    }
+
+                    if (item.Description == null)
+                    {
+                        item.Description = "";
+                    }
+                    var description = item.Description;
+                    var descriptionTitle = "";
+                    if (@description.Length > 20)
+                    {
+                        descriptionTitle = description;
+                        description = description.Substring(0, 20) + "...";
+                    }
+                        <tr class="@activeClass">
+                            <td><input type="checkbox" name="id" value="@item.Id"></td>
+                            <td>@item.Name</td>
+                            <td>@item.InitialAmount.ToString("C")</td>
+                            <td title="@descriptionTitle">@description</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-default btn-xs" asp-action="Edit" asp-route-id="@item.Id"><span class="glyphicon glyphicon-search"></span> Edytuj</a>
+                                </div>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="btn-group">
+        <a asp-action="Add" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Dodaj</a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+    </div>
+
+    @Html.Partial("style/Pagination", Model.PageInfo)
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title danger">Pytanie</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Czy na pewno usunąć zaznaczone pozycje?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="submit" value="Delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Tak</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-ban-circle"></span> Nie</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>

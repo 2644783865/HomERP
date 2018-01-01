@@ -81,15 +81,16 @@ namespace HomERP.WebUI
             });
 
             services
-                .AddTransient<IPaymentProvider, PaymentProvider>()
-                .AddTransient<IPaymentRepository, EfPaymentRepository>()
-                .AddTransient<ICashAccountProvider, CashAccountProvider>()
                 .AddTransient<ICashAccountRepository, EfCashAccountRepository>()
-                .AddTransient<IFamilyProvider, FamilyProvider>()
                 .AddTransient<IFamilyRepository, EfFamilyRepository>()
-                .AddTransient<IUserProvider, UserProvider>()
+                .AddTransient<IPaymentRepository, EfPaymentRepository>()
                 .AddTransient<IUserRepository, UserRepository>()
+                .AddTransient<ICashAccountProvider, CashAccountProvider>()
+                .AddTransient<IFamilyProvider, FamilyProvider>()
+                .AddTransient<IPaymentProvider, PaymentProvider>()
                 .AddTransient<ISessionDataProvider, SessionDataProvider>()
+                .AddTransient<IUserProvider, UserProvider>()
+                .AddTransient<ICashAccountHandler, CashAccountHandler>()
                 .AddTransient<IPaymentHandler, PaymentHandler>();
 
             services
